@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class RegistrationModel : PageModel
+    public class EditVendorModel : PageModel
     {
         public void OnGet()
         {

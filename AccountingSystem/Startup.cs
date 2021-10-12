@@ -1,4 +1,6 @@
+using AccountingSystem.IProvider;
 using AccountingSystem.Model;
+using AccountingSystem.Provider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +27,12 @@ namespace AccountingSystem
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AccountingDbContext>(options => options.UseSqlServer(Configuration["Data:ConnectionStrings"]));
-			//services.AddTransient<ITransactionProvider, TransactionProvider>();
-			services.AddRazorPages();
+            services.AddTransient<IAccountingProvider, AccountingProvider>();
+            services.AddTransient<ICustomersProvider, CustomersProvider>();
+            services.AddTransient<ISystemProvider, SystemProvider>();
+            services.AddTransient<IVendersProvider, VendersProvider>();
+            services.AddTransient<IProvider.IConfigurationProvider, Provider.ConfigurationProvider>();
+            services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

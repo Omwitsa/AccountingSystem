@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AccountingSystem</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -97,12 +98,10 @@
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Payments</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Products</a>
+                                        <a asp-page="./Vendors/ListVendors">Vendors</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Vendors">Vendors</a>
-                                        @*var url = '@Url.Action("Vendors", "Home")';
-                                            window.location.href = url;*@
+                                        <a asp-page="./Vendors/ListVendors">Vendors</a>
                                     </li>
                                 </ul>
                             </div>
@@ -169,10 +168,8 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <!-- jQuery -->
     <script src="~/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -249,6 +246,7 @@
     <script src="~/plugins/xlsjs/xlsx.js"></script>
     <script src="~/plugins/xlsjs/jszip.js"></script>
     @*<script src="~/plugins/ArgonDashboard/argon.min.js"></script>*@
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
