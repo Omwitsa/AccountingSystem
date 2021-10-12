@@ -159,3 +159,4 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\o
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.dll
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.pdb
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.genruntimeconfig.cache
+F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\Registration.cshtml.g.cs

@@ -8,7 +8,7 @@ namespace AccountingSystem.Model.Venders
 		public bool? IsPayable { get; set; }
 		public bool? IsReceivable { get; set; }
 		public string PartnerType { get; set; }
-		public string Customer { get; set; }
+		public string Vendor { get; set; }
 		public string GlAccount { get; set; }
 		public bool? IsInternalTransfer { get; set; }
 		public decimal? Amount { get; set; }

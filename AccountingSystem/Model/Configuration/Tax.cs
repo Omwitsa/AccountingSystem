@@ -9,6 +9,7 @@ namespace AccountingSystem.Model.Configuration
 		public string Type { get; set; }
 		public string Computation { get; set; }
 		public string Scope { get; set; }
+		public bool? Closed { get; set; }
 		public bool? Active { get; set; }
 		public string Personnel { get; set; }
 		public DateTime? CreatedDate { get; set; }

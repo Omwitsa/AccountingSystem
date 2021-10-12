@@ -20,7 +20,7 @@ namespace AccountingSystem.Model
 		public virtual DbSet<Bank> Banks { get; set; }
 		public virtual DbSet<ReconciliationModel> ReconciliationModels { get; set; }
 		public virtual DbSet<AccountChart> AccountCharts { get; set; }
-		public virtual DbSet<Tax> Taxs { get; set; }
+		public virtual DbSet<Tax> Taxes { get; set; }
 		public virtual DbSet<Journal> Journals { get; set; }
 		public virtual DbSet<AssetModel> AssetModels { get; set; }
 		public virtual DbSet<DefferredRevenueModel> DefferredRevenueModels { get; set; }

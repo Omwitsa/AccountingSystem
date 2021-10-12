@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountingSystem.Migrations
 {
     [DbContext(typeof(AccountingDbContext))]
-    [Migration("20211011144434_AuditTable")]
-    partial class AuditTable
+    [Migration("20211012120305_Initial-migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -752,6 +752,9 @@ namespace AccountingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool?>("Closed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -866,6 +869,9 @@ namespace AccountingSystem.Migrations
                     b.Property<bool?>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("Closed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Computation")
                         .HasColumnType("nvarchar(max)");
 
@@ -889,7 +895,7 @@ namespace AccountingSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Taxs");
+                    b.ToTable("Taxes");
                 });
 
             modelBuilder.Entity("AccountingSystem.Model.Customers.CInvoice", b =>
@@ -1558,9 +1564,6 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
@@ -1589,6 +1592,9 @@ namespace AccountingSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Personnel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Vendor")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

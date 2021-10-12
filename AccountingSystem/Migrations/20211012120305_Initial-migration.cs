@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AccountingSystem.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,11 @@ namespace AccountingSystem.Migrations
                     AllowReconciliation = table.Column<bool>(type: "bit", nullable: true),
                     DefaultTax = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AllowJournal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tag = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Tag = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +40,10 @@ namespace AccountingSystem.Migrations
                     DepreciationDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepreciationGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExpenseGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,8 +58,8 @@ namespace AccountingSystem.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginalValue = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     AcquisitionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    NotDepreciationVale = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DepreciationVale = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    NotDepreciationValue = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    DepreciationValue = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     BookValue = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     DepreciationMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepreciationDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -60,11 +67,30 @@ namespace AccountingSystem.Migrations
                     AssetGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepreciationGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExpenseGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Assets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Audits",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Reference = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModuleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Audits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,7 +102,10 @@ namespace AccountingSystem.Migrations
                     From = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Frequency = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Frequency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,7 +119,11 @@ namespace AccountingSystem.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AccNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdentifierCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IdentifierCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,7 +142,10 @@ namespace AccountingSystem.Migrations
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RecipientBank = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IncoTerm = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,7 +165,10 @@ namespace AccountingSystem.Migrations
                     SalesPerson = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RecipientBank = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IncoTerm = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,7 +190,10 @@ namespace AccountingSystem.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Memo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -174,7 +216,11 @@ namespace AccountingSystem.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VenderTax = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ARGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -194,7 +240,10 @@ namespace AccountingSystem.Migrations
                     SalesPerson = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReceipientBank = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IncoTerm = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -222,7 +271,11 @@ namespace AccountingSystem.Migrations
                     ARGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bank = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,7 +293,10 @@ namespace AccountingSystem.Migrations
                     DepreciationDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepreciationGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RevenueGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,7 +318,10 @@ namespace AccountingSystem.Migrations
                     FirstRecognitionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpenseGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeferredGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -280,7 +339,10 @@ namespace AccountingSystem.Migrations
                     DepreciationDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepreciationGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RevenueGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -302,7 +364,10 @@ namespace AccountingSystem.Migrations
                     FirstRecognitionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RevenueGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeferredGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -315,7 +380,10 @@ namespace AccountingSystem.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -327,7 +395,10 @@ namespace AccountingSystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,7 +410,10 @@ namespace AccountingSystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Term = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Term = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -357,7 +431,10 @@ namespace AccountingSystem.Migrations
                     Ref = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -370,7 +447,11 @@ namespace AccountingSystem.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -384,7 +465,10 @@ namespace AccountingSystem.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     NonAdvisor = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AllUsers = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Tax = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Tax = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -399,7 +483,11 @@ namespace AccountingSystem.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentCategory = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IncomeGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExpenseGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ExpenseGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -413,7 +501,10 @@ namespace AccountingSystem.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -432,7 +523,10 @@ namespace AccountingSystem.Migrations
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReceipientBank = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IncoTerm = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FiscalPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -453,7 +547,10 @@ namespace AccountingSystem.Migrations
                     FiscalCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MainCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MultiCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalPeriod = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FiscalPeriod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -461,7 +558,7 @@ namespace AccountingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Taxs",
+                name: "Taxes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -469,11 +566,15 @@ namespace AccountingSystem.Migrations
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Computation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Scope = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: true)
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Taxs", x => x.Id);
+                    table.PrimaryKey("PK_Taxes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -499,7 +600,11 @@ namespace AccountingSystem.Migrations
                     ARGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bank = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -514,14 +619,17 @@ namespace AccountingSystem.Migrations
                     IsPayable = table.Column<bool>(type: "bit", nullable: true),
                     IsReceivable = table.Column<bool>(type: "bit", nullable: true),
                     PartnerType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Customer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Vendor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsInternalTransfer = table.Column<bool>(type: "bit", nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Memo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Journal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -544,7 +652,11 @@ namespace AccountingSystem.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VenderTax = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ARGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    APGlAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Closed = table.Column<bool>(type: "bit", nullable: true),
+                    Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -928,6 +1040,9 @@ namespace AccountingSystem.Migrations
                 name: "AssetModels");
 
             migrationBuilder.DropTable(
+                name: "Audits");
+
+            migrationBuilder.DropTable(
                 name: "Banks");
 
             migrationBuilder.DropTable(
@@ -1009,7 +1124,7 @@ namespace AccountingSystem.Migrations
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "Taxs");
+                name: "Taxes");
 
             migrationBuilder.DropTable(
                 name: "TransferredToAccounts");

@@ -129,7 +129,7 @@ namespace AccountingSystem.Provider
 						Success = false,
 						Message = "Sorry, Kindly provide partner type"
 					};
-				if (string.IsNullOrEmpty(payment.Customer))
+				if (string.IsNullOrEmpty(payment.Vendor))
 					return new ReturnData<string>
 					{
 						Success = false,
@@ -172,7 +172,7 @@ namespace AccountingSystem.Provider
 					savedPayment.IsPayable = payment.IsPayable;
 					savedPayment.IsReceivable = payment.IsReceivable;
 					savedPayment.PartnerType = payment.PartnerType;
-					savedPayment.Customer = payment.Customer;
+					savedPayment.Vendor = payment.Vendor;
 					savedPayment.GlAccount = payment.GlAccount;
 					savedPayment.IsInternalTransfer = payment.IsInternalTransfer;
 					savedPayment.Amount = payment.Amount;
@@ -387,6 +387,7 @@ namespace AccountingSystem.Provider
 					Message = "Sorry, An error occurred"
 				};
 			}
+		
 		}
 
 		public ReturnData<string> AddVender(Vender vender, bool isEdit)
@@ -483,7 +484,7 @@ namespace AccountingSystem.Provider
 					return new ReturnData<string>
 					{
 						Success = false,
-						Message = "Sorry, the product has already been bille. It can't be deleted"
+						Message = "Sorry, the product has already been billed. It can't be deleted"
 					};
 				_dbContext.VProducts.Remove(product);
 				_dbContext.SaveChanges();
@@ -573,7 +574,8 @@ namespace AccountingSystem.Provider
 				var accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
 					.Select(c => new AccountChart
 					{
-						Name = c.Name
+						Name = c.Name,
+						Code = c.Code
 					}).ToList();
 				return new ReturnData<dynamic>
 				{
@@ -637,8 +639,8 @@ namespace AccountingSystem.Provider
 			try
 			{
 				var payment = _dbContext.VPayments.FirstOrDefault(p => p.Id == id);
-				var customers = _dbContext.Customers.Where(c => !(bool)c.Closed)
-					.Select(c => new Customer
+				var venders = _dbContext.Venders.Where(c => !(bool)c.Closed)
+					.Select(c => new Vender
 					{
 						Name = c.Name
 					}).ToList();
@@ -655,7 +657,8 @@ namespace AccountingSystem.Provider
 				var accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
 					.Select(c => new AccountChart
 					{
-						Name = c.Name
+						Name = c.Name,
+						Code = c.Code
 					}).ToList();
 				
 				return new ReturnData<dynamic>
@@ -664,7 +667,7 @@ namespace AccountingSystem.Provider
 					Data = new
 					{
 						payment,
-						customers,
+						venders,
 						accounts,
 						journals,
 						banks
@@ -687,7 +690,7 @@ namespace AccountingSystem.Provider
 			{
 				var payments = _dbContext.VPayments.Where(p =>
 				(string.IsNullOrEmpty(payment.PartnerType) || p.PartnerType.ToUpper().Equals(payment.PartnerType.ToUpper()))
-				&& (string.IsNullOrEmpty(payment.Customer) || p.Customer.ToUpper().Equals(payment.Customer.ToUpper()))
+				&& (string.IsNullOrEmpty(payment.Vendor) || p.Vendor.ToUpper().Equals(payment.Vendor.ToUpper()))
 				&& (string.IsNullOrEmpty(payment.GlAccount) || p.GlAccount.ToUpper().Equals(payment.GlAccount.ToUpper()))
 				&& (string.IsNullOrEmpty(payment.Journal) || p.Journal.ToUpper().Equals(payment.Journal.ToUpper()))
 				&& (string.IsNullOrEmpty(payment.BankAccount) || p.BankAccount.ToUpper().Equals(payment.BankAccount.ToUpper()))
@@ -714,32 +717,249 @@ namespace AccountingSystem.Provider
 
 		public ReturnData<dynamic> GetProduct(Guid id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var product = _dbContext.VProducts.FirstOrDefault(p => p.Id == id);
+				var categories = _dbContext.ProductCategories.Where(p => !(bool)p.Closed)
+					.Select(c => new ProductCategory
+					{
+						Name = c.Name
+					}).ToList();
+				var types = new string[] { "Consumable", "Service" };
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name
+					}).ToList();
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						product,
+						types,
+						categories,
+						taxes,
+						accounts
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 
 		public ReturnData<dynamic> GetProducts(VProduct vender)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var products = _dbContext.VProducts.Where(p =>
+				(string.IsNullOrEmpty(vender.Name) || p.Name.ToUpper().Equals(vender.Name.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Type) || p.Type.ToUpper().Equals(vender.Type.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Category) || p.Category.ToUpper().Equals(vender.Category.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Personnel) || p.Personnel.ToUpper().Equals(vender.Personnel.ToUpper()))
+				).ToList();
+
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						products
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 
 		public ReturnData<dynamic> GetRefund(Guid id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var refund = _dbContext.Refunds.FirstOrDefault(r => r.Id == id);
+				var venders = _dbContext.Venders.Where(v => !(bool)v.Closed)
+					.Select(v => new Vender
+					{
+						Name = v.Name,
+					}).ToList();
+				var journals = _dbContext.Journals.Where(j => !(bool)j.Closed)
+					.Select(j => new Journal
+					{
+						Name = j.Name
+					}).ToList();
+				var banks = _dbContext.Banks.Where(b => !(bool)b.Closed)
+					.Select(b => new Bank
+					{
+						Name = b.Name
+					}).ToList();
+				var incoTerms = _dbContext.IncoTerms
+					.Select(t => new IncoTerm
+					{
+						Name = t.Name
+					}).ToList();
+				var products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
+					.Select(p => new VProduct
+					{
+						Name = p.Name
+					}).ToList();
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name
+					}).ToList();
+				var paymentTerms = _dbContext.IPaymentTerms
+					.Select(t => new IPaymentTerm
+					{
+						Term = t.Term
+					}).ToList();
+
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						refund,
+						venders,
+						journals,
+						banks,
+						incoTerms,
+						products,
+						accounts,
+						taxes,
+						paymentTerms
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 
 		public ReturnData<dynamic> GetRefunds(Refund refund)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var refunds = _dbContext.Refunds.Where(r =>
+				 (string.IsNullOrEmpty(refund.Vendor) || r.Vendor.ToUpper().Equals(refund.Vendor.ToUpper()))
+				 && (string.IsNullOrEmpty(refund.Journal) || r.Journal.ToUpper().Equals(refund.Journal.ToUpper()))
+				 && (string.IsNullOrEmpty(refund.ReceipientBank) || r.ReceipientBank.ToUpper().Equals(refund.ReceipientBank.ToUpper()))
+				 && (string.IsNullOrEmpty(refund.Personnel) || r.Personnel.ToUpper().Equals(refund.Personnel.ToUpper()))
+					).ToList();
+
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						refunds
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 
 		public ReturnData<dynamic> GetVender(Guid id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				var banks = _dbContext.Banks.Where(b => !(bool)b.Closed)
+					.Select(b => new Bank
+					{
+						Name = b.Name
+					}).ToList();
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						vender,
+						accounts,
+						banks
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 
 		public ReturnData<dynamic> GetVenders(Vender vender)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var venders = _dbContext.Venders.Where(v =>
+				(string.IsNullOrEmpty(vender.Name) || v.Name.ToUpper().Equals(vender.Name.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Country) || v.Country.ToUpper().Equals(vender.Country.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Industry) || v.Industry.ToUpper().Equals(vender.Industry.ToUpper()))
+				&& (string.IsNullOrEmpty(vender.Bank) || v.Bank.ToUpper().Equals(vender.Bank.ToUpper()))
+				).ToList();
+
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Data = new
+					{
+						venders
+					}
+				};	
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
 		}
 	}
 }
