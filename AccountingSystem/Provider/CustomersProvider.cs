@@ -171,7 +171,7 @@ namespace AccountingSystem.Provider
 				_dbContext.SaveChanges();
 				return new ReturnData<string>
 				{
-					Success = false,
+					Success = true,
 					Message = "Customer saved successfully"
 				};
 			}
