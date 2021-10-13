@@ -98,10 +98,7 @@
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Payments</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-page="./Vendors/ListVendors">Vendors</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a asp-page="./Vendors/ListVendors">Vendors</a>
+                                        <a class="nav-link text-dark" asp-page="./Vendors/ListVendors">Vendors</a>
                                     </li>
                                 </ul>
                             </div>
@@ -156,7 +153,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

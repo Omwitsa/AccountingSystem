@@ -6,6 +6,7 @@ using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AccountingSystem.Provider
@@ -454,7 +455,7 @@ namespace AccountingSystem.Provider
 				_dbContext.SaveChanges();
 				return new ReturnData<string>
 				{
-					Success = false,
+					Success = true,
 					Message = "Vendor saved successfully"
 				};
 			}
@@ -932,7 +933,7 @@ namespace AccountingSystem.Provider
 			}
 		}
 
-		public ReturnData<dynamic> GetVenders(Vender vender)
+		public ReturnData<List<Vender>> GetVenders(Vender vender)
 		{
 			try
 			{
@@ -943,18 +944,15 @@ namespace AccountingSystem.Provider
 				&& (string.IsNullOrEmpty(vender.Bank) || v.Bank.ToUpper().Equals(vender.Bank.ToUpper()))
 				).ToList();
 
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Vender>>
 				{
 					Success = true,
-					Data = new
-					{
-						venders
-					}
+					Data = venders
 				};	
 			}
 			catch (Exception ex)
 			{
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Vender>>
 				{
 					Success = false,
 					Message = "Sorry, An error occurred"

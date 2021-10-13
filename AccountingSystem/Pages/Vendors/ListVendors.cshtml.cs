@@ -11,6 +11,8 @@ namespace AccountingSystem.Pages.Vendors
 {
     public class ListVendorsModel : PageModel
     {
+        [BindProperty]
+        public List<Vender> Venders { get; set; }
         private IVendersProvider _vendersProvider;
         public ListVendorsModel(IVendersProvider vendersProvider)
         {
@@ -25,7 +27,8 @@ namespace AccountingSystem.Pages.Vendors
                 Country = "",
                 Bank = ""
             };
-            var vendors = _vendersProvider.GetVenders(vender);
+            var vendorResp = _vendersProvider.GetVenders(vender);
+            Venders = vendorResp.Data;
         }
 
 

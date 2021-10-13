@@ -1,6 +1,7 @@
 ﻿using AccountingSystem.Model.Venders;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 
 namespace AccountingSystem.IProvider
 {
@@ -13,7 +14,7 @@ namespace AccountingSystem.IProvider
 		ReturnData<dynamic> GetRefunds(Refund refund);
 		ReturnData<dynamic> GetRefund(Guid id);
 		ReturnData<string> AddVender(Vender vender, bool isEdit);
-		ReturnData<dynamic> GetVenders(Vender vender);
+		ReturnData<List<Vender>> GetVenders(Vender vender);
 		ReturnData<dynamic> GetVender(Guid id);
 		ReturnData<string> DeleteVender(Guid id);
 		ReturnData<string> AddPayment(VPayment payment, bool isEdit);
