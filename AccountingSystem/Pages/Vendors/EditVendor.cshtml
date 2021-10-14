@@ -4,10 +4,17 @@
 }
 <form method="post">
     <div class="modal-content hold-transition login-page">
-        <div class="modal-header" style="background-color:#467fd0;color:white;text-align:center">
+        <div class="modal-header" ;color:white;text-align:center">
             <h5 class="modal-title w-100 text-center">Vendors Registration Form</h5>
         </div>
         <div class="modal-body">
+            @if (!Model.Success)
+            {
+                <div class="alert-danger text-center">
+                    @Model.Message
+                </div>
+            }
+
             <div class="col-sm-4">
                 <div class="col-md-10">
                     <input id="Gender" name="Gender" value="Individual" type="radio">
@@ -15,8 +22,8 @@
                     <input id="Gender" name="Gender" value="Company" type="radio">
                     Company
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />
+                <div  class="form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" style ="height:30px;" autocomplete="off" />
                 </div>
             </div>
             <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
@@ -30,13 +37,13 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" class="form-control" id="idno" placeholder="Street..." style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" class="form-control" id="idno" placeholder="Street2..." style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Street2"class="form-control" id="Street2" placeholder="Street2..." style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -44,18 +51,18 @@
                                 <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="idno" placeholder="City..." style="height:30px;" autocomplete="off" />
+                                            <input type="text" name="City" class="form-control" id="City" placeholder="City..." style="height:30px;" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
 
-                                            <input type="text" class="form-control" id="idno" placeholder="State..." style="height:30px;" autocomplete="off" />
+                                            <input type="text" name="State" class="form-control" id="State" placeholder="State..." style="height:30px;" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="email" placeholder="Zip" style="height:30px;" autocomplete="off" />
+                                            <input type="email" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +70,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" placeholder="Country" style="height:30px;" autocomplete="off" />
+                                <input type="email" name="Country" class="form-control" id="Country" placeholder="Country" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -97,31 +104,29 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" class="form-control" id="idno" placeholder="Phone" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Phone" class="form-control" id="Phone" placeholder="Phone" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" class="form-control" id="idno" placeholder="Mobile" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Mobile" class="form-control" id="Mobile" placeholder="Mobile" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" placeholder="Email" style="height:30px;" autocomplete="off" />
+                                <input type="email" name="Email" class="form-control" id="Email" placeholder="Email" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" placeholder="Website Link" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Website" class="form-control" id="Website" placeholder="Website" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal-body">
-                <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="">Tax ID</label>
@@ -130,7 +135,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
 
-                            <input type="text" class="form-control" id="idno" placeholder="e.g BE0477472701" style="height:30px;" autocomplete="off" />
+                            <input type="text" name="tax" class="form-control" id="tax" placeholder="e.g BE0477472701" style="height:30px;" autocomplete="off" />
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -141,12 +146,32 @@
                     <div class="col-sm-3">
                         <div class="form-group">
 
-                            <input type="text" class="form-control" id="idno" placeholder="Tags" style="height:30px;" autocomplete="off" />
+                            <input type="text" name="Tags" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
                         </div>
                     </div>
                 </div>
-            </div>
-
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Contact & Addresses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu1">Sales & Purchase</a>
+                    <label for="">Sales</label>
+                    <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                        <div class="col-sm-2">
+                            <label for="">Salesperson</label>
+                            <label for="">Payment Terms</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">Accounting</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">Internal Notes</a>
+                </li>
+            </ul>
         </div>
         <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
             <button type="submit" id="register" class="btn btn-success">SAVE</button>

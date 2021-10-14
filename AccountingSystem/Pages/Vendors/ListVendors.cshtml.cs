@@ -13,6 +13,10 @@ namespace AccountingSystem.Pages.Vendors
     {
         [BindProperty]
         public List<Vender> Venders { get; set; }
+        [BindProperty]
+        public bool Success { get; set; }
+        [BindProperty]
+        public string Message { get; set; }
         private IVendersProvider _vendersProvider;
         public ListVendorsModel(IVendersProvider vendersProvider)
         {
@@ -28,7 +32,14 @@ namespace AccountingSystem.Pages.Vendors
                 Bank = ""
             };
             var vendorResp = _vendersProvider.GetVenders(vender);
-            Venders = vendorResp.Data;
+            if(vendorResp.Success)
+                Venders = vendorResp.Data;
+            else
+            {
+                Success = vendorResp.Success;
+                Message = vendorResp.Message;
+            }
+
         }
 
 

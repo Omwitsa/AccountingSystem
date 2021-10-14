@@ -150,6 +150,8 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\o
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\EditVendor.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\ListVendors.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewStart.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.RazorTargetAssemblyInfo.cache
@@ -159,5 +161,3 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\o
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.dll
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.pdb
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.genruntimeconfig.cache
-F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\EditVendor.cshtml.g.cs
-F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\ListVendors.cshtml.g.cs
