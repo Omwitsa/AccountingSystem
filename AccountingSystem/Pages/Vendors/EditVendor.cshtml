@@ -22,8 +22,8 @@
                     <input id="Gender" name="Gender" value="Company" type="radio">
                     Company
                 </div>
-                <div  class="form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" style ="height:30px;" autocomplete="off" />
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />
                 </div>
             </div>
             <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
@@ -43,7 +43,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" name="Street2"class="form-control" id="Street2" placeholder="Street2..." style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Street2" class="form-control" id="Street2" placeholder="Street2..." style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -127,55 +127,186 @@
                 </div>
             </div>
             <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="">Tax ID</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-
-                            <input type="text" name="tax" class="form-control" id="tax" placeholder="e.g BE0477472701" style="height:30px;" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="">Tags</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-
-                            <input type="text" name="Tags" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
-                        </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="">Tax ID</label>
                     </div>
                 </div>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home">Contact & Addresses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu1">Sales & Purchase</a>
-                    <label for="">Sales</label>
-                    <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
-                        <div class="col-sm-2">
-                            <label for="">Salesperson</label>
-                            <label for="">Payment Terms</label>
-                        </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+
+                        <input type="text" name="tax" class="form-control" id="tax" placeholder="e.g BE0477472701" style="height:30px;" autocomplete="off" />
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu2">Accounting</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu2">Internal Notes</a>
-                </li>
-            </ul>
-        </div>
-        <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-            <button type="submit" id="register" class="btn btn-success">SAVE</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="">Tags</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+
+                        <input type="text" name="Tags" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+            <!-- Nav tabs -->
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="col-sm-0">
+                    <div class="form-group">
+                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapsecontact" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Contact & Addresses" value="Contact & Addresses" />
+                    </div>
+                </div>
+                <div class="col-sm-0">
+                    <div class="form-group">
+
+                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseSales" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Sales & Purchase" value="Sales & Purchase" />
+                    </div>
+                </div>
+                <div class="col-sm-0">
+                    <div class="form-group">
+
+                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAccounting" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Accounting" value="Accounting" />
+                    </div>
+                </div>
+                <div class="col-sm-0">
+                    <div class="form-group">
+
+                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseInternal" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Internal Notes" value="Internal Notes" />
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="collapse" id="collapsecontact">
+                    <div class="card card-body">
+                        <input id="Button4" class="btn btn-primary" type="button" placeholder="ADD" value="ADD" />
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="collapse col-sm-12" id="collapseSales">
+                    <div class="card card-body">
+                        <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="">Sales</label>
+                                    <div class="row">
+                                            <div class="col-sm-4">
+                                                <label for="">Salesperson</label>
+                                                <label for="">Payment Terms</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <select class="form-control"></select>
+                                                    </div>
+                                                    <div class="row">
+                                                        <select class="form-control"></select>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Purchase</label>
+                                    <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="">Payment Terms</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-control"></select>
+                                            </div>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+                        <div class="card card-body">
+                                <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="">Fiscal Information</label>
+                                            <div class="row"><div class="col-sm-6">
+                                                        <label for="">Fiscal Position</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control"></select>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="">Misc</label>
+                                            <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label for="">Reference</label>
+                                                        <label for="">Industry</label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <input type="text" name="Reference" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
+                                                        </div>
+                                                        <div class="row">
+                                                            <select class="form-control"></select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="collapse col-sm-12" id="collapseAccounting">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">Bank Accounts</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="">Bank</label>
+                                        <label for="">Account No</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="Salesperson" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
+                                        <select class="form-control" ></select>
+                                        <input type="text" name="Paymentterms" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <button>Add</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Accounting Entries</label>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="">Account Receivable</label>
+                                        <label for="">Account Payable</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <input type="text" name="accountr" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
+                                            <select class="form-control"></select>
+                                        </div>
+                                        <div class="row">
+                                            <select class="form-control"></select>
+                                            <input type="text" name="accountp" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="collapse col-sm-12" id="collapseInternal">
+                    <h1>
+                    <input type="text" name="internalnote" class="form-control" id="Tags" placeholder="Internal note...." style="height:30px;" autocomplete="off" />
+                    </h1>
+                    <b class="hr"></b>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+                <button type="submit" id="register" class="btn btn-success">SAVE</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>
+            </div>
         </div>
     </div>
 </form>
