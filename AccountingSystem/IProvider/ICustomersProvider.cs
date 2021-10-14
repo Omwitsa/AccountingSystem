@@ -1,6 +1,7 @@
 ﻿using AccountingSystem.Model.Customers;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 
 namespace AccountingSystem.IProvider
 {
@@ -20,7 +21,7 @@ namespace AccountingSystem.IProvider
 		ReturnData<dynamic> GetCreditNotes(CreditNote note);
 		ReturnData<dynamic> GetCreditNote(Guid id);
 		ReturnData<string> AddCustomer(Customer customer, bool isEdit);
-		ReturnData<dynamic> GetCustomers(Customer customer);
+		ReturnData<List<Customer>> GetCustomers(Customer customer);
 		ReturnData<dynamic> GetCustomer(Guid id);
 		ReturnData<string> DeleteCustomer(Guid id);
 	}

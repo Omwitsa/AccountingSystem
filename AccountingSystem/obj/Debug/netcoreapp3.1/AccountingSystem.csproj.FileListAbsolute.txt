@@ -64,6 +64,8 @@ F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\scop
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.TagHelpers.input.cache
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.TagHelpers.output.cache
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.RazorCoreGenerate.cache
+F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Customers\EditCustomer.cshtml.g.cs
+F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Customers\ListCustomer.cshtml.g.cs
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Error.cshtml.g.cs
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs
 F:\Newtech\Amtech\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs

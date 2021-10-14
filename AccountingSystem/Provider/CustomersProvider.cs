@@ -6,6 +6,7 @@ using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AccountingSystem.Provider
@@ -678,7 +679,7 @@ namespace AccountingSystem.Provider
 			}
 		}
 
-		public ReturnData<dynamic> GetCustomers(Customer customer)
+		public ReturnData<List<Customer>> GetCustomers(Customer customer)
 		{
 			try
 			{
@@ -688,18 +689,15 @@ namespace AccountingSystem.Provider
 				&& (string.IsNullOrEmpty(customer.Bank) || v.Bank.ToUpper().Equals(customer.Bank.ToUpper()))
 				).ToList();
 
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Customer>>
 				{
 					Success = true,
-					Data = new
-					{
-						customers
-					}
+					Data = customers
 				};
 			}
 			catch (Exception ex)
 			{
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Customer>>
 				{
 					Success = false,
 					Message = "Sorry, An error occurred"
