@@ -3,6 +3,7 @@ using AccountingSystem.Model;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AccountingSystem.Provider
@@ -987,7 +988,7 @@ namespace AccountingSystem.Provider
 			}
 		}
 
-		public ReturnData<dynamic> GetAccountCharts(AccountChart account)
+		public ReturnData<List<AccountChart>> GetAccountCharts(AccountChart account)
 		{
 			try
 			{
@@ -998,18 +999,15 @@ namespace AccountingSystem.Provider
 				&& (string.IsNullOrEmpty(account.Personnel) || a.Personnel.ToUpper().Equals(account.Personnel.ToUpper()))
 				).ToList();
 
-				return new ReturnData<dynamic>
+				return new ReturnData<List<AccountChart>>
 				{
 					Success = true,
-					Data = new
-					{
-						charts
-					}
+					Data = charts
 				};
 			}
 			catch (Exception ex)
 			{
-				return new ReturnData<dynamic>
+				return new ReturnData<List<AccountChart>>
 				{
 					Success = false,
 					Message = "Sorry, An error occurred"

@@ -1,13 +1,14 @@
 ﻿using AccountingSystem.Model.Configuration;
 using AccountingSystem.ViewModel;
 using System;
+using System.Collections.Generic;
 
 namespace AccountingSystem.IProvider
 {
 	public interface IConfigurationProvider
 	{
 		ReturnData<string> AddAccountChart(AccountChart account, bool isEdit);
-		ReturnData<dynamic> GetAccountCharts(AccountChart account);
+		ReturnData<List<AccountChart>> GetAccountCharts(AccountChart account);
 		ReturnData<dynamic> GetAccountChart(Guid id);
 		ReturnData<string> AddAssetModel(AssetModel asset, bool isEdit);
 		ReturnData<dynamic> GetAssetModels(AssetModel asset);
