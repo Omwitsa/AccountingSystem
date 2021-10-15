@@ -1,0 +1,182 @@
+﻿@page
+@model AccountingSystem.Pages.Vendors.createcontactModel
+@{
+}
+<div class="modal-dialog" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 80%;" role="document">
+    <form method="post">
+        @*< class="modal-content hold-transition login-page">*@
+        <div class="modal-body">
+            <div class="row">
+                <div class="modal-header" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;background-color:#467fd0;color:white;text-align:center">
+                    <h5 class="modal-title w-100 text-left">Create Contact</h5>
+                </div>
+            </div>
+             
+
+            <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
+                <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                        <label class="form-check-label" for="exampleRadios3">
+                            Contact
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                        <label class="form-check-label" for="exampleRadios3">
+                            Invoice Address
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                        <label class="form-check-label" for="exampleRadios3">
+                            Delivery Address
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                        <label class="form-check-label" for="exampleRadios3">
+                            Other Address
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                        <label class="form-check-label" for="exampleRadios3">
+                            Private Address
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <b></b>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="">Contact Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="">Address</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="Contact" style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="Address" style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" name="State" class="form-control" id="State" placeholder="Street..." style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="">Phone</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="">Mobile</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="Email" style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="Phone" style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" name="State" class="form-control" id="State" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="text" name="City" class="form-control" id="City" placeholder="City..." style="height:30px;" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="text" name="State" class="form-control" id="State" placeholder="State..." style="height:30px;" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @*<select class="form-control"></select>*@
+                                        <select class="form-control">
+                                            <option>zip...</option>
+                                        </select>
+                                        @*<input type="email" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Notes</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="Phone" placeholder="Internal notes" style="height:30px;" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+                <button type="submit" id="register" class="btn btn-success">SAVE & CLOSE</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">SAVE & new</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>
+            </div>
+        </div>
+    </form>
+</div>
+

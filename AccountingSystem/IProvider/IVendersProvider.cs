@@ -21,7 +21,7 @@ namespace AccountingSystem.IProvider
 		ReturnData<dynamic> GetPayments(VPayment payment);
 		ReturnData<dynamic> GetPayment(Guid id);
 		ReturnData<string> AddProduct(VProduct product, bool isEdit);
-		ReturnData<dynamic> GetProducts(VProduct vender);
+		ReturnData<List<VProduct>> GetProducts(VProduct vender);
 		ReturnData<dynamic> GetProduct(Guid id);
 		ReturnData<string> DeleteProduct(Guid id);
 	}

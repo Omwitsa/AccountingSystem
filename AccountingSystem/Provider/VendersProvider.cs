@@ -762,7 +762,7 @@ namespace AccountingSystem.Provider
 			}
 		}
 
-		public ReturnData<dynamic> GetProducts(VProduct vender)
+		public ReturnData<List<VProduct>> GetProducts(VProduct vender)
 		{
 			try
 			{
@@ -773,18 +773,15 @@ namespace AccountingSystem.Provider
 				&& (string.IsNullOrEmpty(vender.Personnel) || p.Personnel.ToUpper().Equals(vender.Personnel.ToUpper()))
 				).ToList();
 
-				return new ReturnData<dynamic>
+				return new ReturnData<List<VProduct>>
 				{
 					Success = true,
-					Data = new
-					{
-						products
-					}
+					Data = products
 				};
 			}
 			catch (Exception ex)
 			{
-				return new ReturnData<dynamic>
+				return new ReturnData<List<VProduct>>
 				{
 					Success = false,
 					Message = "Sorry, An error occurred"

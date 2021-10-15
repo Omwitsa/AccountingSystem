@@ -50,7 +50,6 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\b
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.csproj.AssemblyReference.cache
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.GeneratedMSBuildEditorConfig.editorconfig
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.AssemblyInfoInputs.cache
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.AssemblyInfo.cs
@@ -71,8 +70,11 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\o
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
-F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\EditVendor.cshtml.g.cs
-F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\ListVendors.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\product\EditProduct.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\product\ListProduct.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\vendor\createcontact.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\vendor\EditVendor.cshtml.g.cs
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\Vendors\vendor\ListVendors.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewStart.cshtml.g.cs
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.RazorTargetAssemblyInfo.cache
