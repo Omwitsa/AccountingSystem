@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.IProvider;
 using AccountingSystem.Model;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Configuration
 {
-    public class ListVendorsModel : PageModel
+    public class ListReconciliationModelModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<ReconciliationModel> ReconciliationModels { get; set; }
         [BindProperty]
-        public Vender Vender { get; set; }
+        public ReconciliationModel ReconciliationModel { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListVendorsModel(AccountingDbContext dbContext)
+        public ListReconciliationModelModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Vender = new Vender();
+            ReconciliationModel = new ReconciliationModel();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Venders = _dbContext.Venders.ToList();
+                ReconciliationModels = _dbContext.ReconciliationModels.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,11 +45,11 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Venders = _dbContext.Venders.Where(v =>
-               (string.IsNullOrEmpty(Vender.Name) || v.Name.ToUpper().Equals(Vender.Name.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Country) || v.Country.ToUpper().Equals(Vender.Country.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Industry) || v.Industry.ToUpper().Equals(Vender.Industry.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Bank) || v.Bank.ToUpper().Equals(Vender.Bank.ToUpper()))
+                ReconciliationModels = _dbContext.ReconciliationModels.Where(r =>
+                (string.IsNullOrEmpty(ReconciliationModel.Name) || r.Name.ToUpper().Equals(ReconciliationModel.Name.ToUpper()))
+                && (string.IsNullOrEmpty(ReconciliationModel.Type) || r.Type.ToUpper().Equals(ReconciliationModel.Type.ToUpper()))
+                && (string.IsNullOrEmpty(ReconciliationModel.Journal) || r.Journal.ToUpper().Equals(ReconciliationModel.Journal.ToUpper()))
+                && (string.IsNullOrEmpty(ReconciliationModel.Personnel) || r.Personnel.ToUpper().Equals(ReconciliationModel.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -65,33 +64,25 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditVendor", new { id = id });
+            return RedirectToPage("./EditReconciliationModel", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
-                if (vender == null)
+                var model = _dbContext.ReconciliationModels.FirstOrDefault(r => r.Id == id);
+                if (model == null)
 				{
                     Success = false;
-                    Message = "Sorry, Vendor not found";
+                    Message = "Sorry, Reconciliation model not found";
                     return Page();
                 }
                     
-                vender.Name = vender?.Name ?? "";
-                if (_dbContext.Bills.Any(b => b.Vender.ToUpper().Equals(vender.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Vendor already billed. Can't be deleted";
-                    return Page();
-                }
-                    
-                _dbContext.Venders.Remove(vender);
+                _dbContext.ReconciliationModels.Remove(model);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Vendor deleted successfully";
+                Message = "Reconciliation model deleted successfully";
                 return Page();
             }
             catch (Exception ex)
@@ -104,6 +95,7 @@ namespace AccountingSystem.Pages.Vendors
 
         public void OnPostView(Guid id)
         {
+
         }
     }
 }

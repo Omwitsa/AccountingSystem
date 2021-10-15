@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.IProvider;
 using AccountingSystem.Model;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Configuration
 {
-    public class ListVendorsModel : PageModel
+    public class ListProductCategoryModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<ProductCategory> ProductCategories { get; set; }
         [BindProperty]
-        public Vender Vender { get; set; }
+        public ProductCategory ProductCategory { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListVendorsModel(AccountingDbContext dbContext)
+        public ListProductCategoryModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Vender = new Vender();
+            ProductCategory = new ProductCategory();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Venders = _dbContext.Venders.ToList();
+                ProductCategories = _dbContext.ProductCategories.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,11 +45,9 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Venders = _dbContext.Venders.Where(v =>
-               (string.IsNullOrEmpty(Vender.Name) || v.Name.ToUpper().Equals(Vender.Name.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Country) || v.Country.ToUpper().Equals(Vender.Country.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Industry) || v.Industry.ToUpper().Equals(Vender.Industry.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Bank) || v.Bank.ToUpper().Equals(Vender.Bank.ToUpper()))
+                ProductCategories = _dbContext.ProductCategories.Where(c =>
+                (string.IsNullOrEmpty(ProductCategory.Name) || c.Name.ToUpper().Equals(ProductCategory.Name.ToUpper()))
+                && (string.IsNullOrEmpty(ProductCategory.Personnel) || c.Personnel.ToUpper().Equals(ProductCategory.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -65,33 +62,25 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditVendor", new { id = id });
+            return RedirectToPage("./EditProductCategory", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
-                if (vender == null)
+                var category = _dbContext.ProductCategories.FirstOrDefault(c => c.Id == id);
+                if (category == null)
 				{
                     Success = false;
-                    Message = "Sorry, Vendor not found";
+                    Message = "Sorry, Category not found";
                     return Page();
                 }
                     
-                vender.Name = vender?.Name ?? "";
-                if (_dbContext.Bills.Any(b => b.Vender.ToUpper().Equals(vender.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Vendor already billed. Can't be deleted";
-                    return Page();
-                }
-                    
-                _dbContext.Venders.Remove(vender);
+                _dbContext.ProductCategories.Remove(category);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Vendor deleted successfully";
+                Message = "Product category deleted successfully";
                 return Page();
             }
             catch (Exception ex)
@@ -104,6 +93,7 @@ namespace AccountingSystem.Pages.Vendors
 
         public void OnPostView(Guid id)
         {
+
         }
     }
 }

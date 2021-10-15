@@ -1,0 +1,67 @@
+﻿@page
+@model AccountingSystem.Pages.Configuration.ListDefferredExpenseModelModel
+@{
+	var count = 0;
+}
+<div>
+	<div class="modal-header" style="background-color:white;color:white;text-align:center">
+		<a class="nav-link text-dark" asp-page="./EditDefferredExpenseModel">CREATE</a>
+	</div>
+	<div class="table-responsive">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">GL Account</th>
+					<th scope="col">Depreciation Method</th>
+					<th scope="col">Depreciation Duration</th>
+					<th scope="col">Depreciation GL Account</th>
+					<th scope="col">Revenue GL Account</th>
+					<th scope="col">Journal</th>
+					<th scope="col">Personnel</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var expenseModel in Model.DefferredExpenseModels)
+				{
+					count++;
+					<tr>
+						<th scope="row">@count</th>
+						<td>@expenseModel.Name</td>
+						<td>@expenseModel.GlAccount</td>
+						<td>@expenseModel.DepreciationMethod</td>
+						<td>@expenseModel.DepreciationDuration</td>
+						<td>@expenseModel.DepreciationGlAccount</td>
+						<td>@expenseModel.RevenueGlAccount</td>
+						<td>@expenseModel.Journal</td>
+						<td>@expenseModel.Personnel</td>
+						<td class="text-right">
+							<div class="dropdown">
+								<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<form asp-page-handler="edit" method="post">
+										<button class="btn btn-default">Edit</button>
+										<input type="hidden" name="id" value="@expenseModel.Id" />
+									</form>
+									<form asp-page-handler="delete" method="post">
+										<button class="btn btn-default">Delete</button>
+										<input type="hidden" name="id" value="@expenseModel.Id" />
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.IProvider;
 using AccountingSystem.Model;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Configuration
 {
-    public class ListVendorsModel : PageModel
+    public class ListDefferredRevenueModelsModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<DefferredRevenueModel> DefferredRevenueModels { get; set; }
         [BindProperty]
-        public Vender Vender { get; set; }
+        public DefferredRevenueModel DefferredRevenueModel { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListVendorsModel(AccountingDbContext dbContext)
+        public ListDefferredRevenueModelsModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Vender = new Vender();
+            DefferredRevenueModel = new DefferredRevenueModel();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Venders = _dbContext.Venders.ToList();
+                DefferredRevenueModels = _dbContext.DefferredRevenueModels.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,11 +45,11 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Venders = _dbContext.Venders.Where(v =>
-               (string.IsNullOrEmpty(Vender.Name) || v.Name.ToUpper().Equals(Vender.Name.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Country) || v.Country.ToUpper().Equals(Vender.Country.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Industry) || v.Industry.ToUpper().Equals(Vender.Industry.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Bank) || v.Bank.ToUpper().Equals(Vender.Bank.ToUpper()))
+                DefferredRevenueModels = _dbContext.DefferredRevenueModels.Where(r =>
+                (string.IsNullOrEmpty(DefferredRevenueModel.Name) || r.Name.ToUpper().Equals(DefferredRevenueModel.Name.ToUpper()))
+                && (string.IsNullOrEmpty(DefferredRevenueModel.Journal) || r.Journal.ToUpper().Equals(DefferredRevenueModel.Journal.ToUpper()))
+                && (string.IsNullOrEmpty(DefferredRevenueModel.GlAccount) || r.GlAccount.ToUpper().Equals(DefferredRevenueModel.GlAccount.ToUpper()))
+                && (string.IsNullOrEmpty(DefferredRevenueModel.Personnel) || r.Personnel.ToUpper().Equals(DefferredRevenueModel.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -65,33 +64,25 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditVendor", new { id = id });
+            return RedirectToPage("./EditDefferredRevenueModel", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
-                if (vender == null)
+                var model = _dbContext.DefferredRevenueModels.FirstOrDefault(m => m.Id == id);
+                if (model == null)
 				{
                     Success = false;
-                    Message = "Sorry, Vendor not found";
+                    Message = "Sorry, Revenue model not found";
                     return Page();
                 }
-                    
-                vender.Name = vender?.Name ?? "";
-                if (_dbContext.Bills.Any(b => b.Vender.ToUpper().Equals(vender.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Vendor already billed. Can't be deleted";
-                    return Page();
-                }
-                    
-                _dbContext.Venders.Remove(vender);
+                   
+                _dbContext.DefferredRevenueModels.Remove(model);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Vendor deleted successfully";
+                Message = "Revenue model deleted successfully";
                 return Page();
             }
             catch (Exception ex)
@@ -104,6 +95,7 @@ namespace AccountingSystem.Pages.Vendors
 
         public void OnPostView(Guid id)
         {
+
         }
     }
 }
