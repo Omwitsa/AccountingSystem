@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AccountingSystem.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -567,7 +567,6 @@ namespace AccountingSystem.Migrations
                     Computation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Scope = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Closed = table.Column<bool>(type: "bit", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: true),
                     Personnel = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)

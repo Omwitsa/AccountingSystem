@@ -20,7 +20,7 @@
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						<input type="text" name="code" class="form-control" placeholder="Code" />
+						<input type="text" asp-for="Account.Code" class="form-control" placeholder="Code" />
 					</div>
 				</div>
 			</div>
@@ -30,7 +30,7 @@
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						<input type="text" name="name" class="form-control" placeholder="Account Name" />
+						<input type="text" asp-for="Account.Name" class="form-control" placeholder="Account Name" />
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						<select class="form-control" name="type">
+						<select class="form-control" asp-for="Account.Type">
 							<option selected>Select Account type</option>
 							@foreach (var type in Model.AccountTypes)
 							{
@@ -50,18 +50,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="allowReconciliation" id="allowReconciliation">
-				<label class="form-check-label" for="closed">
+			@*<div class="form-check">
+				<input class="form-check-input" type="radio" asp-for="Account.AllowReconciliation" value="Account.AllowReconciliation" id="allowReconciliation">
+				<label class="form-check-label" for="allowReconciliation">
 					Allow Reconciliation
 				</label>
 			</div>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="closed" id="closed">
+				<input class="form-check-input" type="radio" asp-for="Account.Closed" value="Account.Closed" id="closed">
 				<label class="form-check-label" for="closed">
 					Closed
 				</label>
-			</div>
+			</div>*@
 		</div>
 		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
 			<button type="submit" class="btn btn-success">SAVE</button>

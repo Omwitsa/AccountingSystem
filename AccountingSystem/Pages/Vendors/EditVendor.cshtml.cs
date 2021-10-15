@@ -1,66 +1,138 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.IProvider;
+using AccountingSystem.Model;
+using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class EditVendorModel : PageModel
+	public class EditVendorModel : PageModel
     {
-        private IVendersProvider _vendersProvider;
-        [BindProperty]
-        public bool Success { get; set; }
-        [BindProperty]
-        public string Message { get; set; }
-        public EditVendorModel(IVendersProvider vendersProvider)
-        {
-            _vendersProvider = vendersProvider;
-        }
-        public void OnGet()
-        {
-            //var id = new Guid();
-            //var response = _vendersProvider.GetVender(id);
-            //var va = "";
-        }
+		private AccountingDbContext _dbContext;
+		[BindProperty]
+		public Vender Vender { get; set; }
+		[BindProperty]
+		public List<AccountChart> Accounts { get; set; }
+		[BindProperty]
+		public List<Bank> Banks { get; set; }
+		[BindProperty]
+		public bool Success { get; set; }
+		[BindProperty]
+		public string Message { get; set; }
+		[TempData]
+		public Guid Id { get; set; }
 
-        public void OnPost()
-        {
-            var vender = new Vender
-            {
-                Name = Request.Form["name"],
-                Street1 = Request.Form["Street"],
-                Street2 = Request.Form["Street2"],
-                City = Request.Form["City"],
-                Country = Request.Form["Country"],
-                PhoneNo = Request.Form["Phone"],
-                Mobile = Request.Form["name"],
-                Email = Request.Form["name"],
-                WebSite = Request.Form["name"],
-                SalesPerson = Request.Form["name"],
-                PurchasePaymentTerms = Request.Form["name"],
-                SalesPaymentTerms = Request.Form["name"],
-                FiscalPosition = Request.Form["name"],
-                Ref = Request.Form["name"],
-                Industry = Request.Form["name"],
-                ARGlAccount = "Recivable",
-                APGlAccount = "Creditor",
-                Bank = "KCB",
-                Notes = "Sijui"
-            };
+		public EditVendorModel(AccountingDbContext dbContext)
+		{
+			_dbContext = dbContext;
+			Success = true;
+		}
 
-            var response = _vendersProvider.AddVender(vender, false);
-            if(response.Success)
-                RedirectToPage("ListVendors");
-            else
-            {
-                Success = response.Success;
-                Message = response.Message;
-                // Show error message
-            }
-        }
-    }
+		public void OnGet(Guid id)
+		{
+			try
+			{
+				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				Banks = _dbContext.Banks.Where(b => !(bool)b.Closed)
+					.Select(b => new Bank
+					{
+						Name = b.Name
+					}).ToList();
+				Vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
+				if (Vender != null)
+					Id = Vender.Id;
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+			}
+		}
+
+		public IActionResult OnPost()
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(Vender.Name))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide vendor";
+					return Page();
+				}
+
+				if (string.IsNullOrEmpty(Vender.APGlAccount))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide account payable";
+					return Page();
+				}
+
+				if (string.IsNullOrEmpty(Vender.ARGlAccount))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide account receivable";
+					return Page();
+				}
+					
+				Vender.CreatedDate = DateTime.UtcNow.AddHours(3);
+				Vender.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				Vender.Closed = Vender?.Closed ?? false;
+				var savedVender = _dbContext.Venders.FirstOrDefault(v => v.Id == Vender.Id);
+				if (savedVender != null)
+				{
+					savedVender.Name = Vender.Name;
+					savedVender.Street1 = Vender.Street1;
+					savedVender.Street2 = Vender.Street2;
+					savedVender.City = Vender.City;
+					savedVender.Country = Vender.Country;
+					savedVender.PhoneNo = Vender.PhoneNo;
+					savedVender.Mobile = Vender.Mobile;
+					savedVender.Email = Vender.Email;
+					savedVender.WebSite = Vender.WebSite;
+					savedVender.SalesPerson = Vender.SalesPerson;
+					savedVender.PurchasePaymentTerms = Vender.PurchasePaymentTerms;
+					savedVender.SalesPaymentTerms = Vender.SalesPaymentTerms;
+					savedVender.FiscalPosition = Vender.FiscalPosition;
+					savedVender.Ref = Vender.Ref;
+					savedVender.Industry = Vender.Industry;
+					savedVender.APGlAccount = Vender.APGlAccount;
+					savedVender.ARGlAccount = Vender.ARGlAccount;
+					savedVender.Bank = Vender.Bank;
+					savedVender.Notes = Vender.Notes;
+					savedVender.Closed = Vender.Closed;
+					savedVender.Personnel = Vender.Personnel;
+					savedVender.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				}
+				else
+				{
+					if (_dbContext.Venders.Any(v => v.Name.ToUpper().Equals(Vender.Name.ToUpper())))
+					{
+						Success = false;
+						Message = "Sorry, Vendor already exist";
+						return Page();
+					}
+						
+					_dbContext.Venders.Add(Vender);
+				}
+				_dbContext.SaveChanges();
+				Success = true;
+				Message = "Vendor saved successfully";
+				return RedirectToPage("./ListVendors");
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+	}
 }
