@@ -1,13 +1,41 @@
 ﻿@page
 @model AccountingSystem.Pages.Vendors.product.EditProductModel
 @{
+    <style type="text/css">
+        .h-divider {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            height: 1px;
+            width: 100%;
+            border-top: 1px solid gray;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 }
 <div class="modal-dialog" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 80%;" role="document">
     <form method="post">
         <div class="row">
-
+            <label for="">Product Name</label>
+            <div class="row">
+                <div class="form-group">
+                    <input type="text" name="State" class="form-control" id="State" placeholder="State..." style="height:30px;" autocomplete="off" />
+                </div>
+            </div>
+            <div class="h-divider"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <label><input type="checkbox" value="" > 
+                       <p class="font-weight-bold">Can be Sold</p>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value=""> Can be Purchased</label>
+                </div>
+            </div>
         </div>
     </form>
 </div>
-    
+
 

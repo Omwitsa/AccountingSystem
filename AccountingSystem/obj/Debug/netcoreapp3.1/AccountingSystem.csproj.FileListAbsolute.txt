@@ -84,3 +84,4 @@ F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\o
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.dll
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.pdb
 F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.genruntimeconfig.cache
+F:\2021\evans\Accounting\Accounting\Accounts\AccountingSystem\AccountingSystem\obj\Debug\netcoreapp3.1\AccountingSystem.csproj.AssemblyReference.cache
