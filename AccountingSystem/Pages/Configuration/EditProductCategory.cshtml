@@ -1,0 +1,65 @@
+﻿@page
+@model AccountingSystem.Pages.Configuration.EditProductCategoryModel
+@{
+}
+<form method="post">
+	<div class="modal-content hold-transition login-page">
+		<div class="modal-header" ;color:white;text-align:center">
+			<h5 class="modal-title w-100 text-center">Product Category</h5>
+		</div>
+		<div class="modal-body">
+			@if (!Model.Success)
+			{
+				<div class="alert-danger text-center">
+					@Model.Message
+				</div>
+			}
+			<div class="row">
+				<div class="col-sm-4">
+					Product Name
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input type="text" asp-for="ProductCategory.Name" class="form-control" placeholder="Product Name" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					Income GL Account
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<select class="form-control" asp-for="ProductCategory.IncomeGlAccount">
+							<option selected>Select Income Account</option>
+							@foreach (var account in Model.Accounts)
+							{
+								<option value="@account.Name">@account.Code @account.Name</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					Expense GL Account
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<select class="form-control" asp-for="ProductCategory.ExpenseGlAccount">
+							<option selected>Select Expense Account</option>
+							@foreach (var account in Model.Accounts)
+							{
+								<option value="@account.Name">@account.Code @account.Name</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+			<button type="submit" class="btn btn-success">SAVE</button>
+			<button type="button" class="btn btn-secondary" asp-page="./ListAssetModel">BACK</button>
+		</div>
+	</div>
+</form>

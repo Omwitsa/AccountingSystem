@@ -1,0 +1,49 @@
+﻿@page
+@model AccountingSystem.Pages.Configuration.EditReconciliationModelModel
+@{
+}
+<form method="post">
+	<div class="modal-content hold-transition login-page">
+		<div class="modal-header" ;color:white;text-align:center">
+			<h5 class="modal-title w-100 text-center">Reconciliation Model</h5>
+		</div>
+		<div class="modal-body">
+			@if (!Model.Success)
+			{
+				<div class="alert-danger text-center">
+					@Model.Message
+				</div>
+			}
+			<div class="row">
+				<div class="col-sm-4">
+					Name
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input type="text" asp-for="ReconciliationModel.Name" class="form-control" placeholder="Name" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					Journal
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<select class="form-control" asp-for="ReconciliationModel.Journal">
+							<option selected>Select Journal</option>
+							@foreach (var journal1 in Model.Journals)
+							{
+								<option value="@journal1.Name">@journal1.Name</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+			<button type="submit" class="btn btn-success">SAVE</button>
+			<button type="button" class="btn btn-secondary" asp-page="./ListReconciliationModel">BACK</button>
+		</div>
+	</div>
+</form>

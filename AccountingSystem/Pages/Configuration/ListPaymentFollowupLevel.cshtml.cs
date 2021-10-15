@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.IProvider;
 using AccountingSystem.Model;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Configuration
 {
-    public class ListVendorsModel : PageModel
+    public class ListPaymentFollowupLevelModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<IPaymentFollowupLevel> PaymentFollowupLevels { get; set; }
         [BindProperty]
-        public Vender Vender { get; set; }
+        public IPaymentFollowupLevel PaymentFollowupLevel { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListVendorsModel(AccountingDbContext dbContext)
+        public ListPaymentFollowupLevelModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Vender = new Vender();
+            PaymentFollowupLevel = new IPaymentFollowupLevel();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Venders = _dbContext.Venders.ToList();
+                PaymentFollowupLevels = _dbContext.IPaymentFollowupLevels.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,11 +45,9 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Venders = _dbContext.Venders.Where(v =>
-               (string.IsNullOrEmpty(Vender.Name) || v.Name.ToUpper().Equals(Vender.Name.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Country) || v.Country.ToUpper().Equals(Vender.Country.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Industry) || v.Industry.ToUpper().Equals(Vender.Industry.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Bank) || v.Bank.ToUpper().Equals(Vender.Bank.ToUpper()))
+                PaymentFollowupLevels = _dbContext.IPaymentFollowupLevels.Where(l =>
+                (string.IsNullOrEmpty(PaymentFollowupLevel.Level) || l.Level.ToUpper().Equals(PaymentFollowupLevel.Level.ToUpper()))
+                && (string.IsNullOrEmpty(PaymentFollowupLevel.Personnel) || l.Personnel.ToUpper().Equals(PaymentFollowupLevel.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -65,33 +62,25 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditVendor", new { id = id });
+            return RedirectToPage("./EditPaymentFollowupLevel", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
-                if (vender == null)
+                var level = _dbContext.IPaymentFollowupLevels.FirstOrDefault(l => l.Id == id);
+                if (level == null)
 				{
                     Success = false;
-                    Message = "Sorry, Vendor not found";
+                    Message = "Sorry, Follow up level not found";
                     return Page();
                 }
                     
-                vender.Name = vender?.Name ?? "";
-                if (_dbContext.Bills.Any(b => b.Vender.ToUpper().Equals(vender.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Vendor already billed. Can't be deleted";
-                    return Page();
-                }
-                    
-                _dbContext.Venders.Remove(vender);
+                _dbContext.IPaymentFollowupLevels.Remove(level);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Vendor deleted successfully";
+                Message = "Follow up level deleted successfully";
                 return Page();
             }
             catch (Exception ex)

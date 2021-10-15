@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.IProvider;
 using AccountingSystem.Model;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Configuration
 {
-    public class ListVendorsModel : PageModel
+    public class ListIPaymentTermModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<IPaymentTerm> PaymentTerms { get; set; }
         [BindProperty]
-        public Vender Vender { get; set; }
+        public IPaymentTerm PaymentTerm { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListVendorsModel(AccountingDbContext dbContext)
+        public ListIPaymentTermModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Vender = new Vender();
+            PaymentTerm = new IPaymentTerm();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Venders = _dbContext.Venders.ToList();
+                PaymentTerms = _dbContext.IPaymentTerms.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,11 +45,9 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Venders = _dbContext.Venders.Where(v =>
-               (string.IsNullOrEmpty(Vender.Name) || v.Name.ToUpper().Equals(Vender.Name.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Country) || v.Country.ToUpper().Equals(Vender.Country.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Industry) || v.Industry.ToUpper().Equals(Vender.Industry.ToUpper()))
-               && (string.IsNullOrEmpty(Vender.Bank) || v.Bank.ToUpper().Equals(Vender.Bank.ToUpper()))
+                PaymentTerms = _dbContext.IPaymentTerms.Where(t =>
+                (string.IsNullOrEmpty(PaymentTerm.Term) || t.Term.ToUpper().Equals(PaymentTerm.Term.ToUpper()))
+                && (string.IsNullOrEmpty(PaymentTerm.Personnel) || t.Personnel.ToUpper().Equals(PaymentTerm.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -65,33 +62,25 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditVendor", new { id = id });
+            return RedirectToPage("./EditIPaymentTerm", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
-                if (vender == null)
+                var term = _dbContext.IPaymentTerms.FirstOrDefault(t => t.Id == id);
+                if (term == null)
 				{
                     Success = false;
-                    Message = "Sorry, Vendor not found";
+                    Message = "Sorry, Payment terms not found";
                     return Page();
                 }
                     
-                vender.Name = vender?.Name ?? "";
-                if (_dbContext.Bills.Any(b => b.Vender.ToUpper().Equals(vender.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Vendor already billed. Can't be deleted";
-                    return Page();
-                }
-                    
-                _dbContext.Venders.Remove(vender);
+                _dbContext.IPaymentTerms.Remove(term);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Vendor deleted successfully";
+                Message = "Payment terms deleted successfully";
                 return Page();
             }
             catch (Exception ex)

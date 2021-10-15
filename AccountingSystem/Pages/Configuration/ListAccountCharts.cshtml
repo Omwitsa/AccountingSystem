@@ -1,0 +1,57 @@
+﻿@page
+@model AccountingSystem.Pages.Configuration.ListAccountChartsModel
+@{
+	var count = 0;
+}
+<div>
+	<div class="modal-header" style="background-color:white;color:white;text-align:center">
+		<a class="nav-link text-dark" asp-page="./EditAccountChart">CREATE</a>
+	</div>
+	<div class="table-responsive">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Code</th>
+					<th scope="col">Name</th>
+					<th scope="col">Type</th>
+					<th scope="col">Tag</th>
+					<th scope="col">Personnel</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var account in Model.AccountCharts)
+				{
+					count++;
+				<tr>
+					<th scope="row">@count</th>
+					<td>@account.Code</td>
+					<td>@account.Name</td>
+					<td>@account.Type</td>
+					<td>@account.Tag</td>
+					<td>@account.Personnel</td>
+					<td class="text-right">
+						<div class="dropdown">
+							<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+								<form asp-page-handler="edit" method="post">
+									<button class="btn btn-default">Edit</button>
+									<input type="hidden" name="id" value="@account.Id" />
+								</form>
+							</div>
+						</div>
+					</td>
+				</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
