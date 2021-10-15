@@ -14,27 +14,32 @@
 }
 <div class="modal-dialog" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 80%;" role="document">
     <form method="post">
-        <div class="row">
-            <label for="">Product Name</label>
+        <div class="modal-body">
             <div class="row">
-                <div class="form-group">
-                    <input type="text" name="State" class="form-control" id="State" placeholder="State..." style="height:30px;" autocomplete="off" />
+                <div class="modal-header" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;background-color:#467fd0;color:white;text-align:center">
+                    <label for="">Product Name</label>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" name="State" class="form-control" id="Name" placeholder="Product Name" style="height:30px;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="h-divider"></div>
                 </div>
             </div>
-            <div class="h-divider"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="checkbox">
-                    <label><input type="checkbox" value="" > 
-                       <p class="font-weight-bold">Can be Sold</p>
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" value=""> Can be Purchased</label>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="">
+                                <p class="font-weight-bold">Can be Sold</p>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value=""> Can be Purchased</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
 </div>
 
