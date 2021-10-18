@@ -11,7 +11,7 @@ namespace AccountingSystem.IProvider
 		ReturnData<dynamic> GetBills(Bill bill);
 		ReturnData<dynamic> GetBill(Guid id);
 		ReturnData<string> AddRefund(Refund refund, bool isEdit);
-		ReturnData<dynamic> GetRefunds(Refund refund);
+		ReturnData<List<Refund>> GetRefunds(Refund refund);
 		ReturnData<dynamic> GetRefund(Guid id);
 		ReturnData<string> AddVender(Vender vender, bool isEdit);
 		ReturnData<List<Vender>> GetVenders(Vender vender);

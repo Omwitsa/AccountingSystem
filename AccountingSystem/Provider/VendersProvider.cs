@@ -863,7 +863,7 @@ namespace AccountingSystem.Provider
 			}
 		}
 
-		public ReturnData<dynamic> GetRefunds(Refund refund)
+		public ReturnData<List<Refund>> GetRefunds(Refund refund)
 		{
 			try
 			{
@@ -874,18 +874,15 @@ namespace AccountingSystem.Provider
 				 && (string.IsNullOrEmpty(refund.Personnel) || r.Personnel.ToUpper().Equals(refund.Personnel.ToUpper()))
 					).ToList();
 
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Refund>>
 				{
 					Success = true,
-					Data = new
-					{
-						refunds
-					}
+					Data = refunds
 				};
 			}
 			catch (Exception ex)
 			{
-				return new ReturnData<dynamic>
+				return new ReturnData<List<Refund>>
 				{
 					Success = false,
 					Message = "Sorry, An error occurred"

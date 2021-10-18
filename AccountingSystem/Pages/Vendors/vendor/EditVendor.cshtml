@@ -23,7 +23,7 @@
                     Company
                 </div>
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />
+                    <input type="text" name="Name" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />
                 </div>
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Street1" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input type="email" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />
+                                            <input type="text" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="email" name="Country" class="form-control" id="Country" placeholder="Country" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="Country" class="form-control" id="Country" placeholder="Country" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="Phone" class="form-control" id="Phone" placeholder="Phone" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="PhoneNo" class="form-control" id="Phone" placeholder="Phone" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="Website" class="form-control" id="Website" placeholder="Website" style="height:30px;" autocomplete="off" />
+                                <input type="text" name="WebSite" class="form-control" id="Website" placeholder="Website" style="height:30px;" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -149,35 +149,31 @@
                 </div>
             </div>
             <!-- Nav tabs -->
-            <div class="row">
-                <div class="col-sm-0">
-                    <div class="form-group">
-                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapsecontact" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Contact & Addresses" value="Contact & Addresses" />
-                    </div>
-                </div>
-                <div class="col-sm-0">
-                    <div class="form-group">
 
-                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseSales" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Sales & Purchase" value="Sales & Purchase" />
-                    </div>
-                </div>
-                <div class="col-sm-0">
-                    <div class="form-group">
+            <nav class="navbar navbar-invers">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                       <div class="row">
+                       <li class="btn btn-primary" data-toggle="collapse" data-target="#collapsecontact" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Contact & Addresses" value="Contact & Addresses">Contact & Addresses</li>
 
-                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAccounting" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Accounting" value="Accounting" />
-                    </div>
-                </div>
-                <div class="col-sm-0">
-                    <div class="form-group">
 
-                        <input id="Button2" class="btn btn-primary" data-toggle="collapse" data-target="#collapseInternal" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Internal Notes" value="Internal Notes" />
+
+                       <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseSales" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Sales & Purchase" value="Sales & Purchase">Sales & Purchase</li>
+
+
+
+                       <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseAccounting" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Accounting" value="Accounting">Accounting</li>
+
+                       <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseInternal" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Internal Notes" value="Internal Notes">Internal Notes</li>
                     </div>
+                </ul>
                 </div>
-            </div>
+            </nav>
             <div class="row">
                 <div class="collapse" id="collapsecontact">
                     <div class="card card-body">
-                        <button class="btn btn-primary" type="button" asp-page="./Vendors/createcontact">ADDED</button>
+                        <a class="btn btn-danger" asp-page="./createcontact">ADD</a>
+                           @*<button class="btn btn-info" type="button" asp-page="./Vendors/createcontact">ADD</button>*@
                     </div>
                 </div>
             </div>
@@ -272,6 +268,13 @@
                                     <div class="col-sm-8">
                                         <input type="text" name="Salesperson" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
                                         <select class="form-control" ></select>
+                                        @*<select class="form-control" asp-for="Account.Type">
+							                <option selected>Select Account type</option>
+							                @foreach (var type in Model.AccountTypes)
+							                {
+								                <option value="@type">@type</option>
+							                }
+						                </select>*@
                                         @*<input type="text" name="Paymentterms" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />*@
                                     </div>
                                 </div>
@@ -308,15 +311,19 @@
             </div>
             <div class="row">
                 <div class="collapse col-sm-12" id="collapseInternal">
-                    <h1>
-                    <input type="text" name="internalnote" class="form-control" id="Tags" placeholder="Internal note...." style="height:30px;" autocomplete="off" />
-                    </h1>
-                    <b class="hr"></b>
+                    <div class="form-group">
+                        <h1>
+                            <textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="Internal note...." required></textarea>
+                            @*<input type="text" name="internalnote" class="form-control" id="Tags" placeholder="Internal note...." style="height:30px;" autocomplete="off" />*@
+                        </h1>
+                        <b class="hr"></b>
+                    </div>
                 </div>
-            </div>
+                </div>
             <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
                 <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+            <a class="btn btn-danger" asp-page="./ListVendors">DISCARD</a>
             </div>
         </div>
     </div>

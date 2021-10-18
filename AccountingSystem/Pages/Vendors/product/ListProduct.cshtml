@@ -5,8 +5,10 @@
 }
 <div>
     <div class="modal-header" style="background-color:white;color:white;text-align:center">
-        <a class="nav-link text-dark" asp-page="./EditProduct">CREATE</a>
+        <a class="btn btn-info" asp-page="./EditProduct">CREATE</a>
+        <a class="btn btn-info" onclick="history.go(-1)">Back</a>
     </div>
+    
     <div class="table-responsive">
         @if (!Model.Success)
         {

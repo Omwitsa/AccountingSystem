@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AccountingSystem</title>
@@ -101,10 +102,11 @@
                             <div class="dropdown" aria-labelledby="navbarDropdown">
                                 <ul class="dropdown-menu flex-grow-1">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Bills</a>
+                                        <a class="nav-link text-dark" asp-page="./Vendors/bill/Listbill">Bills</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="./Vendors/vendor/createcontact">Refunds</a>
+                                        <a class="nav-link text-dark" asp-page="./Vendors/refund/ListRefunds">Refunds</a>
+                                        @*<a class="nav-link text-dark" asp-area="./Vendors/refund/EditRefunds">Refunds</a>*@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-page="./Vendors/product/ListProduct">Payments</a>

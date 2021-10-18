@@ -2,7 +2,7 @@
 @model AccountingSystem.Pages.Vendors.createcontactModel
 @{
 }
-<div class="modal-dialog" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 80%;" role="document">
+<div class="modal-content" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 80%;" role="document">
     <form method="post">
         @*< class="modal-content hold-transition login-page">*@
         <div class="modal-body">
@@ -30,7 +30,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
                         <label class="form-check-label" for="exampleRadios3">
@@ -163,7 +163,8 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="Phone" placeholder="Internal notes" style="height:30px;" autocomplete="off" />
+                                <textarea class="span6" cols="200" style="width:800px;" rows="2" placeholder="internal note...." required></textarea>
+                                @*<input type="text" class="form-control" id="Phone" placeholder="Internal notes" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                     </div>
@@ -174,7 +175,8 @@
             <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
                 <button type="submit" id="register" class="btn btn-success">SAVE & CLOSE</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">SAVE & new</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
+                <a class="btn btn-danger" asp-page="./EditVendor">DISCARD</a>
             </div>
         </div>
     </form>
