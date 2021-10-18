@@ -16,14 +16,16 @@
             }
 
             <div class="col-sm-4">
-                <div class="col-md-10">
+                @*<div class="col-md-10">
+                    <input type="radio" asp-for="" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
                     <input id="Gender" name="Gender" value="Individual" type="radio">
                     Individual
                     <input id="Gender" name="Gender" value="Company" type="radio">
                     Company
-                </div>
+                </div><br>*@
                 <div class="form-group">
-                    <input type="text" name="Name" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />
+                    <input type="text" asp-for="Vender.Name" class="form-control" placeholder="Name" style="height:30px;" autocomplete="off" />
+                    @*<input type="text" name="Name" class="form-control" id="name" placeholder="Name" style="height:30px;" autocomplete="off" />*@
                 </div>
             </div>
             <div class="row">
@@ -36,14 +38,14 @@
                     <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                         <div class="col-sm-12">
                             <div class="form-group">
-
-                                <input type="text" name="Street1" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.Street1" class="form-control" placeholder="Street..." style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="Street1" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-
-                                <input type="text" name="Street2" class="form-control" id="Street2" placeholder="Street2..." style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.Street2" class="form-control" placeholder="Street2..." style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="Street2" class="form-control" id="Street2" placeholder="Street2..." style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -51,26 +53,29 @@
                                 <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input type="text" name="City" class="form-control" id="City" placeholder="City..." style="height:30px;" autocomplete="off" />
+                                            <input type="text" asp-for="Vender.City" class="form-control" placeholder="City..." style="height:30px;" autocomplete="off" />
+                                            @*<input type="text" name="City" class="form-control" id="City" placeholder="City..." style="height:30px;" autocomplete="off" />*@
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    @*<div class="col-sm-4">
                                         <div class="form-group">
-
+                                            <input type="text" asp-for="Vender.sta" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
                                             <input type="text" name="State" class="form-control" id="State" placeholder="State..." style="height:30px;" autocomplete="off" />
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
+                                    </div>*@
+                                    @*<div class="col-sm-4">
                                         <div class="form-group">
+                                            <input type="text" asp-for="Vender.zip" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
                                             <input type="text" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="Country" class="form-control" id="Country" placeholder="Country" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.Country" class="form-control" placeholder="Country" style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="Country" class="form-control" id="Country" placeholder="Country" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                     </div>
@@ -103,51 +108,55 @@
                     <div class="row" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px;">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="PhoneNo" class="form-control" id="Phone" placeholder="Phone" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.PhoneNo" class="form-control" placeholder="Phone" style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="PhoneNo" class="form-control" id="Phone" placeholder="Phone" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="Mobile" class="form-control" id="Mobile" placeholder="Mobile" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.Mobile" class="form-control" placeholder="Mobile" style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="Mobile" class="form-control" id="Mobile" placeholder="Mobile" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="email" name="Email" class="form-control" id="Email" placeholder="Email" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.Email" class="form-control" placeholder="Email" style="height:30px;" autocomplete="off" />
+                                @*<input type="email" name="Email" class="form-control" id="Email" placeholder="Email" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="text" name="WebSite" class="form-control" id="Website" placeholder="Website" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Vender.WebSite" class="form-control" placeholder="Website" style="height:30px;" autocomplete="off" />
+                                @*<input type="text" name="WebSite" class="form-control" id="Website" placeholder="Website" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" >
+            <!--<div class="row" >
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Tax ID</label>
                     </div>
-                </div>
-                <div class="col-sm-3">
+                </div>-->
+                @*<div class="col-sm-3">
                     <div class="form-group">
-
+                        <input type="text" asp-for="Vender.ta" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
                         <input type="text" name="tax" class="form-control" id="tax" placeholder="e.g BE0477472701" style="height:30px;" autocomplete="off" />
                     </div>
-                </div>
-                <div class="col-sm-3">
+                </div>*@
+                @*<div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Tags</label>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-
+                        <input type="text" asp-for="Vender.ta" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
                         <input type="text" name="Tags" class="form-control" id="Tags" placeholder="Tags" style="height:30px;" autocomplete="off" />
                     </div>
-                </div>
-            </div>
+                </div>*@
+            <!--</div>-->
             <!-- Nav tabs -->
 
             <nav class="navbar navbar-invers">
@@ -185,16 +194,23 @@
                                     <label for="">Sales</label>
                                     <div class="row">
                                             <div class="col-sm-4">
-                                                <label for="">Salesperson</label>
+                                                @*<label for="">Salesperson</label><br>*@
                                                 <label for="">Payment Terms</label>
                                             </div>
                                             <div class="col-sm-8">
-                                                    <div class="row">
-                                                        <select class="form-control"></select>
-                                                    </div>
-                                                    <div class="row">
-                                                        <select class="form-control"></select>
-                                                    </div>
+                                                <div class="row">
+                                                    @*<select class="form-control"></select>*@
+                                                </div>
+                                                <div class="row">
+                                                    <select class="form-control" asp-for="Vender.PurchasePaymentTerms">
+                                                        <option selected>Select payment terms</option>
+                                                        @foreach (var term in Model.PaymentTerms)
+                                                        {
+                                                            <option value="@term.Term">@term.Term</option>
+                                                        }
+                                                    </select>
+                                                    @*<select class="form-control"></select>*@
+                                                </div><br>
                                             </div>
                                     </div>
                                 </div>
@@ -203,10 +219,17 @@
                                     <div class="row">
                                             <div class="col-sm-6">
                                                 <label for="">Payment Terms</label>
-                                            </div>
+                                            </div><br>
                                             <div class="col-sm-6">
-                                                <select class="form-control"></select>
-                                            </div>
+                                                <select class="form-control" asp-for="Vender.PurchasePaymentTerms">
+                                                    <option selected>Select payment terms</option>
+                                                    @foreach (var term in Model.PaymentTerms)
+                                                    {
+                                                        <option value="@term.Term">@term.Term</option>
+                                                    }
+                                                </select>
+                                               @* <select class="form-control"></select>*@
+                                            </div><br>
                                     </div>
                                     
                                 </div>
@@ -214,15 +237,19 @@
                         <div class="card card-body">
                                 <div class="row">
                                         <div class="col-sm-6">
-                                            <label for="">Fiscal Information</label>
+                                            <!--<label for="">Fiscal Information</label>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                         <label for="">Fiscal Position</label>
-                                                </div>
-                                                    <div class="col-sm-6">
-                                                        <select class="form-control"></select>
-                                                    </div>
-                                            </div>
+                                                </div><br>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" asp-for="Vender.FiscalPosition">
+                                                        <option selected>Select industry</option>
+                                                      
+                                                    </select>-->
+                                                    @*<select class="form-control"></select>*@
+                                                <!--</div><br>
+                                            </div>-->
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="">Misc</label>
@@ -230,18 +257,20 @@
                                                     <div class="col-sm-6">
                                                             <div class="row">
                                                                 <label for="">Reference</label>
-                                                            </div>
+                                                            </div><br>
                                                             <div class="row">
                                                                 <label for="">Industry</label>
-                                                            </div>
+                                                            </div><br>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="row">
-                                                            <input type="text" name="Reference" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
-                                                        </div>
+                                                            <input type="text" asp-for="Vender.FiscalPosition" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
+                                                            @*<input type="text" name="Reference" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />*@
+                                                        </div><br>
                                                         <div class="row">
-                                                            <select class="form-control"></select>
-                                                        </div>
+                                                            <input type="text" asp-for="Vender.Industry" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
+                                                            @*<select class="form-control"></select>*@
+                                                        </div><br>
                                                     </div>
                                             </div>
                                         </div>
@@ -260,14 +289,21 @@
                                     <div class="col-sm-4">
                                         <div class="row">
                                             <label for="">Bank</label>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <label for="">Account No</label>
                                         </div>
                                      </div>
                                     <div class="col-sm-8">
-                                        <input type="text" name="Salesperson" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />
-                                        <select class="form-control" ></select>
+                                        <select class="form-control" asp-for="Vender.Bank">
+                                            <option selected>Select Bank</option>
+                                            @foreach (var bank in Model.Banks)
+                                            {
+                                                <option value="@bank.Name">@bank.Name</option>
+                                            }
+                                        </select><br>
+                                        <input type="text" asp-for="Vender.BankAccount" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />
+                                       
                                         @*<select class="form-control" asp-for="Account.Type">
 							                <option selected>Select Account type</option>
 							                @foreach (var type in Model.AccountTypes)
@@ -286,21 +322,34 @@
                                     <div class="col-sm-6">
                                         <div class="row">
                                             <label for="">Account Receivable</label>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <label for="">Account Payable</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="row">
+                                            <select class="form-control" asp-for="Vender.ARGlAccount">
+                                                <option selected>Select Receivable</option>
+                                                @foreach (var account in Model.ARccounts)
+                                                {
+                                                    <option value="@account.Name">@account.Code @account.Name</option>
+                                                }
+                                            </select>
                                             @*<input type="text" name="accountr" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />*@
-                                            <select class="form-control"></select>
-                                        </div>
-                                        <div class="row">
-                                            <select class="form-control"></select>
-                                            @*<input type="text" name="accountp" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />*@
+                                            
+                                        </div><br>
+                                              <div class="row">
+                                                  <select class="form-control" asp-for="Vender.APGlAccount">
+                                                      <option selected>Select Payable</option>
+                                                      @foreach (var account in Model.APccounts)
+                                                      {
+                                                          <option value="@account.Name">@account.Code @account.Name</option>
+                                                      }
+                                                  </select>
+                                                  @*<input type="text" name="accountp" class="form-control" id="Tags" placeholder="" style="height:30px;" autocomplete="off" />*@
 
-                                        </div>
+                                              </div>
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +362,8 @@
                 <div class="collapse col-sm-12" id="collapseInternal">
                     <div class="form-group">
                         <h1>
-                            <textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="Internal note...." required></textarea>
+                            <textarea class="span6 form-control" asp-for="Vender.Notes" placeholder="Internal note...." style="height:30px;" autocomplete="off"required></textarea>
+                            @*<textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="Internal note...." required></textarea>*@
                             @*<input type="text" name="internalnote" class="form-control" id="Tags" placeholder="Internal note...." style="height:30px;" autocomplete="off" />*@
                         </h1>
                         <b class="hr"></b>
@@ -323,7 +373,7 @@
             <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
                 <button type="submit" id="register" class="btn btn-success">SAVE</button>
                 @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
-            <a class="btn btn-danger" asp-page="./ListVendors">DISCARD</a>
+            <a class="btn btn-secondary" asp-page="./ListVendors">BACK</a>
             </div>
         </div>
     </div>

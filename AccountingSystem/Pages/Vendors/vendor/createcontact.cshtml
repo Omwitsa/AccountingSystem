@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <b></b>
+            <br>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="row">
@@ -141,11 +141,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        @*<select class="form-control"></select>*@
-                                        <select class="form-control">
-                                            <option>zip...</option>
-                                        </select>
-                                        @*<input type="email" name="Zip" class="form-control" id="Zip" placeholder="Zip" style="height:30px;" autocomplete="off" />*@
+                                        @*<input type="text" asp-for="" class="form-control" placeholder="" style="height:30px;" autocomplete="off" />*@
                                     </div>
                                 </div>
                             </div>
@@ -163,8 +159,8 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
+                                @*<textarea class="span6 form-control" asp-for="Vender.Notes" placeholder="Internal note...." style="height:30px;" autocomplete="off" required></textarea>*@
                                 <textarea class="span6" cols="200" style="width:800px;" rows="2" placeholder="internal note...." required></textarea>
-                                @*<input type="text" class="form-control" id="Phone" placeholder="Internal notes" style="height:30px;" autocomplete="off" />*@
                             </div>
                         </div>
                     </div>
@@ -176,7 +172,7 @@
                 <button type="submit" id="register" class="btn btn-success">SAVE & CLOSE</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">SAVE & new</button>
                 @*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
-                <a class="btn btn-danger" asp-page="./EditVendor">DISCARD</a>
+                <a class="btn btn-secondary" asp-page="./EditVendor">BACK</a>
             </div>
         </div>
     </form>
