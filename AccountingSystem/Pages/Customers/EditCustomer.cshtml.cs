@@ -87,7 +87,7 @@ namespace AccountingSystem.Pages.Customers
 				Customer.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Customer.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Customer.Closed = Customer?.Closed ?? false;
-				var savedCustomer = _dbContext.Customers.FirstOrDefault(v => v.Id == Customer.Id);
+				var savedCustomer = _dbContext.Customers.FirstOrDefault(v => v.Id == Id);
 				if (savedCustomer != null)
 				{
 					savedCustomer.Name = Customer.Name;
