@@ -105,5 +105,6 @@ namespace AccountingSystem.Pages.Vendors
         public void OnPostView(Guid id)
         {
         }
+
     }
 }
