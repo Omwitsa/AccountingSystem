@@ -13,6 +13,8 @@ namespace AccountingSystem.Pages.Vendors
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
+        public List<Vender> Venders { get; set; }
+        [BindProperty]
         public List<VPayment> Payments { get; set; }
         [BindProperty]
         public VPayment Payment { get; set; }
@@ -46,8 +48,7 @@ namespace AccountingSystem.Pages.Vendors
             try
             {
                 Payments = _dbContext.VPayments.Where(p =>
-                (string.IsNullOrEmpty(Payment.PartnerType) || p.PartnerType.ToUpper().Equals(Payment.PartnerType.ToUpper()))
-                && (string.IsNullOrEmpty(Payment.Vendor) || p.Vendor.ToUpper().Equals(Payment.Vendor.ToUpper()))
+               (string.IsNullOrEmpty(Payment.Customer) || p.Customer.ToUpper().Equals(Payment.Customer.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.GlAccount) || p.GlAccount.ToUpper().Equals(Payment.GlAccount.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.Journal) || p.Journal.ToUpper().Equals(Payment.Journal.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.BankAccount) || p.BankAccount.ToUpper().Equals(Payment.BankAccount.ToUpper()))

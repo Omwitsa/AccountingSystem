@@ -146,7 +146,7 @@ namespace AccountingSystem.Pages.Vendors
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Product saved successfully";
-				return Page();
+				return RedirectToPage("./ListProduct");
 			}
 			catch (Exception ex)
 			{

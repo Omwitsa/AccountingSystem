@@ -4,14 +4,16 @@ using AccountingSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AccountingSystem.Migrations
 {
     [DbContext(typeof(AccountingDbContext))]
-    partial class AccountingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211018121907_UpdateRefundModel")]
+    partial class UpdateRefundModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1565,9 +1567,6 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
@@ -1575,6 +1574,12 @@ namespace AccountingSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsInternalTransfer")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsPayable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsReceivable")
                         .HasColumnType("bit");
 
                     b.Property<string>("Journal")
@@ -1586,10 +1591,13 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PartnerType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Vendor")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

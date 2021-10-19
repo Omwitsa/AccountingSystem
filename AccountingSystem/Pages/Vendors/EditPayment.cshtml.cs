@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AccountingSystem.Model;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace AccountingSystem.Pages.Vendors
 		public VPayment Payment { get; set; }
 		[BindProperty]
 		public List<Vender> Venders { get; set; }
+		[BindProperty]
+		public List<Customer> customers { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
@@ -35,12 +38,19 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			_dbContext = dbContext;
 			Success = true;
+			Payment = new VPayment();
 		}
 
 		public void OnGet(Guid id)
 		{
 			try
 			{
+				
+				customers = _dbContext.Customers.Where(R => !(bool)R.Closed)
+					.Select(R => new Customer
+					{
+						Name=R.Name
+					}).ToList();
 				Venders = _dbContext.Venders.Where(c => !(bool)c.Closed)
 					.Select(c => new Vender
 					{
@@ -56,7 +66,7 @@ namespace AccountingSystem.Pages.Vendors
 					{
 						Name = b.Name
 					}).ToList();
-				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
+				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed && c.Type.ToLower().Equals("assets"))
 					.Select(c => new AccountChart
 					{
 						Name = c.Name,
@@ -78,23 +88,7 @@ namespace AccountingSystem.Pages.Vendors
 			try
 			{
 				Payment.Date = DateTime.UtcNow.AddHours(3);
-				Payment.IsPayable = Payment?.IsPayable ?? false;
-				Payment.IsReceivable = Payment?.IsReceivable ?? false;
-				if (!(bool)Payment.IsPayable || !(bool)Payment.IsReceivable)
-				{
-					Success = false;
-					Message = "Sorry, Kindly select payment type";
-					return Page();
-				}
-
-				if (string.IsNullOrEmpty(Payment.PartnerType))
-				{
-					Success = false;
-					Message = "Sorry, Kindly provide partner type";
-					return Page();
-				}
-
-				if (string.IsNullOrEmpty(Payment.Vendor))
+				if (string.IsNullOrEmpty(Payment.Customer))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide customer";
@@ -107,7 +101,7 @@ namespace AccountingSystem.Pages.Vendors
 					Message = "Sorry, Kindly provide GL Account";
 					return Page();
 				}
-					
+				Payment.IsInternalTransfer = Payment.IsInternalTransfer == null ? false : Payment.IsInternalTransfer;
 				Payment.Amount = Payment?.Amount ?? 0;
 				if (Payment.Amount < 1)
 				{
@@ -133,16 +127,14 @@ namespace AccountingSystem.Pages.Vendors
 
 				Payment.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Payment.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				Payment.Status = "Pending";
 				var reference = "Add Payment";
 				var savedPayment = _dbContext.VPayments.FirstOrDefault(p => p.Id == Id);
 				if (savedPayment != null)
 				{
 					reference = "Edit Payment";
 					savedPayment.ModifiedDate = DateTime.UtcNow.AddHours(3);
-					savedPayment.IsPayable = Payment.IsPayable;
-					savedPayment.IsReceivable = Payment.IsReceivable;
-					savedPayment.PartnerType = Payment.PartnerType;
-					savedPayment.Vendor = Payment.Vendor;
+					savedPayment.Customer = Payment.Customer;
 					savedPayment.GlAccount = Payment.GlAccount;
 					savedPayment.IsInternalTransfer = Payment.IsInternalTransfer;
 					savedPayment.Amount = Payment.Amount;
@@ -168,7 +160,7 @@ namespace AccountingSystem.Pages.Vendors
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Payment saved successfully";
-				return Page();
+				return RedirectToPage("./ListPayment");
 			}
 			catch (Exception ex)
 			{
