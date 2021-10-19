@@ -2,3 +2,124 @@
 @model AccountingSystem.Pages.Vendors.EditPaymentModel
 @{
 }
+<form method="post">
+    <div class="modal-content hold-transition login-page">
+        <div class="modal-header" ;color:white;text-align:center">
+            <h5 class="modal-title w-100 text-center">Payment Form</h5>
+        </div>
+        <div class="modal-body">
+            @if (!Model.Success)
+            {
+                <div class="alert-danger text-center">
+                    @Model.Message
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-2 m-1">
+                    @*<div class="row">
+                    <label for="">Payment Type</label>
+                </div><br>
+                <div class="row">
+                    <label for=""></label>
+                </div><br><br>*@
+                    <div class="row">
+                        <label for="">Customer</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Destination Account</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Is Internal Transfer</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Amount</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Date</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Memo</label>
+                    </div><br>
+                </div>
+                <div class="col-sm-3">
+                    @*<div class="row">
+                    <label class="checkbox-inline">
+                        <input type="text" asp-for="Payment." class="form-control" placeholder="amount" />
+                        <input type="checkbox"><b>Send Money</b>
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="checkbox-inline">
+                        <input type="checkbox"><b>Receive Money</b>
+                    </label>
+                </div><br>*@
+                    <div class="row">
+                        <select class="form-control" asp-for="Payment.Customer">
+                            <option selected>Select customer</option>
+                            @foreach (var term in Model.customers)
+                            {
+                                <option value="@term.Name">@term.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                    <div class="row">
+                        <select class="form-control" asp-for="Payment.GlAccount">
+                            <option selected>Select Receivable</option>
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option value="@account.Code">@account.Code @account.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                    <div class="row checkbox-inline">
+                        @*<input class="form-check-input" type="checkbox" asp-for="Payment.IsInternalTransfer" value="True">*@
+                        <INPUT type="radio" asp-for="Payment.IsInternalTransfer" value="TRUE">
+                    </div><br>
+                    <div class="row">
+                        <input type="text" asp-for="Payment.Amount" class="form-control" placeholder="amount" />
+                    </div><br>
+                    <div class="row">
+                        <input type="date" asp-for="Payment.Date" class="form-control" placeholder="" />
+                    </div><br>
+                    <div class="row">
+                        <input type="text" asp-for="Payment.Memo" class="form-control" placeholder="memo.." />
+                    </div><br>
+                </div>
+                <div class="col-sm-2 m-1">
+                    <div class="row">
+                        <label for="">Journal</label>
+                    </div><br>
+                    <div class="row">
+                        <label for="">Recipient Bank Account</label>
+                    </div><br>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <select class="form-control" asp-for="Payment.Journal">
+                            <option selected>Select Journal</option>
+                            @foreach (var journal in Model.Journals)
+                            {
+                                <option value="@journal.Name"> @journal.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                    <div class="row">
+                        <select class="form-control" asp-for="Payment.BankAccount">
+                            <option selected>Select Recipient Bank</option>
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option value="@account.Code">@account.Code @account.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+                <button type="submit" id="register" class="btn btn-success">SAVE</button>
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+                <a class="btn btn-secondary" asp-page="./ListPayment">BACK</a>
+            </div>
+        </div>
+    </div>
+</form>
+    

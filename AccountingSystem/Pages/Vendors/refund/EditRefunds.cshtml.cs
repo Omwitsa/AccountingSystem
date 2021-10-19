@@ -16,6 +16,8 @@ namespace AccountingSystem.Pages.Vendors
 		private AccountingDbContext _dbContext;
 		[BindProperty]
 		public Refund Refund { get; set; }
+
+		
 		[BindProperty]
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
@@ -32,6 +34,8 @@ namespace AccountingSystem.Pages.Vendors
 		public List<Tax> Taxes { get; set; }
 		[BindProperty]
 		public List<IPaymentTerm> PaymentTerms { get; set; }
+		[BindProperty]
+		public RefundDetail RefundDetail { get; set; }
 		[BindProperty]
 		public bool Success { get; set; }
 		[BindProperty]
@@ -62,7 +66,8 @@ namespace AccountingSystem.Pages.Vendors
 				Banks = _dbContext.Banks.Where(b => !(bool)b.Closed)
 					.Select(b => new Bank
 					{
-						Name = b.Name
+						Name = b.Name,
+						AccNo=b.AccNo
 					}).ToList();
 				IncoTerms = _dbContext.IncoTerms
 					.Select(t => new IncoTerm
@@ -90,6 +95,7 @@ namespace AccountingSystem.Pages.Vendors
 					{
 						Term = t.Term
 					}).ToList();
+				RefundDetail = new RefundDetail();
 				Refund = _dbContext.Refunds.FirstOrDefault(r => r.Id == id);
 				if (Refund != null)
 					Id = Refund.Id;

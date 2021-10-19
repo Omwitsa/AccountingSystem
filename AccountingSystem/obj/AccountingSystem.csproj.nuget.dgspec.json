@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {}
+    "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {}
   },
   "projects": {
-    "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {
+    "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
+        "projectUniqueName": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
         "projectName": "AccountingSystem",
-        "projectPath": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\obj\\",
+        "projectPath": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
+        "packagesPath": "C:\\Users\\LANGAT\\.nuget\\packages\\",
+        "outputPath": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\AccountingSystem\\AccountingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\LANGAT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

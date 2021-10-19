@@ -1,4 +1,62 @@
 ﻿@page
 @model AccountingSystem.Pages.Vendors.ListPaymentModel
 @{
+    var count = 0;
 }
+<div>
+    <div class="row color m-1" style="color:green">Payments</div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <div class="row">
+            <a class="btn btn-info" asp-page="./EditPayment">CREATE</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        @if (!Model.Success)
+        {
+            <div class="alert-danger text-center">
+                @Model.Message
+            </div>
+        }
+    </div>
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Number</th>
+                <th scope="col">Journal</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Model.Payments)
+            {
+                count++;
+            <tr>
+                <th scope="row">@count</th>
+                <td>@payment.Date</td>
+                <td>@payment.BillRef</td>
+                <td>@payment.Journal</td>
+                <td>@payment.Customer</td>
+                <td>@payment.Amount</td>
+                <td>@payment.Status</td>
+                <td class="text-right">
+                    <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                            <form asp-page-handler="edit" method="post">
+                                <button class="btn btn-default">Edit</button>
+                                <input type="hidden" name="id" value="@payment.Id" />
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+             }
+        </tbody>
+    </table>
+</div>
