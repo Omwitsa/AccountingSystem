@@ -15,7 +15,12 @@ namespace AccountingSystem.Pages.Vendors
 		[BindProperty]
 		public Vender Vender { get; set; }
 		[BindProperty]
-		public List<AccountChart> Accounts { get; set; }
+		public List<AccountChart> ARccounts { get; set; }
+		
+		[BindProperty]
+		public List<AccountChart> APccounts { get; set; }
+		[BindProperty]
+		public List<IPaymentTerm> PaymentTerms { get; set; }
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
 		[BindProperty]
@@ -35,7 +40,14 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
-				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+				
+				ARccounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed && a.Type.ToLower().Equals("assets"))
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				APccounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed && a.Type.ToLower().Equals("liabilities"))
 					.Select(a => new AccountChart
 					{
 						Name = a.Name,
@@ -45,6 +57,11 @@ namespace AccountingSystem.Pages.Vendors
 					.Select(b => new Bank
 					{
 						Name = b.Name
+					}).ToList();
+				PaymentTerms = _dbContext.IPaymentTerms
+					.Select(t => new IPaymentTerm
+					{
+						Term = t.Term
 					}).ToList();
 				Vender = _dbContext.Venders.FirstOrDefault(v => v.Id == id);
 				if (Vender != null)
@@ -85,7 +102,7 @@ namespace AccountingSystem.Pages.Vendors
 				Vender.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Vender.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Vender.Closed = Vender?.Closed ?? false;
-				var savedVender = _dbContext.Venders.FirstOrDefault(v => v.Id == Vender.Id);
+				var savedVender = _dbContext.Venders.FirstOrDefault(v => v.Id == Id);
 				if (savedVender != null)
 				{
 					savedVender.Name = Vender.Name;
@@ -97,15 +114,15 @@ namespace AccountingSystem.Pages.Vendors
 					savedVender.Mobile = Vender.Mobile;
 					savedVender.Email = Vender.Email;
 					savedVender.WebSite = Vender.WebSite;
-					savedVender.SalesPerson = Vender.SalesPerson;
 					savedVender.PurchasePaymentTerms = Vender.PurchasePaymentTerms;
 					savedVender.SalesPaymentTerms = Vender.SalesPaymentTerms;
-					savedVender.FiscalPosition = Vender.FiscalPosition;
 					savedVender.Ref = Vender.Ref;
 					savedVender.Industry = Vender.Industry;
+					savedVender.Bank = Vender.Bank;
+					savedVender.Bank = Vender.BankAccount;
 					savedVender.APGlAccount = Vender.APGlAccount;
 					savedVender.ARGlAccount = Vender.ARGlAccount;
-					savedVender.Bank = Vender.Bank;
+					
 					savedVender.Notes = Vender.Notes;
 					savedVender.Closed = Vender.Closed;
 					savedVender.Personnel = Vender.Personnel;
@@ -134,5 +151,6 @@ namespace AccountingSystem.Pages.Vendors
 				return Page();
 			}
 		}
+
 	}
 }

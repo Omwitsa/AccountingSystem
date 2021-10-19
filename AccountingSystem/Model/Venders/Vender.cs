@@ -23,6 +23,7 @@ namespace AccountingSystem.Model.Venders
 		public string ARGlAccount { get; set; }
 		public string APGlAccount { get; set; }
 		public string Bank { get; set; }
+		public string BankAccount { get; set; }
 		public string Notes { get; set; }
 		public bool? Closed { get; set; }
 		public string Personnel { get; set; }

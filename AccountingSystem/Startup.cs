@@ -30,7 +30,6 @@ namespace AccountingSystem
             services.AddTransient<IAccountingProvider, AccountingProvider>();
             services.AddTransient<ICustomersProvider, CustomersProvider>();
             services.AddTransient<ISystemProvider, SystemProvider>();
-            services.AddTransient<IVendersProvider, VendersProvider>();
             services.AddRazorPages();
 		}
 

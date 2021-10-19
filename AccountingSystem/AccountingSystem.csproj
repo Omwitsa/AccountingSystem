@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Customers\EditCustomerProducts.cshtml" />
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,21 +18,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Customers\EditCustomerProducts.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Customers\EditCustomerProducts.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Customers\EditCustomerProducts.cshtml" />
-  </ItemGroup>
-
 </Project>

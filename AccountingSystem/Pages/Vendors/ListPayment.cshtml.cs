@@ -9,28 +9,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class ListbillModel : PageModel
+    public class ListPaymentModel : PageModel
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<Bill> Bills { get; set; }
+        public List<VPayment> Payments { get; set; }
         [BindProperty]
-        public Bill Bill { get; set; }
+        public VPayment Payment { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListbillModel(AccountingDbContext dbContext)
+        public ListPaymentModel(AccountingDbContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Bill = new Bill();
+            Payment = new VPayment();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Bills = _dbContext.Bills.ToList();
+                Payments = _dbContext.VPayments.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -45,14 +45,14 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Bills = _dbContext.Bills
-                    .Where(b => (string.IsNullOrEmpty(Bill.Vender) || b.Vender.ToUpper().Equals(Bill.Vender.ToUpper()))
-                    && (string.IsNullOrEmpty(Bill.Journal) || b.Journal.ToUpper().Equals(Bill.Journal.ToUpper()))
-                    && (string.IsNullOrEmpty(Bill.RecipientBank) || b.RecipientBank.ToUpper().Equals(Bill.RecipientBank.ToUpper()))
-                    && (string.IsNullOrEmpty(Bill.IncoTerm) || b.IncoTerm.ToUpper().Equals(Bill.IncoTerm.ToUpper()))
-                    && (string.IsNullOrEmpty(Bill.FiscalPosition) || b.FiscalPosition.ToUpper().Equals(Bill.FiscalPosition.ToUpper()))
-                    && (string.IsNullOrEmpty(Bill.Personnel) || b.Personnel.ToUpper().Equals(Bill.Personnel.ToUpper()))
-                    ).ToList();
+                Payments = _dbContext.VPayments.Where(p =>
+                (string.IsNullOrEmpty(Payment.PartnerType) || p.PartnerType.ToUpper().Equals(Payment.PartnerType.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.Vendor) || p.Vendor.ToUpper().Equals(Payment.Vendor.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.GlAccount) || p.GlAccount.ToUpper().Equals(Payment.GlAccount.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.Journal) || p.Journal.ToUpper().Equals(Payment.Journal.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.BankAccount) || p.BankAccount.ToUpper().Equals(Payment.BankAccount.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.Personnel) || p.Personnel.ToUpper().Equals(Payment.Personnel.ToUpper()))
+                ).ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./Editbills", new { id = id });
+            return RedirectToPage("./EditPayment", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
