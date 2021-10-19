@@ -1,0 +1,44 @@
+﻿@page
+@model AccountingSystem.Pages.Customers.ListCustomerInvoiceModel
+@{
+    var count = 0;
+}
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <a class="btn btn-info" asp-page="./EditCustomerInvoice">CREATE</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Invoice Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Next Activity</th>
+                    <th scope="col">Tax Excluded</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var creditNote in Model.invoices)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@creditNote.Ref</td>
+                        <td>@creditNote.Customer</td>
+                        <td>@creditNote.CreatedDate</td>
+                        <td>@creditNote.DueDate</td>
+                        <td>@creditNote.Personnel</td>
+                        <td>@creditNote.Journal</td>
+                        <td>@creditNote.IncoTerm</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

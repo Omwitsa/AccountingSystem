@@ -1,0 +1,260 @@
+﻿@page
+@model AccountingSystem.Pages.Customers.EditCustomerInvoiceModel
+@{
+}
+<form method="post">
+    @*< class="modal-content hold-transition login-page">
+        <div class="modal-header" style="background-color:#467fd0;color:white;text-align:center">
+                <h5 class="modal-title w-100 text-center">Customer Registration Form</h5>
+            </div>*@
+    <div class="container-fluid">
+        <div class="card border-primary mt-3">
+            <div class="card-header border-primary"><strong>INVOICES</strong></div>
+            <div class="card-body">
+                <div class="card-header-pills  text-left" style="margin-left:88px;">Customer Invoice</div>
+                
+                <div class="card-header-pills  text-left" style="margin-left:88px;margin-bottom:20px"><strong style="font-size:x-large;text-align:center">Draft</strong></div>
+                <div class="row"></div>
+                <div class="row"></div>
+                <div class="row">
+
+                    <div class="column">
+
+                        <label for="firstName" style="margin-left:100px;">Customer</label>
+
+                    </div>
+                    <div class="column"></div>
+                    <select style="width:209px;margin-left:140px;height:25px;margin-top:5px;" class="form-control">
+                    </select>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Invoice Date</label>
+                    </div>
+
+                    <div class="column">
+                        <select style="width:209px;margin-left:51px;height:25px;margin-top:5px;" class="form-control">
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+
+                        <label for="firstName" style="margin-left:100px;">Payment Reference</label>
+
+                    </div>
+                    <div class="column"></div>
+                    <select style="width:209px;margin-left:73px;height:25px;margin-top:5px;" class="form-control">
+                    </select>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Due Date</label>
+                    </div>
+                    <div class="column">
+                        <select style="width:209px;margin-left:73px;height:25px;margin-top:5px;" class="form-control">
+                        </select>
+                    </div>
+                    <div class="column">
+                        Or
+                    </div>
+                    <div class="column">
+                        <select style="width:209px;margin-left:2px;height:25px;margin-top:5px;" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+
+
+
+                    </div>
+                    <div class="column"></div>
+
+                    <div class="column">
+                        <label for="firstName" style="margin-left:616px;">Journal</label>
+
+                    </div>
+                    <div class="column">
+                        <select style="width:209px;margin-left:89px;height:25px;margin-top:5px;" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input id="Button1" style="margin-left:100px;" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Invoice Lines" value="Invoice Lines" />
+                    </div>
+                    <div class="column">
+                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Journal Items" value="Journal Items" />
+                    </div>
+                    <div class="column">
+                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Other Info" value="Other Info" />
+                    </div>
+                </div>
+                <div id="myGroup">
+                    <div class="collapse" id="collapseExample" data-parent="#myGroup">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Invoice</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" class="col-form-label-lg" style="margin-left:442px;">Accounting</label>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Customer Reference</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input name="firstName" style="margin-left:52px;" id="firstName" class="required" type="text">
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Incoterm</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:129px;height:25px;margin-top:5px;" class="form-control">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Salesperson</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:110px;height:25px;margin-top:5px;" class="form-control">
+                                    </select>
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Fiscal Position</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:93px;height:25px;margin-top:5px;" class="form-control">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Recipient Bank</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:89px;height:25px;margin-top:5px;" class="form-control">
+                                    </select>
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:102px;">Post Automatically</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input name="firstName" style="margin-left:65px;" id="firstName" class="required" type="checkbox">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:603px;">To Check</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input name="firstName" style="margin-left:133px;" id="firstName" class="required" type="checkbox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample4" data-parent="#myGroup">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="column">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Label</th>
+                                                    <th scope="col">Account</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Taxes</th>
+                                                    <th scope="col">Subtotal</th>
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample2" data-parent="#myGroup">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="column">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Account</th>
+                                                    <th scope="col">Label</th>
+                                                    <th scope="col">Debit</th>
+                                                    <th scope="col">Credit</th>
+                                                    <th scope="col">Tax Grids</th>
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="column">
+                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
+                        </div>
+
+                        <div class="column">
+                            <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
