@@ -28,7 +28,6 @@ namespace AccountingSystem
 		{
 			services.AddDbContext<AccountingDbContext>(options => options.UseSqlServer(Configuration["Data:ConnectionStrings"]));
             services.AddTransient<IAccountingProvider, AccountingProvider>();
-            services.AddTransient<ICustomersProvider, CustomersProvider>();
             services.AddTransient<ISystemProvider, SystemProvider>();
             services.AddRazorPages();
 		}

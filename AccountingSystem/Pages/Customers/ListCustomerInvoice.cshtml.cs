@@ -13,9 +13,9 @@ namespace AccountingSystem.Pages.Customers
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<CInvoice> invoices { get; set; }
+        public List<CInvoice> Invoices { get; set; }
         [BindProperty]
-        public CInvoice cInvoice { get; set; }
+        public CInvoice Invoice { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
@@ -24,13 +24,13 @@ namespace AccountingSystem.Pages.Customers
         {
             _dbContext = dbContext;
             Success = true;
-            cInvoice = new CInvoice();
+            Invoice = new CInvoice();
         }
-        public PageResult OnGet()
+        public IActionResult OnGet()
         {
             try
             {
-                invoices = _dbContext.CInvoices.ToList();
+                Invoices = _dbContext.CInvoices.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -39,6 +39,43 @@ namespace AccountingSystem.Pages.Customers
                 Message = "Sorry, An error occurred";
                 return Page();
             }
+        }
+
+        public IActionResult OnPost()
+        {
+            try
+            {
+                Invoices = _dbContext.CInvoices
+                    .Where(b => (string.IsNullOrEmpty(Invoice.Customer) || b.Customer.ToUpper().Equals(Invoice.Customer.ToUpper()))
+                    && (string.IsNullOrEmpty(Invoice.Journal) || b.Journal.ToUpper().Equals(Invoice.Journal.ToUpper()))
+                    && (string.IsNullOrEmpty(Invoice.RecipientBank) || b.RecipientBank.ToUpper().Equals(Invoice.RecipientBank.ToUpper()))
+                    && (string.IsNullOrEmpty(Invoice.IncoTerm) || b.IncoTerm.ToUpper().Equals(Invoice.IncoTerm.ToUpper()))
+                    && (string.IsNullOrEmpty(Invoice.FiscalPosition) || b.FiscalPosition.ToUpper().Equals(Invoice.FiscalPosition.ToUpper()))
+                    && (string.IsNullOrEmpty(Invoice.Personnel) || b.Personnel.ToUpper().Equals(Invoice.Personnel.ToUpper()))
+                    ).ToList();
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                Success = false;
+                Message = "Sorry, An error occurred";
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostEdit(Guid id)
+        {
+
+            return RedirectToPage("./EditCustomerInvoice", new { id = id });
+        }
+
+        public IActionResult OnPostDelete(Guid id)
+        {
+            return Page();
+        }
+
+        public void OnPostView(Guid id)
+        {
         }
     }
 }

@@ -13,9 +13,9 @@ namespace AccountingSystem.Pages.Customers
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<CreditNote> creditNotes { get; set; }
+        public List<CreditNote> CreditNotes { get; set; }
         [BindProperty]
-        public CreditNote creditNote { get; set; }
+        public CreditNote CreditNote { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
@@ -24,13 +24,13 @@ namespace AccountingSystem.Pages.Customers
         {
             _dbContext = dbContext;
             Success = true;
-            creditNote = new CreditNote();
+            CreditNote = new CreditNote();
         }
-        public PageResult OnGet()
+        public IActionResult OnGet()
         {
             try
             {
-                creditNotes = _dbContext.CreditNotes.ToList();
+                CreditNotes = _dbContext.CreditNotes.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -39,6 +39,41 @@ namespace AccountingSystem.Pages.Customers
                 Message = "Sorry, An error occurred";
                 return Page();
             }
+        }
+
+        public IActionResult OnPost()
+        {
+            try
+            {
+                CreditNotes = _dbContext.CreditNotes.Where(r =>
+                 (string.IsNullOrEmpty(CreditNote.Customer) || r.Customer.ToUpper().Equals(CreditNote.Customer.ToUpper()))
+                 && (string.IsNullOrEmpty(CreditNote.Journal) || r.Journal.ToUpper().Equals(CreditNote.Journal.ToUpper()))
+                 && (string.IsNullOrEmpty(CreditNote.ReceipientBank) || r.ReceipientBank.ToUpper().Equals(CreditNote.ReceipientBank.ToUpper()))
+                 && (string.IsNullOrEmpty(CreditNote.Personnel) || r.Personnel.ToUpper().Equals(CreditNote.Personnel.ToUpper()))
+                    ).ToList();
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                Success = false;
+                Message = "Sorry, An error occurred";
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostEdit(Guid id)
+        {
+
+            return RedirectToPage("./EditCustomerCreditNotes", new { id = id });
+        }
+
+        public IActionResult OnPostDelete(Guid id)
+        {
+            return Page();
+        }
+
+        public void OnPostView(Guid id)
+        {
         }
     }
 }

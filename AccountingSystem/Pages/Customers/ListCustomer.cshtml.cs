@@ -64,7 +64,7 @@ namespace AccountingSystem.Pages.Customers
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditCustomer", new { id = id });
+            return RedirectToPage("./EditCustomer2", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)

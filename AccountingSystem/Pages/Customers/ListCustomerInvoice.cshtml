@@ -24,18 +24,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var creditNote in Model.invoices)
+                @foreach (var invoice in Model.Invoices)
                 {
                     count++;
                     <tr>
                         <th scope="row">@count</th>
-                        <td>@creditNote.Ref</td>
-                        <td>@creditNote.Customer</td>
-                        <td>@creditNote.CreatedDate</td>
-                        <td>@creditNote.DueDate</td>
-                        <td>@creditNote.Personnel</td>
-                        <td>@creditNote.Journal</td>
-                        <td>@creditNote.IncoTerm</td>
+                        <td>@invoice.Ref</td>
+                        <td>@invoice.Customer</td>
+                        <td>@invoice.CreatedDate</td>
+                        <td>@invoice.DueDate</td>
+                        <td>@invoice.Personnel</td>
+                        <td>@invoice.Journal</td>
+                        <td>@invoice.IncoTerm</td>
                     </tr>
                 }
             </tbody>

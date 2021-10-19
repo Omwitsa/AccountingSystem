@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var payments in Model.payments)
+                @foreach (var payments in Model.Payments)
                 {
                     count++;
                 <tr>
@@ -30,7 +30,7 @@
                     <td>@payments.Date</td>
                     <td>@payments.Journal</td>
                     <td>@payments.BankAccount </td>
-                    <td>@payments.Customer </td>
+                    <td>@payments.Vender </td>
                     <td>@payments.Amount</td>
                 </tr>
                 }

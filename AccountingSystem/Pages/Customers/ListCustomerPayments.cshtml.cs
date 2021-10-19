@@ -14,9 +14,9 @@ namespace AccountingSystem.Pages.Customers
     {
         private AccountingDbContext _dbContext;
         [BindProperty]
-        public List<CPayment> payments { get; set; }
+        public List<CPayment> Payments { get; set; }
         [BindProperty]
-        public CPayment payment { get; set; }
+        public CPayment Payment { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
@@ -25,13 +25,13 @@ namespace AccountingSystem.Pages.Customers
         {
             _dbContext = dbContext;
             Success = true;
-            payment = new CPayment();
+            Payment = new CPayment();
         }
-        public PageResult OnGet()
+        public IActionResult OnGet()
         {
             try
             {
-                payments = _dbContext.CPayments.ToList();
+                Payments = _dbContext.CPayments.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -40,6 +40,42 @@ namespace AccountingSystem.Pages.Customers
                 Message = "Sorry, An error occurred";
                 return Page();
             }
+        }
+
+        public IActionResult OnPost()
+        {
+            try
+            {
+                Payments = _dbContext.CPayments.Where(p =>
+                (string.IsNullOrEmpty(Payment.Vender) || p.Vender.ToUpper().Equals(Payment.Vender.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.GlAccount) || p.GlAccount.ToUpper().Equals(Payment.GlAccount.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.Journal) || p.Journal.ToUpper().Equals(Payment.Journal.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.BankAccount) || p.BankAccount.ToUpper().Equals(Payment.BankAccount.ToUpper()))
+                && (string.IsNullOrEmpty(Payment.Personnel) || p.Personnel.ToUpper().Equals(Payment.Personnel.ToUpper()))
+                ).ToList();
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                Success = false;
+                Message = "Sorry, An error occurred";
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostEdit(Guid id)
+        {
+
+            return RedirectToPage("./EditCustomerPayments", new { id = id });
+        }
+
+        public IActionResult OnPostDelete(Guid id)
+        {
+            return Page();
+        }
+
+        public void OnPostView(Guid id)
+        {
         }
     }
 }
