@@ -1,8 +1,10 @@
 using AccountingSystem.IProvider;
 using AccountingSystem.Model;
+using AccountingSystem.Model.System;
 using AccountingSystem.Provider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,10 +29,18 @@ namespace AccountingSystem
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AccountingDbContext>(options => options.UseSqlServer(Configuration["Data:ConnectionStrings"]));
-            services.AddTransient<IAccountingProvider, AccountingProvider>();
-            services.AddTransient<ICustomersProvider, CustomersProvider>();
-            services.AddTransient<ISystemProvider, SystemProvider>();
-            services.AddRazorPages();
+			services.AddTransient<IAccountingProvider, AccountingProvider>();
+			services.AddTransient<ICustomersProvider, CustomersProvider>();
+			services.AddTransient<ISystemProvider, SystemProvider>();
+			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			{
+				options.SignIn.RequireConfirmedAccount = false;
+				//Other options go here
+			})
+			.AddEntityFrameworkStores<AccountingDbContext>();
+			//.AddDefaultTokenProviders();
+
+			services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +59,7 @@ namespace AccountingSystem
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

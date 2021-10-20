@@ -3,11 +3,13 @@ using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Model
 {
-	public class AccountingDbContext : DbContext
+	public class AccountingDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 	{
 		public AccountingDbContext(DbContextOptions<AccountingDbContext> options) : base(options)
 		{
