@@ -21,13 +21,9 @@
                     <label for="" style="color:green"><b>Vendor Bill</b></label>
                 </div>
             </div>
-            <div class="row">
-                <div class="row col-sm-8">
-                    <div class="row">
-                        <input type="text" asp-for="Bill.No" class="form-control" placeholder="Bill No" />
-                    </div><hr>
-                </div>
-            </div><br>
+            <div class="row mt-1">
+                <input type="text" asp-for="Bill.No" class="form-control" placeholder="Bill No" />
+            </div><hr><br>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="row m-0">
@@ -86,8 +82,8 @@
                         <label for="" style="color:green">Bill Date</label>
                     </div><br>
                     @*<div class="row m-0">
-                    <label for="" style="color:green">Accounting Date</label>
-                </div>*@
+                        <label for="" style="color:green">Accounting Date</label>
+                    </div>*@
                     <div class="row m-0">
                         <label for="" style="color:green">Due Date</label>
                     </div><br>
@@ -101,7 +97,7 @@
                     </div><br>
                     @*<div class="row">
 
-                </div>*@
+                    </div>*@
                     <div class="row m-0">
                         <div class="col-sm-5">
                             <input type="date" asp-for="Bill.DueDate" class="form-control" placeholder="" />
@@ -158,13 +154,13 @@
                                 <b>Taxes</b>
                             </div><br>
                             @*<div class="col-sm-2">
-                            <b>Subtotal</b>
-                        </div>*@
+                                <b>Subtotal</b>
+                            </div>*@
                         </div>
                         <div class="row">
                             <div class="col-sm-2">
                                 <select class="form-control" asp-for="BillDetail.Product">
-                                    <option selected></option>
+                                    <option selected>select</option>
                                     @foreach (var product in Model.Products)
                                     {
                                         <option value="@product.Name">@product.Name</option>
@@ -178,7 +174,7 @@
                             </div><br>
                             <div class="col-sm-2">
                                 <select class="form-control" asp-for="BillDetail.GlAccount">
-                                    <option selected></option>
+                                    <option selected>select</option>
                                     @foreach (var account in Model.Accounts)
                                     {
                                         <option value="@account.Code">@account.Code @account.Name</option>
@@ -192,7 +188,7 @@
                             </div><br>
                             <div class="col-sm-2">
                                 <select class="form-control" asp-for="BillDetail.Tax">
-                                    <option selected></option>
+                                    <option selected>select</option>
                                     @foreach (var tax in Model.Taxes)
                                     {
                                         <option value="@tax.Type">@tax.Type @tax.Name</option>
@@ -201,18 +197,15 @@
                                 @*<input type="text" name="Price" class="form-control" style="height:30px;" autocomplete="off" />*@
                             </div><br>
                             @*<div class="col-sm-2">
-                            <input type="text" asp-for="Bill" class="form-control" placeholder="" />
-                        </div>*@
+                                <input type="text" asp-for="Bill" class="form-control" placeholder="" />
+                            </div>*@
                         </div> <hr>
                         <div class="row">
                             <div class="col-sm-2">
                                 <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
                             </div>
                         </div><hr><br>
-                        <div class="row">
-                            @*<input type="text" asp-for="Bill.Quantity" class="form-control" placeholder="" />*@
-                            <textarea class="span6" asp-for="Bill.remarks" cols="100" style="width:800px;" rows="2" placeholder="terms and conditions.." required></textarea>
-                        </div><br>
+
                     </div>
                 </div>
                 <div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
@@ -222,17 +215,17 @@
                                 Account
                             </div><br>
                             @*<div class="col-sm-2">
-                            Label
-                        </div><br>
-                        <div class="col-sm-2">
-                            Debit
-                        </div><br>
-                        <div class="col-sm-2">
-                            Credit
-                        </div><br>
-                        <div class="col-sm-3">
-                            Tax Grids
-                        </div><br>*@
+                                Label
+                            </div><br>
+                            <div class="col-sm-2">
+                                Debit
+                            </div><br>
+                            <div class="col-sm-2">
+                                Credit
+                            </div><br>
+                            <div class="col-sm-3">
+                                Tax Grids
+                            </div><br>*@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
@@ -242,17 +235,17 @@
                             <!--<div class="col-sm-2">-->
                             @*<input type="text" asp-for="BillDetail.GlAccount" class="form-control" placeholder="" />*@
                             <!--<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
-                    </div>
-                    <div class="col-sm-2">
-                        <input type="text" asp-for="Bill.d" class="form-control" placeholder="" />
-                        <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
-                    </div>
-                    <div class="col-sm-2">
-                        <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
-                    </div>-->
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" asp-for="Bill.d" class="form-control" placeholder="" />
+                            <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
+                        </div>-->
                         </div><hr>
                         <div class="row">
                             <div class="col-sm-2">
@@ -272,25 +265,25 @@
                                     </div>
                                 </div><br>
                                 @*<div class="row">
-                                <div class="form-control">
-                                    Fiscal Position
+                                    <div class="form-control">
+                                        Fiscal Position
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-control">
-                                    Post Automatically
+                                <div class="row">
+                                    <div class="form-control">
+                                        Post Automatically
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-control">
-                                    To Check
-                                </div>
-                            </div>*@
+                                <div class="row">
+                                    <div class="form-control">
+                                        To Check
+                                    </div>
+                                </div>*@
                             </div>
                             <div class="col-sm-5">
                                 <div class="row">
                                     <select class="form-control" asp-for="Bill.IncoTerm">
-                                        <option selected></option>
+                                        <option selected>select terms</option>
                                         @foreach (var incoTerm in Model.IncoTerms)
                                         {
                                             <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
@@ -300,36 +293,42 @@
                                 </div><br>
 
                                 <!--<div class="row">
-                        <select class="form-control" asp-for="Bill.IncoTerm">
-                            <option selected></option>
-                            @foreach (var incoTerm in Model.IncoTerms)
-                            {
-                                <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
-                            }
-                        </select>-->
+                            <select class="form-control" asp-for="Bill.IncoTerm">
+                                <option selected></option>
+                                @foreach (var incoTerm in Model.IncoTerms)
+                                {
+                                    <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
+                                }
+                            </select>-->
                                 @*<select class="form-control"></select>*@
                                 <!--</div>-->
                                 @*<div class="row">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="Post">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="ToCheck">
-                                </label>
-                            </div>*@
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="Post">
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="ToCheck">
+                                    </label>
+                                </div>*@
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-                    <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                    @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
-                    <a class="btn btn-secondary" asp-page="./Listbill">BACK</a>
-                </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6 m-2">
+                <textarea class="span6" asp-for="Bill.remarks" cols="100" style="width:800px;" rows="2" placeholder="terms and conditions.." required></textarea>
+            </div>
+        </div><br>
+        <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+            <button type="submit" id="register" class="btn btn-success">SAVE</button>
+            @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+            <a class="btn btn-secondary" asp-page="./Listbill">BACK</a>
+        </div>
+    </div>
     </div>
 </form>
         

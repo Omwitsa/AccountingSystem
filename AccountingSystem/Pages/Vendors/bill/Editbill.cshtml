@@ -1,0 +1,324 @@
+﻿@page
+@model AccountingSystem.Pages.Vendors.EditbillModel
+@{
+}
+<form method="post">
+    <div class="modal-content hold-transition login-page">
+        <div class="modal-header" ;color:white;text-align:center">
+            <h5 class="modal-title w-100 text-center">Vendors Registration Form</h5>
+        </div>
+        <div class="modal-body">
+            @if (!Model.Success)
+            {
+                <div class="alert-danger text-center">
+                    @Model.Message
+                </div>
+            }
+            <div class="row">
+                <div class="form-group mt-1">
+                    <label for="" style="color:green"><b>Vendor Bill</b></label>
+                </div>
+                <div class="row mt-1">
+                    <input type="text" asp-for="Bill.No" class="form-control" placeholder="Bill No" />
+                </div><hr><br>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="row m-0">
+                        <label for="" style="color:green">Vendor</label>
+                    </div><br>
+                    <div class="row m-0">
+                        <label for="" style="color:green">Bill Reference</label>
+                    </div><br>
+                    <div class="row m-0">
+                        <label for="" style="color:green">Payment Reference</label>
+                    </div><br>
+                    <div class="row m-0">
+                        <label for="" style="color:green">Recipient Bank</label>
+                    </div><br>
+                    <div class="row m-0">
+                        <label for="" style="color:green">Auto-Complete</label>
+                    </div><br>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <select class="form-control" asp-for="Bill.Vender">
+                            <option selected>Select Journal</option>
+                            @foreach (var vender in Model.Venders)
+                            {
+                                <option value="@vender.Name">@vender.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                    <div class="row">
+                        <input type="text" asp-for="Bill.Ref" class="form-control" placeholder="Bill Re..." />
+                    </div><br>
+                    <div class="row">
+                        <input type="text" asp-for="Bill.BillDetails" class="form-control" placeholder="Payement Re..." />
+                    </div><br>
+                    <div class="row">
+                        <select class="form-control" asp-for="Bill.RecipientBank">
+                            <option selected>Select Journal</option>
+                            @foreach (var bank in Model.Banks)
+                            {
+                                <option value="@bank.Name">@bank.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                    <div class="row">
+                        <select class="form-control" asp-for="Bill.RecipientBank">
+                            <option selected>Select Journal</option>
+                            @foreach (var bank in Model.Banks)
+                            {
+                                <option value="@bank.Name">@bank.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row m-0">
+                        <label for="" style="color:green">Bill Date</label>
+                    </div><br>
+                    @*<div class="row m-0">
+                        <label for="" style="color:green">Accounting Date</label>
+                    </div>*@
+                    <div class="row m-0">
+                        <label for="" style="color:green">Due Date</label>
+                    </div><br>
+                    <div class="row m-0">
+                        <label for="" style="color:green">Journal</label>
+                    </div><br>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <input type="date" asp-for="Bill.Date" class="form-control" placeholder="" />
+                    </div><br>
+                    @*<div class="row">
+
+                    </div>*@
+                    <div class="row m-0">
+                        <div class="col-sm-5">
+                            <input type="date" asp-for="Bill.DueDate" class="form-control" placeholder="" />
+                        </div>Or
+                        <div class="col-sm-4">
+                            <select class="form-control" asp-for="Bill.IncoTerm">
+                                <option selected>Select Journal</option>
+                                @foreach (var term in Model.IncoTerms)
+                                {
+                                    <option value="@term.Code">@term.Code @term.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <select class="form-control" asp-for="Bill.Journal">
+                            <option selected>Select Journal</option>
+                            @foreach (var journal in Model.Journals)
+                            {
+                                <option value="@journal.Name">@journal.Name</option>
+                            }
+                        </select>
+                    </div><br>
+                </div>
+            </div><br>
+        </div>
+        <nav class="navbar navbar-invers">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <div class="row">
+
+                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
+                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseJournal" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
+                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
+            </div>
+        </nav>
+        <div id="myGroup">
+            <div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <b>Product</b>
+                        </div><br>
+                        <div class="col-sm-2">
+                            <b>Label</b>
+                        </div><br>
+                        <div class="col-sm-2">
+                            <b>Account</b>
+                        </div><br>
+                        <div class="col-sm-2">
+                            <b>Quantity</b>
+                        </div><br>
+                        <div class="col-sm-2">
+                            <b>Taxes</b>
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <select class="form-control" asp-for="BillDetail.Product">
+                                <option selected></option>
+                                @foreach (var product in Model.Products)
+                                {
+                                    <option value="@product.Name">@product.Name</option>
+                                }
+                            </select>
+                            @*<input type="text" name="Product" class="form-control" style="height:30px;" autocomplete="off" />*@
+                        </div><br>
+                        <div class="col-sm-2">
+                            @*<input type="text" asp-for="" class="form-control" placeholder="" />*@
+                            <input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
+                        </div><br>
+                        <div class="col-sm-2">
+                            <select class="form-control" asp-for="BillDetail.GlAccount">
+                                <option selected></option>
+                                @foreach (var account in Model.Accounts)
+                                {
+                                    <option value="@account.Code">@account.Code @account.Name</option>
+                                }
+                            </select>
+                            @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
+                        </div><br>
+                        <div class="col-sm-2">
+                            <input type="text" asp-for="Bill.Quantity" class="form-control" placeholder="" />
+                            @*<input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />*@
+                        </div><br>
+                        <div class="col-sm-2">
+                            <select class="form-control" asp-for="BillDetail.Tax">
+                                <option selected></option>
+                                @foreach (var tax in Model.Taxes)
+                                {
+                                    <option value="@tax.Type">@tax.Type @tax.Name</option>
+                                }
+                            </select>
+                            @*<input type="text" name="Price" class="form-control" style="height:30px;" autocomplete="off" />*@
+                        </div><br>
+                    </div> <hr>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                </div>
+               </div>
+                <div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                Account
+                            </div><br>
+                            @*<div class="col-sm-2">
+                        Label
+                    </div><br>
+                    <div class="col-sm-2">
+                        Debit
+                    </div><br>
+                    <div class="col-sm-2">
+                        Credit
+                    </div><br>
+                    <div class="col-sm-3">
+                        Tax Grids
+                    </div><br>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" asp-for="BillDetail.GlAccount" class="form-control" placeholder="" />
+                                @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <!--<div class="col-sm-2">-->
+                            @*<input type="text" asp-for="BillDetail.GlAccount" class="form-control" placeholder="" />*@
+                            <!--<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" asp-for="Bill.d" class="form-control" placeholder="" />
+                    <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
+                </div>-->
+                        </div><hr>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+                <div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
+                    <div class="card card-body">
+                        <label><b>Accounting</b></label>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <div class="form-control">
+                                        Incoterm
+                                    </div>
+                                </div><br>
+                                @*<div class="row">
+                            <div class="form-control">
+                                Fiscal Position
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-control">
+                                Post Automatically
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-control">
+                                To Check
+                            </div>
+                        </div>*@
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="row">
+                                    <select class="form-control" asp-for="Bill.IncoTerm">
+                                        <option selected></option>
+                                        @foreach (var incoTerm in Model.IncoTerms)
+                                        {
+                                            <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
+                                        }
+                                    </select>
+                                    @*<select class="form-control"></select>*@
+                                </div><br>
+
+
+
+                            <!--<div class="row">
+                    <select class="form-control" asp-for="Bill.IncoTerm">
+                        <option selected></option>
+                        @foreach (var incoTerm in Model.IncoTerms)
+                        {
+                            <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
+                        }
+                    </select>-->
+                            @*<select class="form-control"></select>*@
+                            <!--</div>-->
+                            @*<div class="row">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="Post">
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="ToCheck">
+                            </label>
+                        </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-sm-6 m-2">
+                <textarea class="span6" asp-for="Bill.remarks" cols="100" style="width:800px;" rows="2" placeholder="terms and conditions.." required></textarea>
+            </div>
+        </div>
+            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+                <button type="submit" id="register" class="btn btn-success">SAVE</button>
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+                <a class="btn btn-secondary" asp-page="./Listbill">BACK</a>
+            </div>
+        </div>
+</form>
