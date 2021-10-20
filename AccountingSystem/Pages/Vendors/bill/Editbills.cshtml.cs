@@ -17,11 +17,15 @@ namespace AccountingSystem.Pages.Vendors
 		[BindProperty]
 		public Bill Bill { get; set; }
 		[BindProperty]
+		public BillDetail BillDetail { get; set; }
+		[BindProperty]
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
+		[BindProperty]
+		public List<Tax> Taxes { get; set; }
 		[BindProperty]
 		public List<IncoTerm> IncoTerms { get; set; }
 		[BindProperty]
@@ -39,12 +43,19 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			_dbContext = dbContext;
 			Success = true;
+			BillDetail = new BillDetail();
 		}
 
 		public void OnGet(Guid id)
 		{
 			try
 			{
+				Taxes = _dbContext.Taxes.Where(ta => !(bool)ta.Closed)
+					.Select(ta => new Tax
+					{
+						Type = ta.Type,
+						Name = ta.Name
+					}).ToList();
 				Venders = _dbContext.Venders.Where(v => !(bool)v.Closed)
 					.Select(v => new Vender
 					{

@@ -2,7 +2,6 @@
 @model AccountingSystem.Pages.Vendors.ListbillModel
 @{
     var count = 0;
-    
 }
 <div>
     <div class="row color m-1" style="color:green">Bills</div>
@@ -35,19 +34,16 @@
                 </tr>
             </thead>
             <tbody>
-                @*@foreach (var vender in Model.Venders)
+                @foreach (var bill in Model.Bills)
         {
             count++;
             <tr>
                 <th scope="row">@count</th>
-                <td>@vender.Name</td>
-                <td>@vender.City</td>
-                <td>@vender.Country</td>
-                <td>@vender.Email</td>
-                <td>@vender.PhoneNo</td>
-                <td>@vender.Industry</td>
-                <td>@vender.PhoneNo</td>
-                <td>@vender.Industry</td>
+                <td>@bill.Vender</td>
+                <td>@bill.Date</td>
+                <td>@bill.DueDate</td>
+                <td>@bill.Ref</td>
+                <td>@bill.IncoTerm</td>
         <td class="text-right">
             <div class="dropdown">
                 <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,13 +52,13 @@
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <form asp-page-handler="edit" method="post">
                         <button class="btn btn-default">Edit</button>
-                        <input type="hidden" name="id" value="@account.Id" />
+                        <input type="hidden" name="id" value="@bill.Id" />
                     </form>
                 </div>
             </div>
         </td>
             </tr>
-        }*@
+        }
             </tbody>
         </table>
     </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 
 namespace AccountingSystem.Model.Venders
@@ -6,8 +7,11 @@ namespace AccountingSystem.Model.Venders
 	public class Bill
 	{
 		public Guid Id { get; set; }
+		public string No { get; set; }
 		public string Vender { get; set; }
 		public string Ref { get; set; }
+		public string Quantity { get; set; }
+		public string remarks { get; set; }
 		public DateTime? Date { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
