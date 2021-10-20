@@ -1,18 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.IProvider;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Customers
 {
-    public class ListCustomerModel : PageModel
+	public class ListCustomerModel : PageModel
     {
-        private AccountingDbContext _dbContext;
+        private AccountingSystemContext _dbContext;
         [BindProperty]
         public List<Customer> Customers { get; set; }
         [BindProperty]
@@ -21,7 +19,7 @@ namespace AccountingSystem.Pages.Customers
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListCustomerModel(AccountingDbContext dbContext)
+        public ListCustomerModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;

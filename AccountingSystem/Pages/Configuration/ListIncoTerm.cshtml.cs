@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Configuration
 {
-    public class ListIncoTermModel : PageModel
+	public class ListIncoTermModel : PageModel
     {
-        private AccountingDbContext _dbContext;
+        private AccountingSystemContext _dbContext;
         [BindProperty]
         public List<IncoTerm> IncoTerms { get; set; }
         [BindProperty]
@@ -20,7 +19,7 @@ namespace AccountingSystem.Pages.Configuration
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListIncoTermModel(AccountingDbContext dbContext)
+        public ListIncoTermModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;

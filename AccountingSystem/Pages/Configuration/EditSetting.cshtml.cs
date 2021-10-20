@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Configuration
 {
-    public class EditSettingModel : PageModel
+	public class EditSettingModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Setting Setting { get; set; }
 		[BindProperty]
@@ -27,7 +26,7 @@ namespace AccountingSystem.Pages.Configuration
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditSettingModel(AccountingDbContext dbContext)
+		public EditSettingModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;

@@ -1,5 +1,5 @@
-﻿using AccountingSystem.IProvider;
-using AccountingSystem.Model;
+﻿using AccountingSystem.Data;
+using AccountingSystem.IProvider;
 using AccountingSystem.Model.System;
 using AccountingSystem.ViewModel;
 
@@ -7,8 +7,8 @@ namespace AccountingSystem.Provider
 {
 	public class SystemProvider : ISystemProvider
 	{
-		private AccountingDbContext _dbContext;
-		public SystemProvider(AccountingDbContext dbContext)
+		private AccountingSystemContext _dbContext;
+		public SystemProvider(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 		}

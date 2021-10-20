@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AccountingSystem.IProvider;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,7 +10,7 @@ namespace AccountingSystem.Pages.Configuration
 {
 	public class ListAccountChartsModel : PageModel
     {
-        private AccountingDbContext _dbContext;
+        private AccountingSystemContext _dbContext;
         [BindProperty]
         public List<AccountChart> AccountCharts { get; set; }
         [BindProperty]
@@ -20,7 +19,7 @@ namespace AccountingSystem.Pages.Configuration
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListAccountChartsModel(AccountingDbContext dbContext)
+        public ListAccountChartsModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;

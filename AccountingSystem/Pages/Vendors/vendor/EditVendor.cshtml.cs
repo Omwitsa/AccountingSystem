@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +11,7 @@ namespace AccountingSystem.Pages.Vendors
 {
 	public class EditVendorModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Vender Vender { get; set; }
 		[BindProperty]
@@ -30,7 +30,7 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditVendorModel(AccountingDbContext dbContext)
+		public EditVendorModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;

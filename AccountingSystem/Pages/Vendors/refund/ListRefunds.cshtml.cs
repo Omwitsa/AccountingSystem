@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class ListRefundsModel : PageModel
+	public class ListRefundsModel : PageModel
     {
-         private AccountingDbContext _dbContext;
+         private AccountingSystemContext _dbContext;
         [BindProperty]
         public List<Refund> Refunds { get; set; }
         [BindProperty]
@@ -20,7 +19,7 @@ namespace AccountingSystem.Pages.Vendors
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListRefundsModel(AccountingDbContext dbContext)
+        public ListRefundsModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;

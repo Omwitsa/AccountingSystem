@@ -3,17 +3,25 @@ using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccountingSystem.Model
+namespace AccountingSystem.Data
 {
-	public class AccountingDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
-	{
-		public AccountingDbContext(DbContextOptions<AccountingDbContext> options) : base(options)
-		{
-		}
+	public class AccountingSystemContext : IdentityDbContext<ApplicationUser>
+    {
+        public AccountingSystemContext(DbContextOptions<AccountingSystemContext> options)
+            : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
+        }
 
 		public virtual DbSet<Setting> Settings { get; set; }
 		public virtual DbSet<IPaymentTerm> IPaymentTerms { get; set; }

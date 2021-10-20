@@ -1,9 +1,8 @@
-﻿using AccountingSystem.IProvider;
-using AccountingSystem.Model;
+﻿using AccountingSystem.Data;
+using AccountingSystem.IProvider;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
-using AccountingSystem.Model.Venders;
 using AccountingSystem.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,8 +12,8 @@ namespace AccountingSystem.Provider
 {
 	public class CustomersProvider : ICustomersProvider
 	{
-		private AccountingDbContext _dbContext;
-		public CustomersProvider(AccountingDbContext dbContext)
+		private AccountingSystemContext _dbContext;
+		public CustomersProvider(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 		}

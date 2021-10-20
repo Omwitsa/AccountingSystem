@@ -1,3 +1,4 @@
+using AccountingSystem.Data;
 using AccountingSystem.IProvider;
 using AccountingSystem.Model;
 using AccountingSystem.Model.System;
@@ -28,17 +29,17 @@ namespace AccountingSystem
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<AccountingDbContext>(options => options.UseSqlServer(Configuration["Data:ConnectionStrings"]));
+			services.AddDbContext<AccountingSystemContext>(options => options.UseSqlServer(Configuration["Data:ConnectionStrings"]));
 			services.AddTransient<IAccountingProvider, AccountingProvider>();
 			services.AddTransient<ICustomersProvider, CustomersProvider>();
 			services.AddTransient<ISystemProvider, SystemProvider>();
-			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-			{
-				options.SignIn.RequireConfirmedAccount = false;
-				//Other options go here
-			})
-			.AddEntityFrameworkStores<AccountingDbContext>();
-			//.AddDefaultTokenProviders();
+			//services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			//{
+			//	options.SignIn.RequireConfirmedAccount = false;
+			//	//Other options go here
+			//})
+			//.AddEntityFrameworkStores<AccountingDbContext>();
+			////.AddDefaultTokenProviders();
 
 			services.AddRazorPages();
 		}
@@ -59,7 +60,7 @@ namespace AccountingSystem
 
 			app.UseRouting();
 
-			app.UseAuthentication();
+			//app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
@@ -75,7 +76,7 @@ namespace AccountingSystem
 			//GlobalDiagnosticsContext.Set("connectionString", Configuration.GetConnectionString("Campus360Entities"));
 			using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
 			{
-				var context = serviceScope.ServiceProvider.GetRequiredService<AccountingDbContext>();
+				var context = serviceScope.ServiceProvider.GetRequiredService<AccountingSystemContext>();
 				context.Database.Migrate();
 				//context.EnsureDatabaseSeeded();
 				// context.Database.EnsureCreated();

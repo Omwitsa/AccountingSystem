@@ -1,17 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Configuration
 {
-    public class EditJournalModel : PageModel
+	public class EditJournalModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Journal Journal { get; set; }
 		[BindProperty]
@@ -23,7 +21,7 @@ namespace AccountingSystem.Pages.Configuration
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditJournalModel(AccountingDbContext dbContext)
+		public EditJournalModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;

@@ -1,19 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.IProvider;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
-using AccountingSystem.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Configuration
 {
-    public class EditAccountChartModel : PageModel
+	public class EditAccountChartModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
         public AccountChart Account { get; set; }
 		[BindProperty]
@@ -25,7 +21,7 @@ namespace AccountingSystem.Pages.Configuration
 		[BindProperty]
         public string[] AccountTypes { get; set; }
 		
-		public EditAccountChartModel(AccountingDbContext dbContext)
+		public EditAccountChartModel(AccountingSystemContext dbContext)
         {
 			_dbContext = dbContext;
 			Success = true;

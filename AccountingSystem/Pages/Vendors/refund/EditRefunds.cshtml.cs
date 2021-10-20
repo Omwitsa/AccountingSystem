@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
@@ -11,9 +10,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class EditRefundsModel : PageModel
+	public class EditRefundsModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Refund Refund { get; set; }
 		[BindProperty]
@@ -39,7 +38,7 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditRefundsModel(AccountingDbContext dbContext)
+		public EditRefundsModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AccountingSystem.Model;
+using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,7 +10,7 @@ namespace AccountingSystem.Pages.Configuration
 {
 	public class EditDefferredRevenueModelModel : PageModel
     {
-		private AccountingDbContext _dbContext;
+		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public DefferredRevenueModel DefferredRevenueModel { get; set; }
 		[BindProperty]
@@ -24,7 +24,7 @@ namespace AccountingSystem.Pages.Configuration
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditDefferredRevenueModelModel(AccountingDbContext dbContext)
+		public EditDefferredRevenueModelModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
