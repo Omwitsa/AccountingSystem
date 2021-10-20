@@ -1,0 +1,163 @@
+﻿@*@page
+	@model AccountingSystem.Pages.System.DashboardModel
+	@{
+	}*@
+
+<header>
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #875A7B;color:white;">
+		<div class="container">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">Accounting</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+				@*<partial name="_LoginPartial" />*@
+				<ul class="navbar-nav flex-grow-1" style="color:white;">
+					<li class="nav-item ml-auto">
+						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy" style="color:white;">Dashboard</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color:white;">
+							Customers
+						</a>
+						<div class="dropdown" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu flex-grow-1">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Invoices">Invoices</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Credit Notes">Credit Notes</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Payments">Payments</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Follow-Up Reports</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Products</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Customers/ListCustomer">Customers</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color:white;">
+							Vendors
+						</a>
+						<div class="dropdown" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu flex-grow-1">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Vendors/bill/Listbill">Bills</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Vendors/refund/ListRefunds">Refunds</a>
+									@*<a class="nav-link text-dark" asp-area="./Vendors/refund/EditRefunds">Refunds</a>*@
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Vendors/product/ListProduct">Payments</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Vendors/vendor/ListVendors">Vendors</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color:white;">
+							Accounting
+						</a>
+						<div class="dropdown" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu flex-grow-1">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color:white;">
+							Reporting
+						</a>
+						<div class="dropdown" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu flex-grow-1">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color:white;">
+							Configurations
+						</a>
+						<div class="dropdown" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu flex-grow-1">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListAccountCharts">Charts of Accounts</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListAssetModel">Asset Models</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListBanks">Banks</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListDefferredExpenseModel">Defferred Expense Models</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListDefferredRevenueModels">Defferred Revenue Models</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListIncoTerm">Inco Terms</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListPaymentFollowupLevel">Payment Followup Levels</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListIPaymentTerm">Payment Term</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListJournals">Journals</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListProductCategory">Product Categories</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListReconciliationModel">Product Categories</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/ListTaxes">Taxes</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-page="./Configuration/EditSetting">Settings</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class="container-fluid">
+	<main role="main" class="pb-3">
+		@RenderBody()
+	</main>
+</div>
+
+<footer class="border-top footer text-muted">
+	<div class="container" style="color:black;text-align:center;">
+		&copy; Amtech Technologies Ltd@2021
+	</div>
+</footer>

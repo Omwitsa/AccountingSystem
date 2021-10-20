@@ -38,7 +38,7 @@ namespace AccountingSystem
 			//	options.SignIn.RequireConfirmedAccount = false;
 			//	//Other options go here
 			//})
-			//.AddEntityFrameworkStores<AccountingDbContext>();
+			//.AddEntityFrameworkStores<AccountingSystemContext>();
 			////.AddDefaultTokenProviders();
 
 			services.AddRazorPages();
