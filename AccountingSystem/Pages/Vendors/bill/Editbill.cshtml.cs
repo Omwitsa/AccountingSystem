@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-    public class EditbillsModel : PageModel
+    public class EditbillModel : PageModel
     {
 		private AccountingDbContext _dbContext;
-		[BindProperty]
+        private Guid id;
+
+        [BindProperty]
 		public Bill Bill { get; set; }
 		[BindProperty]
 		public BillDetail BillDetail { get; set; }
@@ -22,6 +24,7 @@ namespace AccountingSystem.Pages.Vendors
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
+
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
@@ -39,14 +42,13 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditbillsModel(AccountingDbContext dbContext)
+		public EditbillModel(AccountingDbContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
 			BillDetail = new BillDetail();
 		}
-
-		public void OnGet(Guid id)
+		public void OnGet()
 		{
 			try
 			{
@@ -97,7 +99,6 @@ namespace AccountingSystem.Pages.Vendors
 				Message = "Sorry, An error occurred";
 			}
 		}
-
 		public IActionResult OnPost()
 		{
 			try
@@ -119,14 +120,14 @@ namespace AccountingSystem.Pages.Vendors
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
-
+				
 				if (!Bill.BillDetails.Any())
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
-					
+
 				foreach (var detail in Bill.BillDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -135,7 +136,7 @@ namespace AccountingSystem.Pages.Vendors
 						Message = "Sorry, There is a product missing in the invoice";
 						return Page();
 					}
-						
+
 					detail.Price = detail?.Price ?? 0;
 					if (detail.Price < 1)
 					{
@@ -143,7 +144,7 @@ namespace AccountingSystem.Pages.Vendors
 						Message = $"Kindly enter the price for product {detail.Product}";
 						return Page();
 					}
-						
+
 					detail.Quantity = detail?.Quantity ?? 0;
 					if (detail.Quantity < 1)
 					{
@@ -151,7 +152,7 @@ namespace AccountingSystem.Pages.Vendors
 						Message = $"Kindly enter the quantity for product {detail.Product}";
 						return Page();
 					}
-						
+
 				}
 				var reference = "Add Bill";
 				var savedBill = _dbContext.Bills.FirstOrDefault(b => b.Id == Id);

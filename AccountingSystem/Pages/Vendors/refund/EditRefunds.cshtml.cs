@@ -77,7 +77,8 @@ namespace AccountingSystem.Pages.Vendors
 				Products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
 					.Select(p => new VProduct
 					{
-						Name = p.Name
+						Name = p.Name,
+						Cost = p.Cost
 					}).ToList();
 				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
 					.Select(a => new AccountChart
@@ -127,41 +128,41 @@ namespace AccountingSystem.Pages.Vendors
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
+                Refund.RefundDetails = Refund.RefundDetails == null ? new List<RefundDetail>() : Refund.RefundDetails;
+                if (!Refund.RefundDetails.Any())
+                {
+                    Success = false;
+                    Message = "Sorry, Kindly provide refund items";
+                    return Page();
+                }
 
-				if (!Refund.RefundDetails.Any())
-				{
-					Success = false;
-					Message = "Sorry, Kindly provide refund items";
-					return Page();
-				}
-					
-				foreach (var detail in Refund.RefundDetails)
-				{
-					if (string.IsNullOrEmpty(detail.Product))
-					{
-						Success = false;
-						Message = "Sorry, There is a product missing in the invoice";
-						return Page();
-					}
-						
-					detail.Price = detail?.Price ?? 0;
-					if (detail.Price < 1)
-					{
-						Success = false;
-						Message = $"Kindly enter the price for product {detail.Product}";
-						return Page();
-					}
-						
-					detail.Quantity = detail?.Quantity ?? 0;
-					if (detail.Quantity < 1)
-					{
-						Success = false;
-						Message = $"Kindly enter the quantity for product {detail.Product}";
-						return Page();
-					}
-						
-				}
-				var reference = "Add Refund";
+                foreach (var detail in Refund.RefundDetails)
+                {
+                    if (string.IsNullOrEmpty(detail.Product))
+                    {
+                        Success = false;
+                        Message = "Sorry, There is a product missing in the invoice";
+                        return Page();
+                    }
+
+                    detail.Price = detail?.Price ?? 0;
+                    if (detail.Price < 1)
+                    {
+                        Success = false;
+                        Message = $"Kindly enter the price for product {detail.Product}";
+                        return Page();
+                    }
+
+                    detail.Quantity = detail?.Quantity ?? 0;
+                    if (detail.Quantity < 1)
+                    {
+                        Success = false;
+                        Message = $"Kindly enter the quantity for product {detail.Product}";
+                        return Page();
+                    }
+
+                }
+                var reference = "Add Refund";
 				var savedRefund = _dbContext.Refunds.FirstOrDefault(b => b.Id == Id);
 				if (savedRefund != null)
 				{
