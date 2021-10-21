@@ -31,7 +31,6 @@ namespace AccountingSystem
             services.AddTransient<ISystemProvider, SystemProvider>();
             services.AddRazorPages();
 		}
-
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
@@ -54,10 +53,8 @@ namespace AccountingSystem
 			{
 				endpoints.MapRazorPages();
 			});
-
 			UpdateDatabase(app);
 		}
-
 		private static void UpdateDatabase(IApplicationBuilder app)
 		{
 			//GlobalDiagnosticsContext.Set("connectionString", Configuration.GetConnectionString("Campus360Entities"));
@@ -65,8 +62,6 @@ namespace AccountingSystem
 			{
 				var context = serviceScope.ServiceProvider.GetRequiredService<AccountingDbContext>();
 				context.Database.Migrate();
-				//context.EnsureDatabaseSeeded();
-				// context.Database.EnsureCreated();
 			}
 		}
 	}
