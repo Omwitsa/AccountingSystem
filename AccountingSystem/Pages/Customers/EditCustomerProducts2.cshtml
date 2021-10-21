@@ -11,12 +11,19 @@
         <div class="card border-primary mt-3">
             <div class="card-header border-primary"><strong>Products</strong></div>
             <div class="card-body">
+                @if (!Model.Success)
+                {
+                    <div class="alert-danger text-center">
+                        @Model.Message
+                    </div>
+                }
                 <div class="row">
                     <div class="card-header-pills  text-left" style="margin-left:100px;">Product Name</div>
                 </div>
                 <div class="row">
+
                     <div class="column">
-                        <input style="width:554px;margin-left:100px" type="text" placeholder="Product Name" id="name">
+                        <input style="width:554px;margin-left:100px" asp-for="Product.Name" type="text" placeholder="Product Name" id="name">
                     </div>
 
                 </div>
@@ -55,7 +62,12 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:117px;height:25px;margin-top:5px;" class="form-control">
+                                    <select style="width:209px;margin-left:117px;height:35px;margin-top:5px;" asp-for="Product.Type" class="form-control">
+                                        <option selected>Select type</option>
+                                        @foreach (var type in Model.ProductTypes)
+                                        {
+                                            <option value="@type"> @type</option>
+                                        }
                                     </select>
 
                                 </div>
@@ -66,7 +78,7 @@
                                 </div>
                                 <div class="column">
 
-                                    <input type="text" style="width:209px;margin-left:80px;height:25px" value="$1.00" class="form-control">
+                                    <input type="text" style="width:209px;margin-left:80px;height:25px" asp-for="Product.Price" value="$1.00" class="form-control">
 
                                 </div>
                             </div>
@@ -78,7 +90,13 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:87px;height:25px;margin-top:5px;" class="form-control">
+                                    <select style="width:209px;margin-left:87px;height:35px;margin-top:5px;" asp-for="Product.Category" class="form-control">
+
+                                        <option selected>Select Category</option>
+                                        @foreach (var category in Model.ProductCategories)
+                                        {
+                                            <option value="@category.Name"> @category.Name</option>
+                                        }
                                     </select>
 
                                 </div>
@@ -89,7 +107,11 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:45px;height:25px;margin-top:5px;" value="Tax 15.00%" class="form-control">
+                                    <select style="width:209px;margin-left:45px;height:35px;margin-top:5px;" asp-for="Product.CustomerTax" value="Tax 15.00%" class="form-control">
+                                        @foreach (var tax in Model.Taxes)
+                                        {
+                                            <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                        }
                                     </select>
 
                                 </div>
@@ -102,14 +124,14 @@
                                 </div>
                                 <div class="column">
 
-                                    <input type="text" style="width:209px;margin-left:83px;height:25px" class="form-control">
+                                    <input type="text" style="width:209px;margin-left:83px;height:25px" asp-for="Product.Ref" class="form-control">
 
                                 </div>
                                 <div class="column">
                                     <label for="firstName" style="margin-left:100px;">Cost</label>
                                 </div>
                                 <div class="column">
-                                    <input type="text" style="width:209px;margin-left:122px;height:25px;" value="0.00" class="form-control">
+                                    <input type="text" style="width:209px;margin-left:122px;height:25px;" asp-for="Product.Cost" value="0.00" class="form-control">
                                 </div>
                                 <div class="column">
 
@@ -126,7 +148,7 @@
                                 </div>
                                 <div class="column">
 
-                                    <input type="text" style="width:209px;margin-left:153px;height:25px" class="form-control">
+                                    <input type="text" style="width:209px;margin-left:153px;height:25px" asp-for="Product.BarCode" class="form-control">
 
 
                                 </div>
@@ -142,7 +164,7 @@
                             </div>
                             <div class="row">
                                 <div class="column">
-                                    <textarea class="span6" cols="200" style="width:1000px;margin-left:100px;" rows="2" placeholder="internal note...." required></textarea>
+                                    <textarea class="span6" cols="200" style="width:1000px;margin-left:100px;" asp-for="Product.Notes" rows="2" placeholder="internal note...." ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +186,11 @@
                             </div>
                             <div class="column">
 
-                                <select style="width:209px;margin-left:80px;height:25px;" value="Tax 15.00%" class="form-control">
+                                <select style="width:209px;margin-left:80px;height:35px;" asp-for="Product.VenderTax" value="Tax 15.00%" class="form-control">
+                                    @foreach (var tax in Model.Taxes)
+                                    {
+                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                    }
                                 </select>
 
                             </div>
@@ -193,7 +219,12 @@
                             </div>
                             <div class="column">
 
-                                <select style="width:209px;margin-left:58px;height:25px;" class="form-control">
+                                <select style="width:209px;margin-left:58px;height:35px;" asp-for="Product.ARGlAccount" class="form-control">
+                                    @foreach (var account in Model.Accounts)
+                                    {
+                                        <option value="@account.Code">@account.Code @account.Name</option>
+                                    }
+
                                 </select>
 
                             </div>
@@ -204,7 +235,11 @@
                             </div>
                             <div class="column">
 
-                                <select style="width:209px;margin-left:80px;height:25px;" class="form-control">
+                                <select style="width:209px;margin-left:80px;height:35px;" asp-for="Product.APGlAccount" class="form-control">
+                                    @foreach (var account in Model.Accounts)
+                                    {
+                                        <option value="@account.Code">@account.Code @account.Name</option>
+                                    }
                                 </select>
 
                             </div>
@@ -217,7 +252,11 @@
                             </div>
                             <div class="column">
 
-                                <select style="width:209px;margin-left:80px;height:25px;" value="Tax 15.00%" class="form-control">
+                                <select style="width:209px;margin-left:80px;height:35px;" value="Tax 15.00%" asp-for="Product.VenderTax" class="form-control">
+                                    @foreach (var tax in Model.Taxes)
+                                    {
+                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                    }
                                 </select>
 
                             </div>
@@ -226,19 +265,23 @@
                 </div>
 
 
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="column">
-                                <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
-                            </div>
-
-                            <div class="column">
-                                <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
-                            </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="column">
+                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
                         </div>
-                    </div>
 
+                        <div class="column">
+                            <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                        <div class="column">
+                            <a class="btn btn-secondary" asp-page="./ListCustomerProducts">BACK</a>
+                        </div>
+
+                    </div>
                 </div>
+
+            </div>
             </div>
     </div>
 </form>

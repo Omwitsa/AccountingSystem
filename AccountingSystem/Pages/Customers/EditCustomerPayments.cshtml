@@ -14,7 +14,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="column">
-
+                        @if (!Model.Success)
+                        {
+                            <div class="alert-danger text-center">
+                                @Model.Message
+                            </div>
+                        }
                         <label for="firstName" style="margin-left:100px;">Payment Type</label>
 
                     </div>
@@ -26,7 +31,13 @@
 
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:150px;height:25px;margin-top:5px;" class="form-control">
+
+                        <select class="form-control" style="width:209px;margin-left:150px;height:35px;margin-top:5px;" asp-for="Payment.Journal">
+                            <option selected>Select Journals</option>
+                            @foreach (var journal in Model.Journals)
+                            {
+                                <option value="@journal.Name">@journal.Name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -38,7 +49,13 @@
                         <label for="firstName" style="margin-left:250px;">Recipient Bank Account</label>
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:37px;height:25px;margin-top:5px;" class="form-control">
+                        
+                        <select class="form-control" style="width:209px;margin-left:37px;height:35px;margin-top:5px;" asp-for="Payment.BankAccount">
+                            <option selected>Select Banks</option>
+                            @foreach (var bank in Model.Banks)
+                            {
+                                <option value="@bank.Name">@bank.Name</option>
+                            }
                         </select>
                     </div>
                     <div class="column"></div>
@@ -49,21 +66,28 @@
                         <label for="firstName" style="margin-left:100px;">Partner Type</label>
 
                     </div>
-                    <div class="column"></div>
-                    <select style="width:209px;margin-left:110px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <div class="column">
+                        <select style="width:209px;margin-left:110px;height:35px;margin-top:5px;" asp-for="Payment.PartnerType" class="form-control">
+                            <option selected>Customer</option>
+                            <option selected>Vender</option>
+                        </select>
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
                 <div class="row">
                     <div class="column">
-
                         <label for="firstName" style="margin-left:100px;">Customer/Vendor</label>
-
                     </div>
-                    <div class="column"></div>
-                    <select style="width:209px;margin-left:73px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <div class="column">
+                        <select style="width:209px;margin-left:73px;height:35px;margin-top:5px;" asp-for="Payment.Vender" class="form-control">
+                           
+                            @foreach (var vender in Model.Venders)
+                            {
+                                <option value="@vender.Name">@vender.Name</option>
+                            }
+                        </select>
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -73,9 +97,14 @@
                         <label for="firstName" style="margin-left:100px;">Destination Account</label>
 
                     </div>
-                    <div class="column"></div>
-                    <select style="width:209px;margin-left:55px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <div class="column">
+                        <select style="width:209px;margin-left:55px;height:35px;margin-top:5px;" asp-for="Payment.GlAccount" class="form-control">
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option value="@account.Code">@account.Code @account.Name</option>
+                            }
+                        </select>
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -85,8 +114,9 @@
                         <label for="firstName" style="margin-left:100px;">Is Internal Transfer</label>
 
                     </div>
-                    <div class="column"></div>
-                    <input name="firstName" style="margin-left:70px;" id="firstName" class="required" type="checkbox">
+                    <div class="column">
+                        <input name="firstName" style="margin-left:70px;" id="firstName"  class="required" type="checkbox">
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -97,7 +127,7 @@
 
                     </div>
                     <div class="column"></div>
-                    <input name="firstName" style="margin-left:140px;" id="firstName" value="$0.00" class="required" type="text">
+                    <input name="firstName" style="margin-left:140px;" id="firstName" asp-for="Payment.Amount" value="$0.00" class="required" type="text">
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -107,9 +137,9 @@
                         <label for="firstName" style="margin-left:100px;">Date</label>
 
                     </div>
-                    <div class="column"></div>
-                    <select style="width:209px;margin-left:163px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <div class="column">
+                        <input type="date" asp-for="Payment.Date" style="width:209px;margin-left:163px;height:25px;margin-top:5px;" class="form-control">
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -119,8 +149,9 @@
                         <label for="firstName" style="margin-left:100px;">Memo</label>
 
                     </div>
-                    <div class="column"></div>
-                    <input name="firstName" style="margin-left:150px;" id="firstName" class="required" type="text">
+                    <div class="column">
+                        <input name="firstName" asp-for="Payment.Memo" style="margin-left:150px;" id="firstName" class="required" type="text">
+                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -129,11 +160,14 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="column">
-                            <button id="btnsavep" style="margin-left:850px;"  class="btn btn-primary">SAVE</button>
+                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
                         </div>
 
                         <div class="column">
                             <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                        <div class="column">
+                            <a class="btn btn-secondary" asp-page="./ListCustomerPayments">BACK</a>
                         </div>
                     </div>
                 </div>

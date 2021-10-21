@@ -14,7 +14,14 @@
                 <div class="card-header-pills  text-left" style="margin-left:88px;">Customer Invoice</div>
                 
                 <div class="card-header-pills  text-left" style="margin-left:88px;margin-bottom:20px"><strong style="font-size:x-large;text-align:center">Draft</strong></div>
-                <div class="row"></div>
+                <div class="row">
+                    @if (!Model.Success)
+                    {
+                        <div class="alert-danger text-center">
+                            @Model.Message
+                        </div>
+                    }
+                </div>
                 <div class="row"></div>
                 <div class="row">
 
@@ -23,16 +30,22 @@
                         <label for="firstName" style="margin-left:100px;">Customer</label>
 
                     </div>
-                    <div class="column"></div>
-                    <select style="width:209px;margin-left:140px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <div class="column">
+                        <select class="form-control" style="width:209px;margin-left:140px;height:35px;margin-top:5px;" asp-for="Invoice.Customer">
+                            <option selected>Select Customer</option>
+                            @foreach (var customer in Model.Customers)
+                            {
+                                <option value="@customer.Name">@customer.Name</option>
+                            }
+                        </select>
+                    </div>
                     <div class="column">
                         <label for="firstName" style="margin-left:100px;">Invoice Date</label>
                     </div>
 
                     <div class="column">
-                        <select style="width:209px;margin-left:51px;height:25px;margin-top:5px;" class="form-control">
-                        </select>
+                        <input style="width:209px;margin-left:51px;height:35px;margin-top:5px;" type="date" asp-for="Invoice.Date" class="form-control">
+                      
                     </div>
 
                 </div>
@@ -43,21 +56,21 @@
 
                     </div>
                     <div class="column"></div>
-                    <select style="width:209px;margin-left:73px;height:25px;margin-top:5px;" class="form-control">
-                    </select>
+                    <input style="width:209px;margin-left:73px;height:30px;margin-top:5px;" asp-for="Invoice.PaymentReference" class="form-control">
+                    
                     <div class="column">
                         <label for="firstName" style="margin-left:100px;">Due Date</label>
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:73px;height:25px;margin-top:5px;" class="form-control">
-                        </select>
+                        <input style="width:209px;margin-left:73px;height:35px;margin-top:5px;" placeholder="Due Date" type="date" asp-for="Invoice.DueDate" class="form-control">
+                        
                     </div>
                     <div class="column">
                         Or
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:2px;height:25px;margin-top:5px;" class="form-control">
-                        </select>
+                        <input style="width:209px;margin-left:2px;height:25px;margin-top:5px;" asp-for="Invoice.IncoTerm"  type="text" placeholder="Terms" class="form-control">
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -73,7 +86,12 @@
 
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:89px;height:25px;margin-top:5px;" class="form-control">
+                        <select class="form-control" style="width:209px;margin-left:89px;height:35px;margin-top:5px;" asp-for="Invoice.Journal">
+                            <option selected>Select Journals</option>
+                            @foreach (var journal in Model.Journals)
+                            {
+                                <option value="@journal.Name">@journal.Name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -112,7 +130,7 @@
                                 </div>
                                 <div class="column">
 
-                                    <input name="firstName" style="margin-left:52px;" id="firstName" class="required" type="text">
+                                    <input name="firstName" style="margin-left:52px;" asp-for="Invoice.Ref" id="firstName" class="required" type="text">
 
                                 </div>
                                 <div class="column">
@@ -122,8 +140,8 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:129px;height:25px;margin-top:5px;" class="form-control">
-                                    </select>
+                                    <input type="text" style="width:209px;margin-left:129px;height:25px;margin-top:5px;" asp-for="Invoice.IncoTerm" class="form-control">
+                                  
 
                                 </div>
                             </div>
@@ -135,8 +153,8 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:110px;height:25px;margin-top:5px;" class="form-control">
-                                    </select>
+                                    <input type="text" asp-for="Invoice.SalesPerson" style="width:209px;margin-left:110px;height:25px;margin-top:5px;" class="form-control">
+                                    
 
                                 </div>
                                 <div class="column">
@@ -146,8 +164,8 @@
                                 </div>
                                 <div class="column">
 
-                                    <select style="width:209px;margin-left:93px;height:25px;margin-top:5px;" class="form-control">
-                                    </select>
+                                    <input type="text" style="width:209px;margin-left:93px;height:25px;margin-top:5px;" asp-for="Invoice.FiscalPosition" class="form-control">
+                                   
 
                                 </div>
                             </div>
@@ -158,8 +176,12 @@
 
                                 </div>
                                 <div class="column">
-
-                                    <select style="width:209px;margin-left:89px;height:25px;margin-top:5px;" class="form-control">
+                                    <select class="form-control" style="width:209px;margin-left:89px;height:35px;margin-top:5px;" asp-for="Invoice.RecipientBank">
+                                        <option selected>Select Banks</option>
+                                        @foreach (var bank in Model.Banks)
+                                        {
+                                            <option value="@bank.Name">@bank.Name</option>
+                                        }
                                     </select>
 
                                 </div>
@@ -250,6 +272,9 @@
 
                         <div class="column">
                             <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                        <div class="column">
+                            <a class="btn btn-secondary" asp-page="./ListCustomerInvoice">BACK</a>
                         </div>
                     </div>
                 </div>

@@ -4,14 +4,16 @@ using AccountingSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AccountingSystem.Migrations
 {
     [DbContext(typeof(AccountingDbContext))]
-    partial class AccountingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211021095252_Customer-Reference")]
+    partial class CustomerReference
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -923,9 +925,6 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PaymentReference")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
@@ -1040,9 +1039,6 @@ namespace AccountingSystem.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PartnerType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
@@ -1308,9 +1304,6 @@ namespace AccountingSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Zip")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("industry")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
