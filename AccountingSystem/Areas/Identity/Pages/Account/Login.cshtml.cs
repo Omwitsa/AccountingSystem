@@ -84,7 +84,7 @@ namespace AccountingSystem.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return Redirect("/Configuration/ListAccountCharts");
+                    return Redirect("/App/Dashboard");
                 }
                 if (result.RequiresTwoFactor)
                 {
