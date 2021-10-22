@@ -6,6 +6,7 @@ namespace AccountingSystem.Model.Venders
 	public class Refund
 	{
 		public Guid Id { get; set; }
+		public string BillRef { get; set; }
 		public string Vendor { get; set; }
 		public string Ref { get; set; }
 		public DateTime? BillDate { get; set; }

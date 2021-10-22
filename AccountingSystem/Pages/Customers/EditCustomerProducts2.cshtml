@@ -1,0 +1,287 @@
+﻿@page
+@model AccountingSystem.Pages.Customers.EditCustomerProducts2Model
+@{
+}
+<form method="post">
+    @*< class="modal-content hold-transition login-page">
+        <div class="modal-header" style="background-color:#467fd0;color:white;text-align:center">
+                <h5 class="modal-title w-100 text-center">Customer Registration Form</h5>
+            </div>*@
+    <div class="container-fluid">
+        <div class="card border-primary mt-3">
+            <div class="card-header border-primary"><strong>Products</strong></div>
+            <div class="card-body">
+                @if (!Model.Success)
+                {
+                    <div class="alert-danger text-center">
+                        @Model.Message
+                    </div>
+                }
+                <div class="row">
+                    <div class="card-header-pills  text-left" style="margin-left:100px;">Product Name</div>
+                </div>
+                <div class="row">
+
+                    <div class="column">
+                        <input style="width:554px;margin-left:100px" asp-for="Product.Name" type="text" placeholder="Product Name" id="name">
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input style="margin-left:100px" type="checkbox" checked="checked" id="sold"><strong>Can be sold</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input style="margin-left:100px" type="checkbox" checked="checked" id="purchased"><strong>Can be purchased</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input id="Button1" style="margin-left:100px;" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="General Information" value="General Information" />
+                    </div>
+                    <div class="column">
+                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Purchase" value="Purchase" />
+                    </div>
+                    <div class="column">
+                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Accounting" value="Accounting" />
+                    </div>
+                </div>
+
+                <div id="myGroup">
+
+                    <div class="collapse" id="collapseExample" data-parent="#myGroup">
+                        <div class="card card-body">
+
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Product Type</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:117px;height:35px;margin-top:5px;" asp-for="Product.Type" class="form-control">
+                                        <option selected>Select type</option>
+                                        @foreach (var type in Model.ProductTypes)
+                                        {
+                                            <option value="@type"> @type</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Sales Price</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input type="text" style="width:209px;margin-left:80px;height:25px" asp-for="Product.Price" value="$1.00" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Product Category</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:87px;height:35px;margin-top:5px;" asp-for="Product.Category" class="form-control">
+
+                                        <option selected>Select Category</option>
+                                        @foreach (var category in Model.ProductCategories)
+                                        {
+                                            <option value="@category.Name"> @category.Name</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Customer Taxes</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <select style="width:209px;margin-left:45px;height:35px;margin-top:5px;" asp-for="Product.CustomerTax" value="Tax 15.00%" class="form-control">
+                                        @foreach (var tax in Model.Taxes)
+                                        {
+                                            <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Internal Reference</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input type="text" style="width:209px;margin-left:83px;height:25px" asp-for="Product.Ref" class="form-control">
+
+                                </div>
+                                <div class="column">
+                                    <label for="firstName" style="margin-left:100px;">Cost</label>
+                                </div>
+                                <div class="column">
+                                    <input type="text" style="width:209px;margin-left:122px;height:25px;" asp-for="Product.Cost" value="0.00" class="form-control">
+                                </div>
+                                <div class="column">
+
+                                    @* <input name="firstName" style="margin-left:65px;" id="firstName" class="required" type="checkbox">*@
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">Barcode</label>
+
+                                </div>
+                                <div class="column">
+
+                                    <input type="text" style="width:209px;margin-left:153px;height:25px" asp-for="Product.BarCode" class="form-control">
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="column">
+
+                                    <label for="firstName" style="margin-left:100px;">internal notes</label>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <textarea class="span6" cols="200" style="width:1000px;margin-left:100px;" asp-for="Product.Notes" rows="2" placeholder="internal note...." ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample2" data-parent="#myGroup">
+
+                        <div class="row">
+                            <div class="column">
+
+                                <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Vendor Bills</label>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+
+                                <label for="firstName" style="margin-left:100px;">Vendor Taxes</label>
+
+                            </div>
+                            <div class="column">
+
+                                <select style="width:209px;margin-left:80px;height:35px;" asp-for="Product.VenderTax" value="Tax 15.00%" class="form-control">
+                                    @foreach (var tax in Model.Taxes)
+                                    {
+                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample3" data-parent="#myGroup">
+
+                        <div class="row">
+                            <div class="column">
+
+                                <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Receivables</label>
+
+                            </div>
+                            <div class="column">
+
+                                <label for="firstName" class="col-form-label-lg" style="margin-left:370px;">Payables</label>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+
+                                <label for="firstName" style="margin-left:100px;">Income Account</label>
+
+                            </div>
+                            <div class="column">
+
+                                <select style="width:209px;margin-left:58px;height:35px;" asp-for="Product.ARGlAccount" class="form-control">
+                                    @foreach (var account in Model.Accounts)
+                                    {
+                                        <option value="@account.Code">@account.Code @account.Name</option>
+                                    }
+
+                                </select>
+
+                            </div>
+                            <div class="column">
+
+                                <label for="firstName" style="margin-left:90px;">Expenses Account</label>
+
+                            </div>
+                            <div class="column">
+
+                                <select style="width:209px;margin-left:80px;height:35px;" asp-for="Product.APGlAccount" class="form-control">
+                                    @foreach (var account in Model.Accounts)
+                                    {
+                                        <option value="@account.Code">@account.Code @account.Name</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+
+                                <label for="firstName" style="margin-left:100px;">Vendor Taxes</label>
+
+                            </div>
+                            <div class="column">
+
+                                <select style="width:209px;margin-left:80px;height:35px;" value="Tax 15.00%" asp-for="Product.VenderTax" class="form-control">
+                                    @foreach (var tax in Model.Taxes)
+                                    {
+                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="column">
+                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
+                        </div>
+
+                        <div class="column">
+                            <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                        <div class="column">
+                            <a class="btn btn-secondary" asp-page="./ListCustomerProducts">BACK</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            </div>
+    </div>
+</form>

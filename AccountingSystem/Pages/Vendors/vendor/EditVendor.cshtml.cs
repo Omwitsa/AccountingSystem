@@ -14,6 +14,7 @@ namespace AccountingSystem.Pages.Vendors
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Vender Vender { get; set; }
+
 		[BindProperty]
 		public List<AccountChart> ARccounts { get; set; }
 		

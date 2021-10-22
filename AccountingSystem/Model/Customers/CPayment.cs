@@ -5,11 +5,9 @@ namespace AccountingSystem.Model.Customers
 	public class CPayment
 	{
 		public Guid Id { get; set; }
-		public bool? IsPayable { get; set; }
-		public bool? IsReceivable { get; set; }
-		public string PartnerType { get; set; }
-		public string Customer { get; set; }
+		public string Vender { get; set; }
 		public string GlAccount { get; set; }
+		public string PartnerType { get; set; }
 		public bool? IsInternalTransfer { get; set; }
 		public decimal? Amount { get; set; }
 		public DateTime? Date { get; set; }

@@ -3,32 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
-using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Customers
 {
-	public class EditbillsModel : PageModel
+	public class EditCustomerInvoiceModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
-		public Bill Bill { get; set; }
+		public CInvoice Invoice { get; set; }
 		[BindProperty]
-		public BillDetail BillDetail { get; set; }
-		[BindProperty]
-		public List<Vender> Venders { get; set; }
+		public List<Customer> Customers { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
-		public List<Tax> Taxes { get; set; }
-		[BindProperty]
 		public List<IncoTerm> IncoTerms { get; set; }
 		[BindProperty]
-		public List<VProduct> Products { get; set; }
+		public List<CProduct> Products { get; set; }
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
 		[BindProperty]
@@ -38,25 +34,18 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditbillsModel(AccountingSystemContext dbContext)
+		public EditCustomerInvoiceModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
-			BillDetail = new BillDetail();
 		}
 
 		public void OnGet(Guid id)
 		{
 			try
 			{
-				Taxes = _dbContext.Taxes.Where(ta => !(bool)ta.Closed)
-					.Select(ta => new Tax
-					{
-						Type = ta.Type,
-						Name = ta.Name
-					}).ToList();
-				Venders = _dbContext.Venders.Where(v => !(bool)v.Closed)
-					.Select(v => new Vender
+				Customers = _dbContext.Customers.Where(v => !(bool)v.Closed)
+					.Select(v => new Customer
 					{
 						Name = v.Name
 					}).ToList();
@@ -75,8 +64,8 @@ namespace AccountingSystem.Pages.Vendors
 					{
 						Name = t.Name
 					}).ToList();
-				Products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
-					.Select(p => new VProduct
+				Products = _dbContext.CProducts.Where(p => !(bool)p.Closed)
+					.Select(p => new CProduct
 					{
 						Name = p.Name
 					}).ToList();
@@ -86,9 +75,9 @@ namespace AccountingSystem.Pages.Vendors
 						Name = c.Name,
 						Code = c.Code
 					}).ToList();
-				Bill = _dbContext.Bills.FirstOrDefault(b => b.Id == id);
-				if (Bill != null)
-					Id = Bill.Id;
+				Invoice = _dbContext.CInvoices.FirstOrDefault(b => b.Id == id);
+				if (Invoice != null)
+					Id = Invoice.Id;
 			}
 			catch (Exception)
 			{
@@ -101,35 +90,35 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
-				Bill.CreatedDate = DateTime.UtcNow.AddHours(3);
-				Bill.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				Bill.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Bill.Vender))
-				{
+				Invoice.CreatedDate = DateTime.UtcNow.AddHours(3);
+				Invoice.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				Invoice.Date = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(Invoice.Customer))
+                {
 					Success = false;
-					Message = "Sorry, Kindly provide vendor";
+					Message = "Sorry, Kindly provide customer";
 					return Page();
 				}
 
 
-				if (string.IsNullOrEmpty(Bill.Journal))
-				{
+				if (string.IsNullOrEmpty(Invoice.Journal))
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 
-				if (!Bill.BillDetails.Any())
-				{
+				if (!Invoice.CInvoiceDetails.Any())
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
 					
-				foreach (var detail in Bill.BillDetails)
+				foreach (var detail in Invoice.CInvoiceDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
-					{
+                    {
 						Success = false;
 						Message = "Sorry, There is a product missing in the invoice";
 						return Page();
@@ -137,7 +126,7 @@ namespace AccountingSystem.Pages.Vendors
 						
 					detail.Price = detail?.Price ?? 0;
 					if (detail.Price < 1)
-					{
+                    {
 						Success = false;
 						Message = $"Kindly enter the price for product {detail.Product}";
 						return Page();
@@ -145,43 +134,43 @@ namespace AccountingSystem.Pages.Vendors
 						
 					detail.Quantity = detail?.Quantity ?? 0;
 					if (detail.Quantity < 1)
-					{
+                    {
 						Success = false;
 						Message = $"Kindly enter the quantity for product {detail.Product}";
 						return Page();
 					}
 						
 				}
-				var reference = "Add Bill";
-				var savedBill = _dbContext.Bills.FirstOrDefault(b => b.Id == Id);
-				if (savedBill != null)
+				var reference = "Add Invoice";
+				var savedInvoice = _dbContext.CInvoices.FirstOrDefault(b => b.Id == Id);
+				if (savedInvoice != null)
 				{
-					reference = "Edit Bill";
-					Bill.CreatedDate = savedBill.CreatedDate;
-					if (savedBill != null)
+					reference = "Edit invoice";
+					Invoice.CreatedDate = savedInvoice.CreatedDate;
+					if (savedInvoice != null)
 					{
-						var details = _dbContext.BillDetails.Where(b => b.BillId == savedBill.Id);
+						var details = _dbContext.CInvoiceDetails.Where(b => b.CInvoiceId == savedInvoice.Id);
 						if (details.Any())
-							_dbContext.BillDetails.RemoveRange(details);
-						var journals = _dbContext.BillJournals.Where(b => b.BillId == savedBill.Id);
+							_dbContext.CInvoiceDetails.RemoveRange(details);
+						var journals = _dbContext.CInvoiceJournal.Where(b => b.CInvoiceId == savedInvoice.Id);
 						if (journals.Any())
-							_dbContext.BillJournals.RemoveRange(journals);
-						_dbContext.Bills.Remove(savedBill);
+							_dbContext.CInvoiceJournal.RemoveRange(journals);
+						_dbContext.CInvoices.Remove(savedInvoice);
 					}
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = Bill.Personnel,
+					UserName = Invoice.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
-					ModuleId = "Venders"
+					ModuleId = "Customer"
 				});
 
-				_dbContext.Bills.Add(Bill);
+				_dbContext.CInvoices.Add(Invoice);
 				_dbContext.SaveChanges();
 				Success = true;
-				Message = "Bill saved successfully";
-				return RedirectToPage("./Listbill");
+				Message = "Invoice saved successfully";
+				return Page();
 			}
 			catch (Exception ex)
 			{

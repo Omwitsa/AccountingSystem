@@ -2,36 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
-using AccountingSystem.Model.Venders;
+using AccountingSystem.Model.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Customers
 {
-	public class ListPaymentModel : PageModel
+	public class ListCustomerPaymentsModel : PageModel
     {
         private AccountingSystemContext _dbContext;
         [BindProperty]
-        public List<Vender> Venders { get; set; }
+        public List<CPayment> Payments { get; set; }
         [BindProperty]
-        public List<VPayment> Payments { get; set; }
-        [BindProperty]
-        public VPayment Payment { get; set; }
+        public CPayment Payment { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListPaymentModel(AccountingSystemContext dbContext)
+        public ListCustomerPaymentsModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Payment = new VPayment();
+            Payment = new CPayment();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Payments = _dbContext.VPayments.ToList();
+                Payments = _dbContext.CPayments.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -46,8 +44,8 @@ namespace AccountingSystem.Pages.Vendors
         {
             try
             {
-                Payments = _dbContext.VPayments.Where(p =>
-               (string.IsNullOrEmpty(Payment.Customer) || p.Customer.ToUpper().Equals(Payment.Customer.ToUpper()))
+                Payments = _dbContext.CPayments.Where(p =>
+                (string.IsNullOrEmpty(Payment.Vender) || p.Vender.ToUpper().Equals(Payment.Vender.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.GlAccount) || p.GlAccount.ToUpper().Equals(Payment.GlAccount.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.Journal) || p.Journal.ToUpper().Equals(Payment.Journal.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.BankAccount) || p.BankAccount.ToUpper().Equals(Payment.BankAccount.ToUpper()))
@@ -66,7 +64,7 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditPayment", new { id = id });
+            return RedirectToPage("./EditCustomerPayments", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)

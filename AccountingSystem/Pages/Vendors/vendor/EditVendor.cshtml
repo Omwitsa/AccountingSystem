@@ -163,7 +163,7 @@
                 <div class="container-fluid">
                     <ul class="nav navbar-nav">
                        <div class="row">
-                       <li class="btn btn-primary" data-toggle="collapse" data-target="#collapsecontact" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Contact & Addresses" value="Contact & Addresses">Contact & Addresses</li>
+                       @*<li class="btn btn-primary" data-toggle="collapse" data-target="#collapsecontact" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Contact & Addresses" value="Contact & Addresses">Contact & Addresses</li>*@
 
 
 
@@ -178,16 +178,16 @@
                 </ul>
                 </div>
             </nav>
-            <div class="row">
-                <div class="collapse" id="collapsecontact">
+        <div id="myGroup">
+            <!--<div class="row">
+                <div class="collapse" id="collapsecontact" data-parent="#myGroup">
                     <div class="card card-body">
-                        <a class="btn btn-danger" asp-page="./createcontact">ADD</a>
-                           @*<button class="btn btn-info" type="button" asp-page="./Vendors/createcontact">ADD</button>*@
-                    </div>
+                        <a class="btn btn-secondary" asp-page="./createcontact">ADD</a>-->
+                        @*<button class="btn btn-info" type="button" asp-page="./Vendors/createcontact">ADD</button>*@
+                    <!--</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="collapse col-sm-12" id="collapseSales">
+            </div>-->
+            <div class="collapse col-sm-12" id="collapseSales" data-parent="#myGroup">
                     <div class="card card-body">
                         <div class="row">
                                 <div class="col-sm-6">
@@ -278,9 +278,8 @@
                             </div>
                         </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="collapse col-sm-12" id="collapseAccounting">
+        
+                <div class="collapse col-sm-12" id="collapseAccounting" data-parent="#myGroup">
                     <div class="card card-body">
                         <div class="row">
                             <div class="col-sm-6">
@@ -357,19 +356,17 @@
                         
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="collapse col-sm-12" id="collapseInternal">
+                <div class="collapse col-sm-12" id="collapseInternal" data-parent="#myGroup">
                     <div class="form-group">
                         <h1>
-                            <textarea class="span6 form-control" asp-for="Vender.Notes" placeholder="Internal note...." style="height:30px;" autocomplete="off"required></textarea>
+                            <textarea class="span6 form-control" asp-for="Vender.Notes" placeholder="Internal note...." style="height:30px;" autocomplete="off"></textarea>
                             @*<textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="Internal note...." required></textarea>*@
                             @*<input type="text" name="internalnote" class="form-control" id="Tags" placeholder="Internal note...." style="height:30px;" autocomplete="off" />*@
                         </h1>
                         <b class="hr"></b>
                     </div>
                 </div>
-                </div>
+            </div>
             <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
                 <button type="submit" id="register" class="btn btn-success">SAVE</button>
                 @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@

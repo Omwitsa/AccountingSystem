@@ -9,13 +9,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Customers
 {
-	public class EditCustomerModel : PageModel
+
+    public class EditCustomer2Model : PageModel
     {
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Customer Customer { get; set; }
 		[BindProperty]
-		public List<AccountChart> Accounts { get; set; }
+		public List<AccountChart> RAccounts { get; set; }
+		[BindProperty]
+		public List<AccountChart> PAccounts { get; set; }
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
 		[BindProperty]
@@ -25,7 +28,7 @@ namespace AccountingSystem.Pages.Customers
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditCustomerModel(AccountingSystemContext dbContext)
+		public EditCustomer2Model(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
@@ -35,7 +38,13 @@ namespace AccountingSystem.Pages.Customers
 		{
 			try
 			{
-				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+				RAccounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed && a.Type.ToLower().Equals("assets"))
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				PAccounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed && a.Type.ToLower().Equals("liabilities"))
 					.Select(a => new AccountChart
 					{
 						Name = a.Name,
@@ -81,7 +90,7 @@ namespace AccountingSystem.Pages.Customers
 					Message = "Sorry, Kindly provide account receivable";
 					return Page();
 				}
-					
+
 				Customer.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Customer.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Customer.Closed = Customer?.Closed ?? false;
@@ -117,7 +126,7 @@ namespace AccountingSystem.Pages.Customers
 						Message = "Sorry, Customer already exist";
 						return Page();
 					}
-						
+
 					_dbContext.Customers.Add(Customer);
 				}
 				_dbContext.SaveChanges();

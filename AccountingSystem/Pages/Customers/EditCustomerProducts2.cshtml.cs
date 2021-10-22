@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
-using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Customers
 {
-	public class EditProductModel : PageModel
+	public class EditCustomerProducts2Model : PageModel
     {
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
-		public VProduct Product { get; set; }
+		public CProduct Product { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
@@ -30,7 +30,7 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditProductModel(AccountingSystemContext dbContext)
+		public EditCustomerProducts2Model(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
@@ -57,7 +57,7 @@ namespace AccountingSystem.Pages.Vendors
 						Name = a.Name,
 						Code = a.Code
 					}).ToList();
-				Product = _dbContext.VProducts.FirstOrDefault(v => v.Id == id);
+				Product = _dbContext.CProducts.FirstOrDefault(v => v.Id == id);
 				if (Product != null)
 					Id = Product.Id;
 			}
@@ -73,35 +73,35 @@ namespace AccountingSystem.Pages.Vendors
 			try
 			{
 				if (string.IsNullOrEmpty(Product.Name))
-				{
+                {
 					Success = false;
 					Message = "Kindly provide the product";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Product.Type))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide product type";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Product.Category))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide product category";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Product.APGlAccount))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide Account payable";
 					return Page();
 				}
-					
+
 				if (string.IsNullOrEmpty(Product.ARGlAccount))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide Account receivable";
 					return Page();
@@ -111,7 +111,7 @@ namespace AccountingSystem.Pages.Vendors
 				Product.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Product.Closed = Product?.Closed ?? false;
 				var reference = "Add Product";
-				var savedProduct = _dbContext.VProducts.FirstOrDefault(p => p.Id == Id);
+				var savedProduct = _dbContext.CProducts.FirstOrDefault(p => p.Id == Id);
 				if (savedProduct != null)
 				{
 					reference = "Edit Product";
@@ -133,19 +133,19 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				else
 				{
-					_dbContext.VProducts.Add(Product);
+					_dbContext.CProducts.Add(Product);
 				}
 				_dbContext.Audits.Add(new Audit
 				{
 					UserName = Product.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
-					ModuleId = "Venders"
+					ModuleId = "Customer"
 				});
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Product saved successfully";
-				return RedirectToPage("./ListProduct");
+				return Page();
 			}
 			catch (Exception ex)
 			{

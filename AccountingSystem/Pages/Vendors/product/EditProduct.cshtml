@@ -1,48 +1,34 @@
 ﻿@page
 @model AccountingSystem.Pages.Vendors.EditProductModel
 @{
-    <style type="text/css">
-        .h-divider {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            height: 1px;
-            width: 100%;
-            border-top: 1px solid gray;
-        }
-    </style>
+   
 
 }
 
 <form method="post" class="m-5">
     <div class="modal-content hold-transition login-page">
-
-        <div class="modal-body m-3">
+         <div class="modal-body m-3">
             <div class="row">
                 <div class="form-group mt-1">
                     <label for="" style="color:green"><b>Product Name</b></label>
                 </div>
             </div>
             <div class="row col-sm-8">
-                <div class="card card-body">
                     <div class="row">
-                        <input type="text" name="State" class="form-control" id="Name" placeholder="Product Name" style="height:30px;" autocomplete="off" />
-                    </div>
-                    <div class="row">
-                        <div class="h-divider"></div>
-                    </div>
-                </div>
+                        <input type="text" asp-for="Product.Name" class="form-control" placeholder="Product Name" />
+                    </div><hr>
             </div>
-            <div class="row">
+            @*<div class="row">
                 <label class="checkbox-inline">
-                    <input type="checkbox">
+                    <input type="checkbox" asp-for="Product.">
                     <b>Can be Sold</b>
                 </label>
-            </div>
-            <div class="row">
+            </div>*@
+            @*<div class="row">
                 <label class="checkbox-inline">
                     <input type="checkbox"><b>Can be Purchased</b>
                 </label>
-            </div>
+            </div>*@
             <!-- Nav tabs -->
 
             <nav class="navbar navbar-invers">
@@ -50,179 +36,218 @@
                     <ul class="nav navbar-nav">
                         <div class="row">
                         <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseExample" type="button">General Information</li>
-                        <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseSales" aria-expanded="false" aria-controls="collapseExample" type="button">Sales</li>
+                        @*<li class="btn btn-primary" data-toggle="collapse" data-target="#collapseSales" aria-expanded="false" aria-controls="collapseExample" type="button">Sales</li>*@
                         <li class="btn btn-primary" data-toggle="collapse" data-target="#collapsePurchase" aria-expanded="false" aria-controls="collapseExample" type="button">Purchase</li>
                         <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseAccounting" aria-expanded="false" aria-controls="collapseExample" type="button">Accounting</li>
                 </div>
                 </ul>
         </div>
         </nav>
-        <div class=collapse col-sm-12" id="collapseGeneral">
-            <div class="card card-body">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="row">
-                                    <label for="" style="color:green">Product Type</label>
-                                </div>
-                                <div class="row">
-                                    <label for="" style="color:green">Product Category</label>
-                                </div>
-                                <div class="row">
-                                    <label for="" style="color:green">Product Reference</label>
-                                </div>
-                                <div class="row">
-                                    <label for="" style="color:green">Barcode</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="row">
-                                    <select class="form-control"></select>
-                                </div>
-                                <div class="row">
-                                    <select class="form-control"></select>
-                                </div>
-                                <div class="row">
-                                    <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
-                                </div>
-                                <div class="row">
-                                    <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="row">
-                                    <label for="" style="color:green">Sales Price</label>
-                                </div>
-                                <div class="row">
-                                    <label for="" style="color:green">Customer Taxes</label>
-                                </div>
-                                <div class="row">
-                                    <label for="" style="color:green">Cost</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="row">
-                                    <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
-                                </div>
-                                <div class="row">
-                                    <select class="form-control"></select>
-                                </div>
-                                <div class="row">
-                                    <input type="text" name="Street" class="form-control" id="Street" placeholder="Street..." style="height:30px;" autocomplete="off" />
-                                </div>
+        <div id="myGroup">
+            <div class=collapse col-sm-12" id="collapseGeneral" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <label for="" style="color:green">Product Type</label>
+                            </div><br>
+                            <div class="row">
+                                <label for="" style="color:green">Product Category</label>
+                            </div><br>
+                            <div class="row">
+                                <label for="" style="color:green">Product Reference</label>
+                            </div><br>
+                            <div class="row">
+                                <label for="" style="color:green">Barcode</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="" style="color:blue">
-                                    <b>Internal Notes</b>
-                                </label>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <select class="form-control" asp-for="Product.Type">
+                                    <option selected>Select type</option>
+                                    @foreach (var type in Model.ProductTypes)
+                                    {
+                                        <option value="@type"> @type</option>
+                                    }
+                                </select>
+                            </div><br>
+                            <div class="row">
+                                <select class="form-control" asp-for="Product.Category">
+                                    <option selected>Select Category</option>
+                                    @foreach (var category in Model.ProductCategories)
+                                    {
+                                        <option value="@category.Name"> @category.Name</option>
+                                    }
+                                </select>
+                            </div><br>
+                            <div class="row">
+                                <input type="text" asp-for="Product.Ref" class="form-control" placeholder="" />
+                            </div><br>
+                            <div class="row">
+                                <input type="text" asp-for="Product.BarCode" class="form-control" placeholder="" />
+                            </div><br>
+                        </div>
+                        <div class="col-sm-2 m-1">
+                            <div class="row">
+                                <label for="" style="color:green">Sales Price</label>
+                            </div><br>
+                            <div class="row">
+                                <label for="" style="color:green">Customer Taxes</label>
+                            </div><br>
+                            <div class="row">
+                                <label for="" style="color:green">Cost</label>
+                            </div><br>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <input type="text" asp-for="Product.Price" class="form-control" placeholder="" />
+                            </div><br>
+                            <div class="row">
+                                <select class="form-control" asp-for="Product.VenderTax">
+                                    <option selected>Select tax</option>
+                                    @foreach (var tax in Model.Taxes)
+                                    {
+                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                    }
+                                </select>
+                            </div><br>
+                            <div class="row">
+                                <input type="text" asp-for="Product.Cost" class="form-control" placeholder="" />
+                            </div><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" style="color:blue">
+                                <b>Internal Notes</b>
+                            </label>
 
-                                <div class="row">
-                                    <textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="add notes.." required></textarea>
-                                </div>
+                            <div class="row">
+                                <textarea class="span6" asp-for="Product.Notes" cols="100" style="width:800px;" rows="2" placeholder="add notes.." ></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=collapse col-sm-12" id="collapseSales">
-                    <div class="card card-body">
-                        <label for="" style="color:blue"><b>Invoicing</b></label>
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        Invoicing Policy
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <div class="row">
-                                            <div class="form-control">
-                                                <input id="Gender" name="Gender" value="Company" type="radio">
-                                                Ordering quantities
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-control">
-                                                <input id="Gender" name="Gender" value="Company" type="radio">
-                                                Delivered quantities
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="" style="color:blue">
-                                    <b>Sales Description</b>
-                                </label>
-
-                                <div class="row">
-                                    <textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="add notes.." required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=collapse col-sm-12" id="collapsePurchase">
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="" style="color:blue"><b>Vendor Bills</b></label>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="">Vendor Taxes</label>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <select class="form-control"></select>
-                                        @*<input type="text" name="Income" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=collapse col-sm-12" id="collapseAccounting">
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="" style="color:blue"><b>Receivables</b></label>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="">Income Account</label>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <select class="form-control"></select>
-                                        @*<input type="text" name="Income" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="" style="color:blue"><b>Payables</b></label>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="">Expense Account</label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <select class="form-control"></select>
-                                        @*<input type="text" name="Expense" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-                    <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                    @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
-                    <a class="btn btn-danger" asp-page="./ListProduct">DISCARD</a>
-                </div>
-
             </div>
+            @*<div class=collapse col-sm-12" id="collapseSales" data-parent="#myGroup">
+                <div class="card card-body">
+                    <label for="" style="color:blue"><b>Invoicing</b></label>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    Invoicing Policy
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="row">
+                                        <div class="form-control">
+                                            <input asp-for="Product" value="Company" type="radio">
+                                            Ordering quantities
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-control">
+                                            <input id="Gender" name="Gender" value="Company" type="radio">
+                                            Delivered quantities
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" style="color:blue">
+                                <b>Sales Description</b>
+                            </label>
+
+                            <div class="row">
+                                <textarea class="span6" name="internalnote" cols="100" style="width:800px;" rows="2" placeholder="add notes.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class=collapse col-sm-12" id="collapsePurchase" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" style="color:blue"><b>Vendor Bills</b></label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="">Vendor Taxes</label>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <select class="form-control" asp-for="Product.VenderTax">
+                                        <option selected>Select tax Acc</option>
+                                        @foreach (var tax in Model.Taxes)
+                                        {
+                                            <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                        }
+                                    </select>
+                                    @*<input type="text" name="Income" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=collapse col-sm-12" id="collapseAccounting" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" style="color:blue"><b>Receivables</b></label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="">Income Account</label>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <select class="form-control" asp-for="Product.APGlAccount">
+                                        <option selected>Select Income Acc</option>
+                                        @foreach (var account in Model.Accounts)
+                                        {
+                                            <option value="@account.Code">@account.Code @account.Name</option>
+                                        }
+                                    </select>
+                                    @*<input type="text" name="Income" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="" style="color:blue"><b>Payables</b></label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="">Expense Account</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-control" asp-for="Product.ARGlAccount">
+                                        <option selected>Select expense acc</option>
+                                        @foreach (var account in Model.Accounts)
+                                        {
+                                    <option value="@account.Code">@account.Code @account.Name</option>
+                                        }
+                                    </select>
+                                    @*<select class="form-control"></select>*@
+                                    @*<input type="text" name="Expense" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+                <button type="submit" id="register" class="btn btn-success">SAVE</button>
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+                <a class="btn btn-secondary" asp-page="./ListProduct">BACK</a>
+            </div>
+
+        </div>
 </form>
 
 

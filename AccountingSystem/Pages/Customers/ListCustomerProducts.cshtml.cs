@@ -8,28 +8,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Customers
 {
-	public class ListCustomerModel : PageModel
+	public class ListCustomerProductsModel : PageModel
     {
         private AccountingSystemContext _dbContext;
         [BindProperty]
-        public List<Customer> Customers { get; set; }
+        public List<CProduct> Products { get; set; }
         [BindProperty]
-        public Customer Customer { get; set; }
+        public CProduct Product { get; set; }
         [BindProperty]
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListCustomerModel(AccountingSystemContext dbContext)
+        public ListCustomerProductsModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
-            Customer = new Customer();
+            Product = new CProduct();
         }
         public IActionResult OnGet()
         {
             try
             {
-                Customers = _dbContext.Customers.ToList();
+                Products = _dbContext.CProducts.ToList();
                 return Page();
             }
             catch (Exception ex)
@@ -44,10 +44,11 @@ namespace AccountingSystem.Pages.Customers
         {
             try
             {
-                Customers = _dbContext.Customers.Where(v =>
-                (string.IsNullOrEmpty(Customer.Name) || v.Name.ToUpper().Equals(Customer.Name.ToUpper()))
-                && (string.IsNullOrEmpty(Customer.Country) || v.Country.ToUpper().Equals(Customer.Country.ToUpper()))
-                && (string.IsNullOrEmpty(Customer.Bank) || v.Bank.ToUpper().Equals(Customer.Bank.ToUpper()))
+                Products = _dbContext.CProducts.Where(p =>
+                (string.IsNullOrEmpty(Product.Name) || p.Name.ToUpper().Equals(Product.Name.ToUpper()))
+                && (string.IsNullOrEmpty(Product.Type) || p.Type.ToUpper().Equals(Product.Type.ToUpper()))
+                && (string.IsNullOrEmpty(Product.Category) || p.Category.ToUpper().Equals(Product.Category.ToUpper()))
+                && (string.IsNullOrEmpty(Product.Personnel) || p.Personnel.ToUpper().Equals(Product.Personnel.ToUpper()))
                 ).ToList();
                 return Page();
             }
@@ -62,33 +63,33 @@ namespace AccountingSystem.Pages.Customers
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./EditCustomer2", new { id = id });
+            return RedirectToPage("./EditCustomerProducts2", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)
         {
             try
             {
-                var customer = _dbContext.Customers.FirstOrDefault(v => v.Id == id);
-                if (customer == null)
-				{
+                var product = _dbContext.CProducts.FirstOrDefault(p => p.Id == id);
+                if (product == null)
+                {
                     Success = false;
-                    Message = "Sorry, Customer not found";
-                    return Page();
-                }
-                    
-                customer.Name = customer?.Name ?? "";
-                if (_dbContext.CInvoices.Any(b => b.Customer.ToUpper().Equals(customer.Name.ToUpper())))
-				{
-                    Success = false;
-                    Message = "Sorry, Customer already invoiced. Can't be deleted";
+                    Message = "Sorry, Product not found";
                     return Page();
                 }
                    
-                _dbContext.Customers.Remove(customer);
+                product.Name = product?.Name ?? "";
+                if (_dbContext.CInvoiceDetails.Any(b => b.Product.ToUpper().Equals(product.Name.ToUpper())))
+                {
+                    Success = false;
+                    Message = "Sorry, the product has already been invoiced. It can't be deleted";
+                    return Page();
+                }
+                   
+                _dbContext.CProducts.Remove(product);
                 _dbContext.SaveChanges();
                 Success = true;
-                Message = "Customer deleted successfully";
+                Message = "Product deleted successfully";
                 return Page();
             }
             catch (Exception ex)

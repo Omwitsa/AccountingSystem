@@ -1,0 +1,521 @@
+﻿@page
+@model AccountingSystem.Pages.Customers.EditCustomer2Model
+@{
+}
+<form method="post">
+    @*< class="modal-content hold-transition login-page">
+        <div class="modal-header" style="background-color:#467fd0;color:white;text-align:center">
+                <h5 class="modal-title w-100 text-center">Customer Registration Form</h5>
+            </div>*@
+    <div class="container-fluid">
+        <div class="card border-primary mt-3">
+            <div class="card-header border-primary"><strong>Customers</strong></div>
+            <div class="card-body">
+                @if (!Model.Success)
+                {
+                    <div class="alert-danger text-center">
+                        @Model.Message
+                    </div>
+                }
+                @*<div class="card-header-pills  text-left" style="margin-left:88px;">Product Name</div>
+
+        <div class="card-header-pills  text-left" style="margin-left:88px;margin-bottom:20px"><strong style="font-size:x-large;text-align:center">Draft</strong></div>*@
+                <div class="row">
+                    <div class="column">
+                        <input type="radio" id="individual"> Individual
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:10px;" type="radio" checked="checked" id="Company"> Company
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input style="width:554px;" type="text" asp-for="Customer.Name" placeholder="Name" id="name">
+                    </div>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Phone</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:47px;width:454px;" asp-for="Customer.PhoneNo" type="text" placeholder="Phone" id="phone">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="column">
+                        <label for="firstName">Address</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:43px;width:454px;" asp-for="Customer.Address" type="text" placeholder="Street" id="street">
+                    </div>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Mobile</label>
+                    </div>
+
+                    <div class="column">
+                        <input style="margin-left:43px;width:454px;" asp-for="Customer.Mobile" type="text" placeholder="Mobile" id="mobile">
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+
+                        <input style="margin-left:100px;width:454px;" asp-for="Customer.Street2" type="text" placeholder="Street2" id="street2">
+
+                    </div>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Email</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:53px;width:454px;" asp-for="Customer.Email" type="text" placeholder="Email" id="email">
+                    </div>
+                    <div class="column">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+
+                        <input style="margin-left:100px;width:150px;" asp-for="Customer.City" type="text" placeholder="City" id="City">
+
+                    </div>
+                    <div class="column">
+                        <input style="width:150px;margin-left:3px;height:25px;" asp-for="Customer.State" type="text" placeholder="State" id="State" class="form-control">
+
+
+                    </div>
+
+                    <div class="column">
+                        <input style="margin-left:2px;width:150px;" asp-for="Customer.Zip" type="text" placeholder="zip" id="zip">
+
+                    </div>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Website Link</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:2px;width:454px;" asp-for="Customer.WebSite" type="text" placeholder="Website link" id="web">
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="column">
+                        <input style="width:454px;margin-left:100px;height:25px;" asp-for="Customer.Country" type="text" placeholder="Country" value="Country" class="form-control">
+
+                    </div>
+                    <div class="column">
+                        <label for="firstName" style="margin-left:100px;">Tags</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:62px;width:454px;" asp-for="Customer.Tags" type="text" placeholder="Tags" id="Tags">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label for="">Tax ID</label>
+                    </div>
+                    <div class="column">
+                        <input style="margin-left:58px;width:454px;" type="text" placeholder="e.g BE047747472701" id="taxid">
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <input style="margin-left:100px;" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5" type="button" placeholder="Contacts & Addresses" value="Contacts & Addresses" />
+                    </div>
+                    <div class="column">
+                        <input class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Sales & Purchase" value="Sales & Purchase" />
+                    </div>
+                    <div class="column">
+                        <input class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample6" aria-expanded="false" aria-controls="collapseExample6" type="button" placeholder="Accounting" value="Accounting" />
+                    </div>
+                    <div class="column">
+                        <input class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample7" aria-expanded="false" aria-controls="collapseExample7" type="button" placeholder="Internal Notes" value="Internal Notes" />
+                    </div>
+
+                </div>
+                <div id="myGroup">
+
+                    <div class="collapse" id="collapseExample7" data-parent="#myGroup">
+                        <div class="card card-body">
+                            <div class="row">
+                                <textarea class="span6" cols="200" asp-for="Customer.Notes" style="width:1200px;" rows="2" placeholder="internal note...."></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample6" data-parent="#myGroup">
+        <div class="card card-body">
+            <div class="row">
+                <div class="column">
+
+                    <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Bank Accounts</label>
+
+                </div>
+                <div class="column">
+
+                    <label for="firstName" class="col-form-label-lg" style="margin-left:386px;">Accounting Entries</label>
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                    <div class="table-responsive">
+                        <table style="margin-left:15px;" class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Bank</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Account Number</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label for="firstName" style="margin-left: 615px;">Account Receivable</label>
+                </div>
+                <div class="column">
+                    <select class="form-control" style="width:209px;margin-left:60px;height:35px;margin-top:5px;" asp-for="Customer.ARGlAccount">
+                        <option selected>Select Receivable</option>
+                        @foreach (var account in Model.RAccounts)
+                        {
+                            <option value="@account.Code">@account.Code @account.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label for="firstName" style="margin-left:615px;">Account Payable</label>
+                </div>
+                <div class="column">
+                    <select style="width:209px;margin-left:80px;height:35px;margin-top:5px;" asp-for="Customer.APGlAccount" class="form-control">
+                        <option selected>Select Payable</option>
+                        @foreach (var account in Model.PAccounts)
+                        {
+                            <option value="@account.Code">@account.Code @account.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapseExample" data-parent="#myGroup">
+        <div class="card card-body">
+            <div class="row">
+                <div class="column">
+
+                    <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Sales</label>
+
+                </div>
+                <div class="column">
+
+                    <label for="firstName" class="col-form-label-lg" style="margin-left:442px;">Purchase</label>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="column">
+
+                    <label for="firstName" style="margin-left:100px;">Salesperson</label>
+
+                </div>
+                <div class="column">
+
+                    <input style="width:209px;margin-left:110px;height:25px;margin-top:5px;" type="text" asp-for="Customer.SalesPerson" class="form-control">
+
+
+                </div>
+                <div class="column">
+
+                    <label for="firstName" style="margin-left:85px;">Payment Terms</label>
+
+                </div>
+                <div class="column">
+
+                    <input style="width:209px;margin-left:80px;height:25px;margin-top:5px;" type="text" asp-for="Customer.PurchasePaymentTerms" class="form-control">
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+
+                    <label for="firstName" style="margin-left:100px;">Payment Terms</label>
+
+                </div>
+                <div class="column">
+
+                    <input style="width:209px;margin-left:87px;height:25px;margin-top:5px;" asp-for="Customer.PurchasePaymentTerms" type="text" class="form-control">
+
+                </div>
+                <div class="column">
+                     <label for="firstName" style="margin-left:100px;">Fiscal Position</label>
+
+                    </div>
+    <div class="column">
+                    <select style="width:209px;margin-left:93px;height:25px;margin-top:5px;" class="form-control">
+        </select>
+
+                    </div>
+    </div>
+    <div class="row">
+        <div class="column">
+
+            <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Fiscal Information</label>
+
+        </div>
+        <div class="column">
+
+            <label for="firstName" class="col-form-label-lg" style="margin-left:332px;">Misc</label>
+
+        </div>
+        <div class="column">
+                    <select style="width:209px;margin-left:89px;height:25px;margin-top:5px;" class="form-control">
+        </select>
+
+                    </div>
+    <div class="column">
+                    <label for="firstName" style="margin-left:102px;">Post Automatically</label>
+
+                    </div>
+    <div class="column">
+                     <input name="firstName" style="margin-left:65px;" id="firstName" class="required" type="checkbox">
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="column">
+
+                        <label for="firstName" style="margin-left:100px;">Fiscal Position</label>
+
+                    </div>
+                    <div class="column">
+
+                        <input style="width:209px;margin-left:93px;height:25px;margin-top:5px;" type="text" asp-for="Customer.FiscalPosition" class="form-control">
+
+
+                    </div>
+                    <div class="column">
+
+                        <label for="firstName" style="margin-left:90px;">Reference</label>
+
+                    </div>
+                    <div class="column">
+                        <input name="firstName" style="margin-left:120px;width:209px" asp-for="Customer.Reference" id="firstName" class="required" type="text">
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+
+                        <label for="firstName" style="margin-left:590px;">Industry</label>
+
+                    </div>
+                    <div class="column">
+                        <select style="width:209px;margin-left:129px;height:35px;margin-top:5px;" class="form-control">
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample4" data-parent="#myGroup">
+            <div class="card card-body">
+                <div class="row">
+
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Label</th>
+                                        <th scope="col">Account</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Taxes</th>
+                                        <th scope="col">Subtotal</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample2" data-parent="#myGroup">
+            <div class="card card-body">
+                <div class="row">
+
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Account</th>
+                                        <th scope="col">Label</th>
+                                        <th scope="col">Debit</th>
+                                        <th scope="col">Credit</th>
+                                        <th scope="col">Tax Grids</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample5" data-parent="#myGroup">
+            <div class="card card-body">
+                <div class="row">
+                        <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="ADD" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+                    <div class="card border-primary mt-3">
+        <div class="modal fade" style="overflow-y: scroll;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="card-body">
+                    <div class="card-header-pills  text-left" style="margin-left:88px;">Product Name</div>
+
+        <div class="card-header-pills  text-left" style="margin-left:88px;margin-bottom:20px"><strong style="font-size:x-large;text-align:center">Draft</strong></div>
+                    <div class="row">
+        <div class="column">
+            <input type="radio" id="individual"> Individual
+        </div>
+        <div class="column">
+            <input style="margin-left:10px;" type="radio" checked="checked" id="Company"> Company
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="column">
+            <input style="width:250px;" type="text" asp-for="Customer.Name" placeholder="Name" id="name">
+        </div>
+        <div class="column">
+            <label for="firstName" style="margin-left:100px;">Phone</label>
+        </div>
+        <div class="column">
+            <input style="margin-left:47px;width:150px;" asp-for="Customer.PhoneNo" type="text" placeholder="Phone" id="phone">
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="column">
+            <label for="firstName">Address</label>
+        </div>
+        <div class="column">
+            <input style="margin-left:43px;width:150px;" type="text" asp-for="Customer.Address" placeholder="Street" id="street">
+        </div>
+        <div class="column">
+            <label for="firstName" style="margin-left:100px;">Mobile</label>
+        </div>
+
+        <div class="column">
+            <input style="margin-left:43px;width:150px;" type="text" asp-for="Customer.Mobile" placeholder="Mobile" id="mobile">
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="column">
+
+            <input style="margin-left:100px;width:150px;" type="text" asp-for="Customer.Street2" placeholder="Street2" id="street2">
+
+        </div>
+        <div class="column">
+            <label for="firstName" style="margin-left:100px;">Email</label>
+        </div>
+        <div class="column">
+            <input style="margin-left:53px;width:150px;" asp-for="Customer.Email" type="text" placeholder="Email" id="email">
+        </div>
+        <div class="column">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+
+            <input style="margin-left:100px;width:50px;" type="text" asp-for="Customer.City" placeholder="City" id="City">
+
+        </div>
+        <div class="column">
+            <input style="width:50px;margin-left:3px;height:25px;" type="text" asp-for="Customer.State" placeholder="State" id="State" class="form-control">
+
+
+        </div>
+
+        <div class="column">
+            <input style="margin-left:2px;width:50px;" type="text" asp-for="Customer.Zip" placeholder="zip" id="zip">
+
+        </div>
+        <div class="column">
+                    <label for="firstName" style="margin-left:100px;">Website Link</label>
+                    </div>
+    <div class="column">
+                     <input style="margin-left:2px;width:150px;" type="text" placeholder="Website link" id="web">
+                    </div>
+        <div class="column">
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="column">
+            <input style="width:150px;margin-left:100px;height:25px;" asp-for="Customer.Country" type="text" placeholder="Country" value="Country" class="form-control">
+
+        </div>
+        <div class="column">
+                    <label for="firstName" style="margin-left:100px;">Tags</label>
+                    </div>
+    <div class="column">
+                     <input style="margin-left:62px;width:150px;" type="text" placeholder="Tags" id="Tags">
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <label for="">Internal notes</label>
+                        </div>
+                        <div class="column">
+                            <input style="margin-left:58px;width:150px;" asp-for="Customer.Notes" type="text" placeholder="internal notes" id="taxid">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="column">
+                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
+                        </div>
+
+                        <div class="column">
+                            <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
+                        </div>
+                        <div class="column">
+                            <a class="btn btn-secondary" asp-page="./ListCustomer">BACK</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+         </div>
+       </div>
+</form>

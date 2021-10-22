@@ -1,38 +1,33 @@
 ﻿@page
 @model AccountingSystem.Pages.Vendors.EditRefundsModel
 @{
-    <style type="text/css">
-        .h-divider {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            height: 1px;
-            width: 100%;
-            border-top: 1px solid gray;
-        }
-    </style>
-}
-<div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
-    <div class="row m-1">Refunds/New</div>
-    <div class="row m-1">
-        <button type="submit" id="register" class="btn btn-success">SAVE</button>
-        <a  class="btn btn-danger" asp-page="./ListRefunds">DISCARD</a>
-    </div>
-    <div class="row m-1">
-        <div class="h-divider"></div>
-    </div>
-    <div class="row m-1">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">CONFIRM</button>
-        @*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
-    </div>
-</div>
-<div class="row" style="height:10px;">
-
-</div>
+    
+}  
     <div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
         <form method="post">
+            <div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
+                <div class="row m-1">Refunds/New</div>
+                <div class="row m-1">
+                    <button type="submit" id="register" class="btn btn-success">SAVE</button>
+                    <a class="btn btn-secondary" asp-page="./ListRefunds">BACK</a>
+                    <br><hr>
+                </div>
+                <div class="row m-1">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">CONFIRM</button>
+                    @*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
+                </div>
+            </div>
+            <div class="row" style="height:10px;">
+
+            </div>
             @*< class="modal-content hold-transition login-page">*@
             <div class="modal-body m-0">
-
+                @if (!Model.Success)
+                {
+                    <div class="alert-danger text-center">
+                        @Model.Message
+                    </div>
+                }
                 <div class="row">
                     <div class="form-group mt-1">
                         <label for="" style="color:green"><b>Vendor Credit Note</b></label>
@@ -42,77 +37,101 @@
                     <div class="row col-sm-8">
                         <div class="card card-body">
                             <div class="row">
-                                <input type="text" name="Refund" class="form-control" placeholder="Refund Bill No" style="height:30px;" autocomplete="off" />
+                                <input type="text" asp-for="Refund.Vendor" class="form-control" placeholder="Refund Bill No"/>
+                                @*<input type="text" name="Refund" class="form-control" placeholder="Refund Bill No" style="height:30px;" autocomplete="off" />*@
                             </div>
                             <div class="row">
                                 <div class="h-divider"></div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><br>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="row m-0">
                             <label for="" style="color:green">Vendor</label>
-                        </div>
+                        </div><br>
                         <div class="row m-0">
                             <label for="" style="color:green">Bill Reference</label>
-                        </div>
+                        </div><br>
                         <div class="row m-0">
                             <label for="" style="color:green">Payment Reference</label>
-                        </div>
+                        </div><br>
                         <div class="row m-0">
                             <label for="" style="color:green">Recipient Bank</label>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <select class="form-control"></select>
-                        </div>
+                            <select class="form-control" asp-for="Refund.Vendor">
+                                <option selected>Select payment terms</option>
+                                @foreach (var vender in Model.Venders)
+                                {
+                                    <option value="@vender.Name">@vender.Name</option>
+                                }
+                            </select>
+                            @*<select class="form-control"></select>*@
+                        </div><br>
                         <div class="row">
-                            <input type="text" name="Vendor" class="form-control" placeholder="Vendor..." style="height:30px;" autocomplete="off" />
-                        </div>
+                            <input type="text" asp-for="Refund.BillRef" class="form-control" placeholder=""/>
+                            @*<input type="text" name="Vendor" class="form-control" placeholder="Vendor..." style="height:30px;" autocomplete="off" />*@
+                        </div><br>
                         <div class="row">
-                            <input type="text" name="Bill" class="form-control" placeholder="Bill Re..." style="height:30px;" autocomplete="off" />
-                        </div>
+                            <input type="text" asp-for="Refund.Ref" class="form-control" placeholder=""/>
+                            @*<input type="text" name="Bill" class="form-control" placeholder="Bill Re..." style="height:30px;" autocomplete="off" />*@
+                        </div><br>
                         <div class="row">
-                            <select class="form-control"></select>
+                            <select class="form-control" asp-for="Refund.ReceipientBank">
+                                <option selected>Select payment terms</option>
+                                @foreach (var bank in Model.Banks)
+                                {
+                                    <option value="@bank.AccNo">@bank.Name</option>
+                                }
+                            </select>
+                            @*<select class="form-control"></select>*@
                         </div>
-                    </div>
+                    </div><br>
                     <div class="col-sm-2">
                         <div class="row m-0">
                             <label for="" style="color:green">Bill Date</label>
-                        </div>
-                        <div class="row m-0">
-                            <label for="" style="color:green">Accounting Date</label>
-                        </div>
+                        </div><br>
                         <div class="row m-0">
                             <label for="" style="color:green">Due Date</label>
-                        </div>
+                        </div><br>
                         <div class="row m-0">
                             <label for="" style="color:green">Journal</label>
-                        </div>
-                    </div>
+                        </div><br>
+                    </div><br>
                     <div class="col-sm-4">
                         <div class="row">
-                            <select class="form-control"></select>
-                        </div>
-                        <div class="row">
-                            <select class="form-control"></select>
-                        </div>
+                            <input type="date" asp-for="Refund.BillDate" class="form-control" placeholder="" />
+                        </div><br>
                         <div class="row m-0">
-                            <div class="col-sm-4">
-                                <select class="form-control"></select>
+                            <div class="col-sm-6">
+                                <input type="date" asp-for="Refund.DueDate" class="form-control" placeholder="" />
                             </div>Or
-                            <div class="col-sm-4">
-                                <select class="form-control"></select>
+                            <div class="col-sm-5">
+                                <select class="form-control" asp-for="Refund.IncoTerm">
+                                    <option selected>Select payment terms</option>
+                                    @foreach (var term in Model.PaymentTerms)
+                                    {
+                                        <option value="@term.Term">@term.Term</option>
+                                    }
+                                </select>
                             </div>
-                        </div>
+                        </div><br>
                         <div class="row">
-                            <select class="form-control"></select>
-                        </div>
-                    </div>
-                </div>
+                            <select class="form-control" asp-for="Refund.Journal">
+                                <option selected>Select Journal</option>
+                                @foreach (var journal in Model.Journals)
+                                {
+                                    <option value="@journal.Name">@journal.Name</option>
+                                }
+                            </select>
+                            @*<input type="text" asp-for="Refund.Journal" class="form-control" placeholder="" />*@
+                        </div><br>
+                    </div><br>
+                </div><br>
                 <nav class="navbar navbar-invers">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
@@ -124,140 +143,175 @@
                     </ul>
             </div>
             </nav>
-            <div class=collapse col-sm-12" id="collapseInvoice">
-                <div class="card card-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <b>Product</b>
+            <div id="myGroup">
+                <div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <b>Product</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b>Label</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b>Account</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b>Quantity</b>
+                            </div>
+                            <div class="col-sm-3">
+                                <b>Taxes</b>
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <b>Label</b>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <select class="form-control" asp-for="RefundDetail.Product" >
+                                    <option selected>Select product</option>
+                                    @foreach (var product in Model.Products)
+                                    {
+                                        <option value="@product.Name">@product.Name</option>
+                                    }
+                                </select>
+                                @*<input type="text" name="Product" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" asp-for="RefundDetail.Lable" class="form-control" placeholder="Label" />
+                                @*<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" asp-for="RefundDetail.GlAccount">
+                                    <option selected>Select Account</option>
+                                    @foreach (var account in Model.Banks)
+                                    {
+                                        <option value="@account.AccNo">@account.AccNo @account.Name</option>
+                                    }
+                                </select>
+                                @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" asp-for="RefundDetail.Quantity" class="form-control" placeholder="Quantity" />
+                                @*<input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" asp-for="RefundDetail.Tax" class="form-control" placeholder="Taxes" />
+                                @*<input type="text" name="Taxes" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <b>Account</b>
-                        </div>
-                        <div class="col-sm-2">
-                            <b>Quantity</b>
-                        </div>
-                        <div class="col-sm-3">
-                            <b>Taxes</b>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="text" name="Product" class="form-control"  style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Label" class="form-control"  style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" name="Taxes" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="row" style="height:10px;">
+                        <div class="row" style="height:10px;">
 
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                @*<form asp-page-handler="delete" method="post">
+                                    <button class="btn btn-default">Delete</button>
+                                    <input type="hidden" name="id" value="@vender.Id" />
+                                </form>*@
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class=collapse col-sm-12" id="collapseJournal">
-                <div class="card card-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            Account
+                <div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                Account
+                            </div>
+                            <div class="col-sm-2">
+                                Label
+                            </div>
+                            <div class="col-sm-2">
+                                Debit
+                            </div>
+                            <div class="col-sm-2">
+                                Credit
+                            </div>
+                            <div class="col-sm-3">
+                                Tax Grids
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            Label
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
+                                @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" asp-for="RefundDetail.Lable" class="form-control" />
+                                @*<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />*@
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
+                                <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            Debit
-                        </div>
-                        <div class="col-sm-2">
-                            Credit
-                        </div>
-                        <div class="col-sm-3">
-                            Tax Grids
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="row" style="height:10px;">
+                        <div class="row" style="height:10px;">
 
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class=collapse col-sm-12" id="collapseOther">
-                <div class="card card-body">
-                    <label><b>Accounting</b></label>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="row">
-                                <div class="form-control">
-                                    Incoterm
+                <div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
+                    <div class="card card-body">
+                        <label><b>Accounting</b></label>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <div class="form-control">
+                                        Incoterm
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                            <div class="form-control">
+                                Fiscal Position
+                            </div>
+                        </div>*@
+                                <div class="row">
+                                    <div class="form-control">
+                                        Post Automatically
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-control">
+                                        To Check
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-control">
-                                    Fiscal Position
+                            <div class="col-sm-5">
+                                <div class="row">
+                                    <select class="form-control" asp-for="RefundDetail.GlAccount">
+                                        <option selected>Select Account</option>
+                                        @foreach (var account in Model.IncoTerms)
+                                        {
+                                            <option value="@account.Name">@account.Name</option>
+                                        }
+                                    </select>
+                                    @*<select class="form-control"></select>*@
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-control">
-                                    Post Automatically
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-control">
-                                    To Check
-                                </div>
-                            </div>
+                                @*<div class="row">
+                            <select class="form-control"></select>
+                        </div>*@
+                                @*<div class="row">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" asp-for="RefundDetail.a" class="form-control" />
+                                <input type="checkbox" name="Post">
+                            </label>
                         </div>
-                        <div class="col-sm-5">
-                            <div class="row">
-                                <select class="form-control"></select>
-                            </div>
-                            <div class="row">
-                                <select class="form-control"></select>
-                            </div>
-                            <div class="row">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="Post">
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="ToCheck">
-                                </label>
+                        <div class="row">
+                            <label class="checkbox-inline">
+                                <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
+                                <input type="checkbox" name="ToCheck">
+                            </label>
+                        </div>*@
                             </div>
                         </div>
                     </div>

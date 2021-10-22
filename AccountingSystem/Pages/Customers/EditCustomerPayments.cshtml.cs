@@ -9,17 +9,15 @@ using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Customers
 {
-	public class EditPaymentModel : PageModel
+	public class EditCustomerPaymentsModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
-		public VPayment Payment { get; set; }
+		public CPayment Payment { get; set; }
 		[BindProperty]
 		public List<Vender> Venders { get; set; }
-		[BindProperty]
-		public List<Customer> customers { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
@@ -33,23 +31,16 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditPaymentModel(AccountingSystemContext dbContext)
+		public EditCustomerPaymentsModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
-			Payment = new VPayment();
 		}
 
 		public void OnGet(Guid id)
 		{
 			try
 			{
-				
-				customers = _dbContext.Customers.Where(R => !(bool)R.Closed)
-					.Select(R => new Customer
-					{
-						Name=R.Name
-					}).ToList();
 				Venders = _dbContext.Venders.Where(c => !(bool)c.Closed)
 					.Select(c => new Vender
 					{
@@ -65,13 +56,13 @@ namespace AccountingSystem.Pages.Vendors
 					{
 						Name = b.Name
 					}).ToList();
-				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed && c.Type.ToLower().Equals("assets"))
+				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
 					.Select(c => new AccountChart
 					{
 						Name = c.Name,
 						Code = c.Code
 					}).ToList();
-				Payment = _dbContext.VPayments.FirstOrDefault(p => p.Id == id);
+				Payment = _dbContext.CPayments.FirstOrDefault(p => p.Id == id);
 				if (Payment != null)
 					Id = Payment.Id;
 			}
@@ -87,53 +78,51 @@ namespace AccountingSystem.Pages.Vendors
 			try
 			{
 				Payment.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Payment.Customer))
-				{
+				if (string.IsNullOrEmpty(Payment.Vender))
+                {
 					Success = false;
-					Message = "Sorry, Kindly provide customer";
+					Message = "Sorry, Kindly provide vander";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Payment.GlAccount))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide GL Account";
 					return Page();
 				}
-				Payment.IsInternalTransfer = Payment.IsInternalTransfer == null ? false : Payment.IsInternalTransfer;
+					
 				Payment.Amount = Payment?.Amount ?? 0;
 				if (Payment.Amount < 1)
-				{
+                {
 					Success = false;
 					Message = "Kindly provide amount";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Payment.Journal))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 
 				if (string.IsNullOrEmpty(Payment.BankAccount))
-				{
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide bank account";
 					return Page();
 				}
 					
-
 				Payment.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Payment.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				Payment.Status = "Pending";
 				var reference = "Add Payment";
-				var savedPayment = _dbContext.VPayments.FirstOrDefault(p => p.Id == Id);
+				var savedPayment = _dbContext.CPayments.FirstOrDefault(p => p.Id == Id);
 				if (savedPayment != null)
 				{
 					reference = "Edit Payment";
 					savedPayment.ModifiedDate = DateTime.UtcNow.AddHours(3);
-					savedPayment.Customer = Payment.Customer;
+					savedPayment.Vender = Payment.Vender;
 					savedPayment.GlAccount = Payment.GlAccount;
 					savedPayment.IsInternalTransfer = Payment.IsInternalTransfer;
 					savedPayment.Amount = Payment.Amount;
@@ -145,7 +134,7 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				else
 				{
-					_dbContext.VPayments.Add(Payment);
+					_dbContext.CPayments.Add(Payment);
 				}
 
 				_dbContext.Audits.Add(new Audit
@@ -153,13 +142,13 @@ namespace AccountingSystem.Pages.Vendors
 					UserName = Payment.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
-					ModuleId = "Venders"
+					ModuleId = "Customer"
 				});
 
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Payment saved successfully";
-				return RedirectToPage("./ListPayment");
+				return Page();
 			}
 			catch (Exception ex)
 			{

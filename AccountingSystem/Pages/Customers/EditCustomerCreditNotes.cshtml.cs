@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
-using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AccountingSystem.Pages.Vendors
+namespace AccountingSystem.Pages.Customers
 {
-	public class EditbillsModel : PageModel
+	public class EditCustomerCreditNotesModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
-		public Bill Bill { get; set; }
+		public CreditNote CreditNote { get; set; }
 		[BindProperty]
-		public BillDetail BillDetail { get; set; }
-		[BindProperty]
-		public List<Vender> Venders { get; set; }
+		public List<Customer> Customers { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
-		public List<Tax> Taxes { get; set; }
+		public List<Bank> Banks { get; set; }
 		[BindProperty]
 		public List<IncoTerm> IncoTerms { get; set; }
 		[BindProperty]
-		public List<VProduct> Products { get; set; }
+		public List<CProduct> Products { get; set; }
 		[BindProperty]
-		public List<Bank> Banks { get; set; }
+		public List<Tax> Taxes { get; set; }
+		[BindProperty]
+		public List<IPaymentTerm> PaymentTerms { get; set; }
 		[BindProperty]
 		public bool Success { get; set; }
 		[BindProperty]
@@ -38,27 +38,20 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditbillsModel(AccountingSystemContext dbContext)
+		public EditCustomerCreditNotesModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
-			BillDetail = new BillDetail();
 		}
 
 		public void OnGet(Guid id)
 		{
 			try
 			{
-				Taxes = _dbContext.Taxes.Where(ta => !(bool)ta.Closed)
-					.Select(ta => new Tax
+				Customers = _dbContext.Customers.Where(v => !(bool)v.Closed)
+					.Select(v => new Customer
 					{
-						Type = ta.Type,
-						Name = ta.Name
-					}).ToList();
-				Venders = _dbContext.Venders.Where(v => !(bool)v.Closed)
-					.Select(v => new Vender
-					{
-						Name = v.Name
+						Name = v.Name,
 					}).ToList();
 				Journals = _dbContext.Journals.Where(j => !(bool)j.Closed)
 					.Select(j => new Journal
@@ -76,21 +69,31 @@ namespace AccountingSystem.Pages.Vendors
 						Name = t.Name
 					}).ToList();
 				Products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
-					.Select(p => new VProduct
+					.Select(p => new CProduct
 					{
 						Name = p.Name
 					}).ToList();
-				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
-					.Select(c => new AccountChart
+				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
 					{
-						Name = c.Name,
-						Code = c.Code
+						Name = a.Name,
+						Code = a.Code
 					}).ToList();
-				Bill = _dbContext.Bills.FirstOrDefault(b => b.Id == id);
-				if (Bill != null)
-					Id = Bill.Id;
+				Taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name
+					}).ToList();
+				PaymentTerms = _dbContext.IPaymentTerms
+					.Select(t => new IPaymentTerm
+					{
+						Term = t.Term
+					}).ToList();
+				CreditNote = _dbContext.CreditNotes.FirstOrDefault(r => r.Id == id);
+				if (CreditNote != null)
+					Id = CreditNote.Id;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				Success = false;
 				Message = "Sorry, An error occurred";
@@ -101,35 +104,34 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
-				Bill.CreatedDate = DateTime.UtcNow.AddHours(3);
-				Bill.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				Bill.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Bill.Vender))
-				{
+				CreditNote.CreatedDate = DateTime.UtcNow.AddHours(3);
+				CreditNote.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(CreditNote.Customer))
+                {
 					Success = false;
-					Message = "Sorry, Kindly provide vendor";
+					Message = "Sorry, Kindly provide customer";
 					return Page();
 				}
 
 
-				if (string.IsNullOrEmpty(Bill.Journal))
-				{
+				if (string.IsNullOrEmpty(CreditNote.Journal))
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 
-				if (!Bill.BillDetails.Any())
-				{
+				if (!CreditNote.CreditNoteDetails.Any())
+                {
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
 					
-				foreach (var detail in Bill.BillDetails)
+				foreach (var detail in CreditNote.CreditNoteDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
-					{
+                    {
 						Success = false;
 						Message = "Sorry, There is a product missing in the invoice";
 						return Page();
@@ -137,7 +139,7 @@ namespace AccountingSystem.Pages.Vendors
 						
 					detail.Price = detail?.Price ?? 0;
 					if (detail.Price < 1)
-					{
+                    {
 						Success = false;
 						Message = $"Kindly enter the price for product {detail.Product}";
 						return Page();
@@ -145,43 +147,43 @@ namespace AccountingSystem.Pages.Vendors
 						
 					detail.Quantity = detail?.Quantity ?? 0;
 					if (detail.Quantity < 1)
-					{
+                    {
 						Success = false;
 						Message = $"Kindly enter the quantity for product {detail.Product}";
 						return Page();
 					}
 						
 				}
-				var reference = "Add Bill";
-				var savedBill = _dbContext.Bills.FirstOrDefault(b => b.Id == Id);
-				if (savedBill != null)
+				var reference = "Add Credit note";
+				var savedNote = _dbContext.CreditNotes.FirstOrDefault(b => b.Id == Id);
+				if (savedNote != null)
 				{
-					reference = "Edit Bill";
-					Bill.CreatedDate = savedBill.CreatedDate;
-					if (savedBill != null)
+					reference = "Edit Credit note";
+					CreditNote.CreatedDate = savedNote.CreatedDate;
+					if (savedNote != null)
 					{
-						var details = _dbContext.BillDetails.Where(b => b.BillId == savedBill.Id);
+						var details = _dbContext.CreditNoteDetails.Where(b => b.CreditNoteId == savedNote.Id);
 						if (details.Any())
-							_dbContext.BillDetails.RemoveRange(details);
-						var journals = _dbContext.BillJournals.Where(b => b.BillId == savedBill.Id);
+							_dbContext.CreditNoteDetails.RemoveRange(details);
+						var journals = _dbContext.CreditNoteJournals.Where(b => b.CreditNoteId == savedNote.Id);
 						if (journals.Any())
-							_dbContext.BillJournals.RemoveRange(journals);
-						_dbContext.Bills.Remove(savedBill);
+							_dbContext.CreditNoteJournals.RemoveRange(journals);
+						_dbContext.CreditNotes.Remove(savedNote);
 					}
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = Bill.Personnel,
+					UserName = CreditNote.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
-					ModuleId = "Venders"
+					ModuleId = "Customer"
 				});
 
-				_dbContext.Bills.Add(Bill);
+				_dbContext.CreditNotes.Add(CreditNote);
 				_dbContext.SaveChanges();
 				Success = true;
-				Message = "Bill saved successfully";
-				return RedirectToPage("./Listbill");
+				Message = "Credit note saved successfully";
+				return Page();
 			}
 			catch (Exception ex)
 			{

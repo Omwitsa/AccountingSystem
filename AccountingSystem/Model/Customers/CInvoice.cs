@@ -11,6 +11,7 @@ namespace AccountingSystem.Model.Customers
 		public DateTime? Date { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public string PaymentReference { get; set; }
 		public IEnumerable<CInvoiceDetail> CInvoiceDetails { get; set; }
 		public IEnumerable<CInvoiceJournal> CInvoiceJournals { get; set; }
 		public string SalesPerson { get; set; }

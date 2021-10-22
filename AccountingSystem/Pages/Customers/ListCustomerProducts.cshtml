@@ -1,0 +1,45 @@
+﻿@page
+@model AccountingSystem.Pages.Customers.ListCustomerProductsModel
+@{
+    var count = 0;
+}
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <a class="btn btn-info" asp-page="./EditCustomerProducts2">CREATE</a>
+        <a class="btn btn-info" onclick="history.go(-1)">Back</a>
+    </div>
+
+    <div class="table-responsive">
+        @if (!Model.Success)
+        {
+            <div class="alert-danger text-center">
+                @Model.Message
+            </div>
+        }
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Internal Reference</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Public Price</th>
+                    <th scope="col">Customer Taxes</th>
+                    <th scope="col">Vendor Taxes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@product.Ref</td>
+                        <td>@product.Name</td>
+                        <td>@product.Price</td>
+                        <td>@product.CustomerTax</td>
+                        <td>@product.VenderTax</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
