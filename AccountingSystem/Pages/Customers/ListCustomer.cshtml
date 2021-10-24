@@ -21,17 +21,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var vender in Model.Customers)
+                @foreach (var customer in Model.Customers)
                 {
                     count++;
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td>@vender.Name</td>
-                        <td>@vender.City</td>
-                        <td>@vender.Country</td>
-                        <td>@vender.Email</td>
-                        <td>@vender.PhoneNo</td>
-                    </tr>
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@customer.Name</td>
+                    <td>@customer.City</td>
+                    <td>@customer.Country</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.PhoneNo</td>
+                    <td class="text-right">
+                        <div class="dropdown">
+                            <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                <form asp-page-handler="edit" method="post">
+                                    <button class="btn btn-default">Edit</button>
+                                    <input type="hidden" name="id" value="@customer.Id" />
+                                </form>
+                                <form asp-page-handler="delete" method="post">
+                                    <button class="btn btn-default">Delete</button>
+                                    <input type="hidden" name="id" value="@customer.Id" />
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

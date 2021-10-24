@@ -7,24 +7,99 @@
 		<div class="modal-header" ;color:white;text-align:center">
 			<h5 class="modal-title w-100 text-center">Tax</h5>
 		</div>
-		<div class="modal-body">
-			@if (!Model.Success)
-			{
-				<div class="alert-danger text-center">
-					@Model.Message
-				</div>
-			}
-			<div class="row">
-				<div class="col-sm-4">
-					Tax
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<input type="text" asp-for="Tax.Name" class="form-control" placeholder="Tax" />
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="modal-body">
+            @if (!Model.Success)
+            {
+                <div class="alert-danger text-center">
+                    @Model.Message
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-4">
+                    Tax
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" asp-for="Tax.Name" class="form-control" placeholder="Tax" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    GL Account
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" asp-for="Tax.GlAcccount">
+                            <option selected>Select Account</option>
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option value="@account.Code">@account.Code @account.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Computation
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" asp-for="Tax.Computation">
+                            <option selected>Select Computation</option>
+                            @foreach (var computation in Model.Computations)
+                            {
+                                <option value="@computation">@computation</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Type
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" asp-for="Tax.Type">
+                            <option selected>Select Computation</option>
+                            @foreach (var type in Model.Types)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Tax Scope
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" asp-for="Tax.Scope">
+                            <option selected>Select Scope</option>
+                            @foreach (var scope in Model.Scopes)
+                            {
+                                <option value="@scope">@scope</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Rate (%)
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" asp-for="Tax.Rate" class="form-control" placeholder="Tax" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
 		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
 			<button type="submit" class="btn btn-success">SAVE</button>
 			<button type="button" class="btn btn-secondary" asp-page="/ListTaxes">BACK</button>

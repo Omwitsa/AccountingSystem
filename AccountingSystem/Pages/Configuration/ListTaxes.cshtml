@@ -5,7 +5,7 @@
 }
 <div>
 	<div class="modal-header" style="background-color:white;color:white;text-align:center">
-		<a class="nav-link text-dark" asp-page="./EditBank">CREATE</a>
+		<a class="nav-link text-dark" asp-page="./EditTax">CREATE</a>
 	</div>
 	<div class="table-responsive">
 		@if (!Model.Success)
@@ -16,14 +16,14 @@
 		}
 		<table class="table table-sm table-hover">
 			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Code</th>
-					<th scope="col">Name</th>
-					<th scope="col">Type</th>
-					<th scope="col">Tag</th>
-					<th scope="col">Personnel</th>
-				</tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">GL Account</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Personnel</th>
+                </tr>
 			</thead>
 			<tbody>
 				@foreach (var tax in Model.Taxes)
@@ -33,6 +33,8 @@
 						<th scope="row">@count</th>
 						<td>@tax.Name</td>
 						<td>@tax.Type</td>
+						<td>@tax.GlAcccount</td>
+						<td>@tax.Rate</td>
 						<td>@tax.Personnel</td>
 						<td class="text-right">
 							<div class="dropdown">

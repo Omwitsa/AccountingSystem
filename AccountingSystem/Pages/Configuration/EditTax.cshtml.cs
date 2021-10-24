@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
@@ -16,8 +17,17 @@ namespace AccountingSystem.Pages.Configuration
 		public bool Success { get; set; }
 		[BindProperty]
 		public string Message { get; set; }
+		[BindProperty]
+		public string[] Computations { get; set; }
+		[BindProperty]
+		public string[] Types { get; set; }
+		[BindProperty]
+		public string[] Scopes { get; set; }
+		[BindProperty]
+		public List<AccountChart> Accounts { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+
 
 		public EditTaxModel(AccountingSystemContext dbContext)
 		{
@@ -29,6 +39,15 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				Computations = new string[] { "Group of taxes", "Fixed", "Percentage of Price", "Percentage of Price Tax included" };
+				Scopes = new string[] { "Services", "Goods" };
+				Types = new string[] { "Sales", "Purchases", "None" };
 				Tax = _dbContext.Taxes.FirstOrDefault(a => a.Id == id);
 				if (Tax != null)
 					Id = Tax.Id;
@@ -52,13 +71,16 @@ namespace AccountingSystem.Pages.Configuration
 				}
 					
 				Tax.Closed = Tax?.Closed ?? false;
-				var savedTax = _dbContext.Taxes.FirstOrDefault(t => t.Id == Tax.Id);
+				var savedTax = _dbContext.Taxes.FirstOrDefault(t => t.Id == Id);
 				if (savedTax != null)
 				{
 					savedTax.Name = Tax.Name;
 					savedTax.Type = Tax.Type;
 					savedTax.Computation = Tax.Computation;
+					savedTax.GlAcccount = Tax.GlAcccount;
+					savedTax.Rate = Tax.Rate;
 					savedTax.Scope = Tax.Scope;
+					savedTax.Closed = Tax.Closed;
 					savedTax.Personnel = Tax.Personnel;
 					savedTax.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				}

@@ -1,7 +1,11 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,6 +14,7 @@ namespace AccountingSystem.Pages.Configuration
 	public class EditIncoTermModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
+		private readonly UserManager<ApplicationUser> _userManager;
 		[BindProperty]
 		public IncoTerm IncoTerm { get; set; }
 		[BindProperty]
@@ -19,9 +24,10 @@ namespace AccountingSystem.Pages.Configuration
 		[TempData]
 		public Guid Id { get; set; }
 
-		public EditIncoTermModel(AccountingSystemContext dbContext)
+		public EditIncoTermModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -56,8 +62,16 @@ namespace AccountingSystem.Pages.Configuration
 					Message = "Kindly provide name";
 					return Page();
 				}
+				
+				IncoTerm.Personnel = _userManager.GetUserId(User);
+				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
+				var userName = User.FindFirstValue(ClaimTypes.Name);
 
-				var savedTerm = _dbContext.IncoTerms.FirstOrDefault(t => t.Id == IncoTerm.Id);
+				ApplicationUser applicationUser = _userManager.GetUserAsync(User).Result;
+				string userEmail = applicationUser?.Email;
+
+
+				var savedTerm = _dbContext.IncoTerms.FirstOrDefault(t => t.Id == Id);
 				if (savedTerm != null)
 				{
 					savedTerm.Code = IncoTerm.Code;

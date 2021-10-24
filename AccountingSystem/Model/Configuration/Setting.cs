@@ -5,8 +5,8 @@ namespace AccountingSystem.Model.Configuration
 	public class Setting
 	{
 		public Guid Id { get; set; }
-		public decimal SalesTax { get; set; }
-		public decimal PurchaseTax { get; set; }
+		public string SalesTax { get; set; }
+		public string PurchaseTax { get; set; }
 		public string Periodicity { get; set; }
 		public int Reminder { get; set; }
 		public string Journal { get; set; }

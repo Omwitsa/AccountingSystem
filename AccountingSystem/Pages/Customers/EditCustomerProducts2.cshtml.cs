@@ -93,13 +93,6 @@ namespace AccountingSystem.Pages.Customers
 					return Page();
 				}
 
-				if (string.IsNullOrEmpty(Product.APGlAccount))
-                {
-					Success = false;
-					Message = "Sorry, Kindly provide Account payable";
-					return Page();
-				}
-
 				if (string.IsNullOrEmpty(Product.ARGlAccount))
                 {
 					Success = false;
@@ -145,7 +138,7 @@ namespace AccountingSystem.Pages.Customers
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Product saved successfully";
-				return Page();
+				return RedirectToPage("./ListCustomerProducts");
 			}
 			catch (Exception ex)
 			{

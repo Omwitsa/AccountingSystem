@@ -31,7 +31,7 @@ namespace AccountingSystem.Pages.Configuration
         {
 			try
 			{
-				AccountTypes = new string[] { "Assets", "Liabilities", "Equity" };
+				AccountTypes = new string[] { "Assets", "Liabilities", "Equity",  "Income", "Expense"};
 				Account = _dbContext.AccountCharts.FirstOrDefault(a => a.Id == id);
 				if (Account != null)
 					Id = Account.Id;

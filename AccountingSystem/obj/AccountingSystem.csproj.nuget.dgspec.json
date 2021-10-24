@@ -1,31 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {}
+    "F:\\2021\\DANGO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {}
   },
   "projects": {
-    "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {
+    "F:\\2021\\DANGO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
+        "projectUniqueName": "F:\\2021\\DANGO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
         "projectName": "AccountingSystem",
-        "projectPath": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "F:\\Newtech\\Amtech\\AccountingSystem\\AccountingSystem\\obj\\",
+        "projectPath": "F:\\2021\\DANGO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
+        "packagesPath": "C:\\Users\\PSIGEI\\.nuget\\packages\\",
+        "outputPath": "F:\\2021\\DANGO\\AccountingSystem\\AccountingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\PSIGEI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://packagesource": {},
+          "https://www.nuget.org/api/v2/": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -88,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

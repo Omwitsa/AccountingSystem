@@ -22,6 +22,8 @@ namespace AccountingSystem.Pages.Customers
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
 		[BindProperty]
+		public List<IPaymentTerm> PaymentTerms { get; set; }
+		[BindProperty]
 		public bool Success { get; set; }
 		[BindProperty]
 		public string Message { get; set; }
@@ -55,6 +57,10 @@ namespace AccountingSystem.Pages.Customers
 					{
 						Name = b.Name
 					}).ToList();
+				PaymentTerms = _dbContext.IPaymentTerms.Select(p => new IPaymentTerm
+				{
+					Term = p.Term
+				}).ToList();
 				Customer = _dbContext.Customers.FirstOrDefault(v => v.Id == id);
 				if (Customer != null)
 					Id = Customer.Id;
@@ -132,7 +138,7 @@ namespace AccountingSystem.Pages.Customers
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Customer saved successfully";
-				return RedirectToPage("./EditCustomer");
+				return RedirectToPage("./ListCustomer");
 			}
 			catch (Exception ex)
 			{

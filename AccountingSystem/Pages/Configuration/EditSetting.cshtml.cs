@@ -47,7 +47,7 @@ namespace AccountingSystem.Pages.Configuration
 						Name = t.Name
 					}).ToList();
 				Periodicities = new string[] { "Monthly", "Quaterly", "Semi-Annually", "Annually" };
-				Setting = _dbContext.Settings.FirstOrDefault(a => a.Id == id);
+				Setting = _dbContext.Settings.FirstOrDefault();
 				if (Setting != null)
 					Id = Setting.Id;
 			}
@@ -63,17 +63,25 @@ namespace AccountingSystem.Pages.Configuration
 			try
 			{
 				var savesSetting = _dbContext.Settings.FirstOrDefault();
-				savesSetting.SalesTax = Setting.SalesTax;
-				savesSetting.PurchaseTax = Setting.PurchaseTax;
-				savesSetting.Periodicity = Setting.Periodicity;
-				savesSetting.Reminder = Setting.Reminder;
-				savesSetting.Journal = Setting.Journal;
-				savesSetting.RoundingMethod = Setting.RoundingMethod;
-				savesSetting.FiscalCountry = Setting.FiscalCountry;
-				savesSetting.MainCurrency = Setting.MainCurrency;
-				savesSetting.MultiCurrency = Setting.MultiCurrency;
-				savesSetting.FiscalPeriod = Setting.FiscalPeriod;
-				savesSetting.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				if(savesSetting != null)
+                {
+					savesSetting.SalesTax = Setting.SalesTax;
+					savesSetting.PurchaseTax = Setting.PurchaseTax;
+					savesSetting.Periodicity = Setting.Periodicity;
+					savesSetting.Reminder = Setting.Reminder;
+					savesSetting.Journal = Setting.Journal;
+					savesSetting.RoundingMethod = Setting.RoundingMethod;
+					savesSetting.FiscalCountry = Setting.FiscalCountry;
+					savesSetting.MainCurrency = Setting.MainCurrency;
+					savesSetting.MultiCurrency = Setting.MultiCurrency;
+					savesSetting.FiscalPeriod = Setting.FiscalPeriod;
+					savesSetting.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				}
+                else
+                {
+					_dbContext.Settings.Add(Setting);
+				}
+				
 				
 				_dbContext.SaveChanges();
 				Success = true;
