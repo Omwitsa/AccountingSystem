@@ -29,21 +29,8 @@ namespace AccountingSystem
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddTransient<IAccountingProvider, AccountingProvider>();
-			//services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-			//{
-			//	options.SignIn.RequireConfirmedAccount = false;
-			//	//Other options go here
-			//})
-			//.AddEntityFrameworkStores<AccountingSystemContext>();
-			////.AddDefaultTokenProviders();
-
 			services.AddRazorPages();
-			//services.AddRazorPages()
-			//.AddRazorPagesOptions(options =>
-			//{
-			//	options.RootDirectory = "/Content";
-			//});
+			services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 		}
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

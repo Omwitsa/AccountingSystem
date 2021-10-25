@@ -35,6 +35,8 @@ namespace AccountingSystem.Pages.Vendors
 		public List<IPaymentTerm> PaymentTerms { get; set; }
 		[BindProperty]
 		public RefundDetail RefundDetail { get; set; }
+		//[TempData]
+		//public List<RefundDetail> RefundDetails { get; set; }
 		[BindProperty]
 		public bool Success { get; set; }
 		[BindProperty]
@@ -199,5 +201,12 @@ namespace AccountingSystem.Pages.Vendors
 				return Page();
 			}
 		}
+
+		public IActionResult AddInvoiceItem()
+        {
+			//RefundDetails.Add(RefundDetail);
+			//Refund.RefundDetails = RefundDetails;
+			return Page();
+        }
 	}
 }
