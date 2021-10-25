@@ -30,7 +30,6 @@ namespace AccountingSystem
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddTransient<IAccountingProvider, AccountingProvider>();
-			services.AddTransient<ISystemProvider, SystemProvider>();
 			//services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 			//{
 			//	options.SignIn.RequireConfirmedAccount = false;

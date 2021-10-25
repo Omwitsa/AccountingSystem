@@ -19,7 +19,7 @@ namespace AccountingSystem.Model.Accounting
 		public string DepreciationGlAccount { get; set; }
 		public string ExpenseGlAccount { get; set; }
 		public string Journal { get; set; }
-		// This table is populated aoutomatically based on depreciation Requirements
+		// This table is populated automatically based on depreciation Requirements
 		public IEnumerable<DepreciationBoard> DepreciationBoards { get; set; }
 		public bool? Closed { get; set; }
 		public string Personnel { get; set; }
