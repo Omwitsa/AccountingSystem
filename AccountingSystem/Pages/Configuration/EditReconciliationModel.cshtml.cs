@@ -72,7 +72,7 @@ namespace AccountingSystem.Pages.Configuration
 					Message = "Kindly provide journal";
 					return Page();
 				}
-				var savedModel = _dbContext.ReconciliationModels.FirstOrDefault(r => r.Id == ReconciliationModel.Id);
+				var savedModel = _dbContext.ReconciliationModels.FirstOrDefault(r => r.Id == Id);
 				if (savedModel != null)
 				{
 					savedModel.Name = ReconciliationModel.Name;

@@ -61,7 +61,7 @@ namespace AccountingSystem.Pages.Configuration
 				}
 					
 				ProductCategory.Closed = ProductCategory?.Closed ?? false;
-				var savedCategory = _dbContext.ProductCategories.FirstOrDefault(c => c.Id == ProductCategory.Id);
+				var savedCategory = _dbContext.ProductCategories.FirstOrDefault(c => c.Id == Id);
 				if (savedCategory != null)
 				{
 					savedCategory.Name = ProductCategory.Name;

@@ -2,3 +2,85 @@
 @model AccountingSystem.Pages.Accounting.EditAutoTransferModel
 @{
 }
+
+<form method="post">
+	<div class="modal-content hold-transition login-page">
+		<div class="modal-header" ;color:white;text-align:center">
+			<h5 class="modal-title w-100 text-center">Bank</h5>
+		</div>
+		<div class="modal-body">
+			@if (!Model.Success)
+			{
+				<div class="alert-danger text-center">
+					@Model.Message
+				</div>
+			}
+			<div class="row">
+				<div class="col-sm-4">
+					Name
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input type="text" asp-for="AutoTransfer.Name" class="form-control" placeholder="Name" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					From
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input type="date" asp-for="AutoTransfer.From" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					To
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input type="date" asp-for="AutoTransfer.To" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					Journal
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<select class="form-control" asp-for="AutoTransfer.Journal">
+							<option selected>Select Journal</option>
+							@foreach (var journal in Model.Journals)
+							{
+								<option value="@journal.Name">@journal.Name</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					Frequency
+				</div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<select class="form-control" asp-for="AutoTransfer.From">
+							<option selected>Select Journal</option>
+							@foreach (var frequency in Model.Frequencies)
+							{
+								<option value="@frequency">@frequency</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+			<button type="submit" class="btn btn-success">SAVE</button>
+			<button type="button" class="btn btn-secondary" asp-page="/ListAutoTransfers">BACK</button>
+		</div>
+	</div>
+</form>

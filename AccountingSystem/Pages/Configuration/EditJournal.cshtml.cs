@@ -61,7 +61,7 @@ namespace AccountingSystem.Pages.Configuration
 				}
 					
 				Journal.Closed = Journal?.Closed ?? false;
-				var savedJournal = _dbContext.Journals.FirstOrDefault(j => j.Id == Journal.Id);
+				var savedJournal = _dbContext.Journals.FirstOrDefault(j => j.Id == Id);
 				if (savedJournal != null)
 				{
 					savedJournal.Name = Journal.Name;

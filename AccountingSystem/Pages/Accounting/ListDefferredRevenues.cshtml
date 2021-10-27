@@ -1,4 +1,63 @@
 ﻿@page
 @model AccountingSystem.Pages.Accounting.ListDefferredRevenuesModel
 @{
+	var count = 0;
 }
+<div>
+	<div class="modal-header" style="background-color:white;color:white;text-align:center">
+		<a class="nav-link text-dark" asp-page="./EditDefferredRevenue">CREATE</a>
+	</div>
+	<div class="table-responsive">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Original Amount</th>
+					<th scope="col">Residual Amount</th>
+					<th scope="col">Defferred Amount</th>
+					<th scope="col">Revenue GL Account</th>
+					<th scope="col">Deferred GL Account</th>
+					<th scope="col">Journal</th>
+					<th scope="col">Personnel</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var revenue in Model.DefferredRevenues)
+				{
+					count++;
+					<tr>
+						<th scope="row">@count</th>
+						<td>@revenue.Name</td>
+						<td>@revenue.OriginalAmount</td>
+						<td>@revenue.ResidualAmount</td>
+						<td>@revenue.DefferredAmount</td>
+						<td>@revenue.RevenueGlAccount</td>
+						<td>@revenue.DeferredGlAccount</td>
+						<td>@revenue.Journal</td>
+						<td>@revenue.Personnel</td>
+						<td class="text-right">
+							<div class="dropdown">
+								<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<form asp-page-handler="edit" method="post">
+										<button class="btn btn-default">Edit</button>
+										<input type="hidden" name="id" value="@revenue.Id" />
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

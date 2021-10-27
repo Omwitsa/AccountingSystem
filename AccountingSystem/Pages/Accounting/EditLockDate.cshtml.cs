@@ -1,16 +1,61 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AccountingSystem.Data;
+using AccountingSystem.Model.Accounting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Accounting
 {
-    public class EditLockDateModel : PageModel
+	public class EditLockDateModel : PageModel
     {
-        public void OnGet()
-        {
-        }
-    }
+		private AccountingSystemContext _dbContext;
+		[BindProperty]
+		public LockDate LockDate { get; set; }
+		[BindProperty]
+		public bool Success { get; set; }
+		[BindProperty]
+		public string Message { get; set; }
+		[TempData]
+		public Guid Id { get; set; }
+
+		public EditLockDateModel(AccountingSystemContext dbContext)
+		{
+			_dbContext = dbContext;
+			Success = true;
+		}
+
+		public void OnGet(Guid id)
+		{
+			try
+			{
+				LockDate = _dbContext.LockDates.FirstOrDefault(a => a.Id == id);
+				if (LockDate != null)
+					Id = LockDate.Id;
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+			}
+		}
+
+		public IActionResult OnPost()
+		{
+			try
+			{
+				_dbContext.LockDates.Add(LockDate);
+				_dbContext.SaveChanges();
+				Message = "Date saved successfully";
+				return RedirectToPage("./ListLockDates");
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+	}
 }

@@ -1,4 +1,59 @@
 ﻿@page
 @model AccountingSystem.Pages.Accounting.ListLockDatesModel
 @{
+	var count = 0;
 }
+<div>
+	<div class="modal-header" style="background-color:white;color:white;text-align:center">
+		<a class="nav-link text-dark" asp-page="./EditLockDate">CREATE</a>
+	</div>
+	<div class="table-responsive">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Non Advisor</th>
+					<th scope="col">All Users</th>
+					<th scope="col">Tax</th>
+					<th scope="col">Personnel</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var lockDate in Model.LockDates)
+				{
+					count++;
+					<tr>
+						<th scope="row">@count</th>
+						<td>@lockDate.NonAdvisor</td>
+						<td>@lockDate.AllUsers</td>
+						<td>@lockDate.Tax</td>
+						<td>@lockDate.Personnel</td>
+						<td class="text-right">
+							<div class="dropdown">
+								<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<form asp-page-handler="edit" method="post">
+										<button class="btn btn-default">Edit</button>
+										<input type="hidden" name="id" value="@lockDate.Id" />
+									</form>
+									<form asp-page-handler="delete" method="post">
+										<button class="btn btn-default">Delete</button>
+										<input type="hidden" name="id" value="@lockDate.Id" />
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

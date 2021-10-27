@@ -51,7 +51,7 @@ namespace AccountingSystem.Pages.Configuration
 					return Page();
 				}
 
-				var savedTerm = _dbContext.IPaymentTerms.FirstOrDefault(t => t.Id == PaymentTerm.Id);
+				var savedTerm = _dbContext.IPaymentTerms.FirstOrDefault(t => t.Id == Id);
 				if (savedTerm != null)
 				{
 					savedTerm.Term = PaymentTerm.Term;
