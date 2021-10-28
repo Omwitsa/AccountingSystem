@@ -14,13 +14,11 @@
 			</div>
 			<div class="row m-1">
 				<button type="button" class="btn btn-light" data-dismiss="modal">CONFIRM</button>
-				@*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
 			</div>
 		</div>
 		<div class="row" style="height:10px;">
 
 		</div>
-		@*< class="modal-content hold-transition login-page">*@
 		<div class="modal-body m-0">
 			@if (!Model.Success)
 			{
@@ -38,7 +36,6 @@
 					<div class="card card-body">
 						<div class="row">
 							<input type="text" asp-for="Refund.Vendor" class="form-control" placeholder="Refund Bill No" />
-							@*<input type="text" name="Refund" class="form-control" placeholder="Refund Bill No" style="height:30px;" autocomplete="off" />*@
 						</div>
 						<div class="row">
 							<div class="h-divider"></div>
@@ -70,15 +67,12 @@
 								<option value="@vender.Name">@vender.Name</option>
 							}
 						</select>
-						@*<select class="form-control"></select>*@
 					</div><br>
 					<div class="row">
 						<input type="text" asp-for="Refund.BillRef" class="form-control" placeholder="" />
-						@*<input type="text" name="Vendor" class="form-control" placeholder="Vendor..." style="height:30px;" autocomplete="off" />*@
 					</div><br>
 					<div class="row">
 						<input type="text" asp-for="Refund.Ref" class="form-control" placeholder="" />
-						@*<input type="text" name="Bill" class="form-control" placeholder="Bill Re..." style="height:30px;" autocomplete="off" />*@
 					</div><br>
 					<div class="row">
 						<select class="form-control" asp-for="Refund.ReceipientBank">
@@ -88,7 +82,6 @@
 								<option value="@bank.AccNo">@bank.Name</option>
 							}
 						</select>
-						@*<select class="form-control"></select>*@
 					</div>
 				</div><br>
 				<div class="col-sm-2">
@@ -128,7 +121,6 @@
 								<option value="@journal.Name">@journal.Name</option>
 							}
 						</select>
-						@*<input type="text" asp-for="Refund.Journal" class="form-control" placeholder="" />*@
 					</div><br>
 				</div><br>
 			</div><br>
@@ -147,7 +139,7 @@
 			<div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
 				<div class="card card-body">
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<b>Product</b>
 						</div>
 						<div class="col-sm-2">
@@ -157,14 +149,17 @@
 							<b>Account</b>
 						</div>
 						<div class="col-sm-2">
+							<b>Price</b>
+						</div>
+						<div class="col-sm-2">
 							<b>Quantity</b>
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<b>Taxes</b>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<select class="form-control" asp-for="RefundDetail.Product" id="product">
 								<option selected>Select product</option>
 								@foreach (var product in Model.Products)
@@ -175,36 +170,31 @@
 						</div>
 						<div class="col-sm-2">
 							<input type="text" asp-for="RefundDetail.Lable" class="form-control" placeholder="Label" id="product-lable" disabled />
-							@*<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />*@
 						</div>
 						<div class="col-sm-2">
-							<select class="form-control" asp-for="RefundDetail.GlAccount">
+							<select class="form-control" asp-for="RefundDetail.GlAccount" id="vProductAcc">
 								<option selected>Select Account</option>
 								@foreach (var account in Model.Banks)
 								{
 									<option value="@account.AccNo">@account.AccNo @account.Name</option>
 								}
 							</select>
-							@*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
 						</div>
 						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Quantity" class="form-control" placeholder="Quantity" />
-							@*<input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />*@
+							<input type="text" asp-for="RefundDetail.Price" id="vProductPrice" class="form-control" placeholder="Price" />
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
+							<input type="text" asp-for="RefundDetail.Quantity" id="vProductQty" class="form-control" placeholder="Quantity" />
+						</div>
+						<div class="col-sm-2">
 							<input type="text" asp-for="RefundDetail.Tax" class="form-control" placeholder="Taxes" />
-							@*<input type="text" name="Taxes" class="form-control" style="height:30px;" autocomplete="off" />*@
 						</div>
-					</div>
-					<div class="row" style="height:10px;">
+					</div> 
+					<div class="row" id="refundItems">
 
 					</div>
 					<div class="row">
 						<div class="col-sm-2">
-							@*<form asp-page-handler="delete" method="post">
-									<button class="btn btn-default">Delete</button>
-									<input type="hidden" name="id" value="@vender.Id" />
-								</form>*@
 							<a class="btn btn-success" id="add-refund">Add</a>
 						</div>
 					</div>
@@ -325,12 +315,20 @@
 @Html.AntiForgeryToken()
 @section Scripts {
 	<script type="text/javascript">
-        $(function () {
+		$(function () {
+			var data = [];
             $('#product').on('change', function () {
                 var selectVal = $("#product").val();
                 $("#product-lable").val(selectVal);
             });
-            $('#add-refund').on('click', function () {
+			$('#add-refund').on('click', function () {
+				let qty = parseFloat($("#vProductQty").val());
+				let price = parseFloat($("#vProductPrice").val());
+				data.push({ "product": $("#product").val(), "glAccount": $("#vProductAcc").val(), "quantity": qty, "price": price, "subTotal": qty * price });
+				let val = data;
+				debugger
+
+				/// refundItems
                 //// prevent default action (going to the another page)
                 //event.preventDefault()
 				//$.ajax({
@@ -364,8 +362,8 @@
                         //$('#result2').html(result);
                     }
                 });*@
-            });
-        });
+			});
+		});
 	</script>
 
 }

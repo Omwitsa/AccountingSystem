@@ -1,11 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AccountingSystem.ViewModel
 {
 	public class JournalVm
 	{
+		public string Ref { get; set; }
 		public DateTime? Date { get; set; }
-		public string Entry { get; set; }
+		public decimal? Debit { get; set; }
+		public decimal? Credit { get; set; }
+		public List<JournalDetailsVm> Details { get; set; }
+	}
+
+	public class JournalDetailsVm
+	{
+		public DateTime? Date { get; set; }
 		public string GlAccount { get; set; }
 		public string Partner { get; set; }
 		public string Ref { get; set; }
