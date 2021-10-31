@@ -9,7 +9,7 @@
 		<div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
 			<div class="row m-1">Refunds/New</div>
 			<div class="row m-1">
-				<button type="submit" id="register" class="btn btn-success">SAVE</button>
+				<button id="btn-save-refund" class="btn btn-success">SAVE</button>
 				<a class="btn btn-secondary" asp-page="/ListRefunds">BACK</a>
 				<br><hr>
 			</div>
@@ -32,19 +32,19 @@
 			</div>
 		</div>
 		<form method="post" id="refundForm">
-			<div class="row">
-				<div class="row col-sm-8">
-					<div class="card card-body">
-						<div class="row">
-							<input type="text" asp-for="Refund.Vendor" class="form-control" placeholder="Refund Bill No" />
-						</div>
-						<div class="row">
-							<div class="h-divider"></div>
-						</div>
+			@*<div class="row">
+			<div class="row col-sm-8">
+				<div class="card card-body">
+					<div class="row">
+						<input type="text" class="form-control" placeholder="Refund Bill No" />
+					</div>
+					<div class="row">
+						<div class="h-divider"></div>
 					</div>
 				</div>
-			</div><br>
-
+			</div>
+		</div><br>*@
+			
 			<div class="row">
 				<div class="col-sm-2">
 					<div class="row m-0">
@@ -62,7 +62,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="row">
-						<select class="form-control" asp-for="Refund.Vendor">
+						<select class="form-control" id="refund-vendor">
 							<option selected>Select payment terms</option>
 							@foreach (var vender in Model.Venders)
 							{
@@ -71,14 +71,14 @@
 						</select>
 					</div><br>
 					<div class="row">
-						<input type="text" asp-for="Refund.BillRef" class="form-control" placeholder="" />
+						<input type="text" id="refund-billRef" class="form-control" placeholder="" />
 					</div><br>
 					<div class="row">
-						<input type="text" asp-for="Refund.Ref" class="form-control" placeholder="" />
+						<input type="text" id="refund-ref" class="form-control" placeholder="" />
 					</div><br>
 					<div class="row">
-						<select class="form-control" asp-for="Refund.ReceipientBank">
-							<option selected>Select payment terms</option>
+						<select class="form-control" id="refund-receipient-bank">
+							<option selected>Select Bank</option>
 							@foreach (var bank in Model.Banks)
 							{
 								<option value="@bank.AccNo">@bank.Name</option>
@@ -97,34 +97,34 @@
 						<label for="" style="color:green">Journal</label>
 					</div><br>
 				</div><br>
-				<div class="col-sm-4">
-					<div class="row">
-						<input type="date" asp-for="Refund.BillDate" class="form-control" placeholder="" />
-					</div><br>
-					<div class="row m-0">
-						<div class="col-sm-6">
-							<input type="date" asp-for="Refund.DueDate" class="form-control" placeholder="" />
-						</div>Or
-						<div class="col-sm-5">
-							<select class="form-control" asp-for="Refund.IncoTerm">
-								<option selected>Select payment terms</option>
-								@foreach (var term in Model.PaymentTerms)
-								{
-									<option value="@term.Term">@term.Term</option>
-								}
-							</select>
-						</div>
-					</div><br>
-					<div class="row">
-						<select class="form-control" asp-for="Refund.Journal">
-							<option selected>Select Journal</option>
-							@foreach (var journal in Model.Journals)
-							{
-								<option value="@journal.Name">@journal.Name</option>
-							}
-						</select>
-					</div><br>
-				</div><br>
+					  <div class="col-sm-4">
+					  	<div class="row">
+					  		<input type="date" id="refund-bill-date" class="form-control" placeholder="" />
+					  	</div><br>
+					  	<div class="row m-0">
+					  		<div class="col-sm-6">
+					  			<input type="date" id="refund-due-date" class="form-control" placeholder="" />
+					  		</div>Or
+					  		<div class="col-sm-5">
+					  			<select class="form-control" id="refund-inco-term">
+					  				<option selected>Select payment terms</option>
+					  				@foreach (var term in Model.PaymentTerms)
+							  {
+					  			<option value="@term.Term">@term.Term</option>
+					}
+					  	</select>
+					  </div>
+					  </div><br>
+					  <div class="row">
+					  	<select class="form-control" id="refund-journal">
+					  		<option selected>Select Journal</option>
+					  		@foreach (var journal in Model.Journals)
+						  {
+					  		<option value="@journal.Name">@journal.Name</option>
+					}
+					  </select>
+					  </div><br>
+					  </div><br>
 			</div><br>
 		</form>
 		<nav class="navbar navbar-invers">
@@ -172,7 +172,7 @@
 						</select>
 					</div>
 					<div class="col-sm-2">
-						<input type="text" asp-for="RefundDetail.Lable" class="form-control" placeholder="Label" id="product-lable" disabled />
+						<input type="text" asp-for="RefundDetail.Lable" class="form-control" placeholder="Label" id="vProductlable" disabled />
 					</div>
 					<div class="col-sm-2">
 						<select class="form-control" asp-for="RefundDetail.GlAccount" id="vProductAcc">
@@ -335,93 +335,73 @@
 	<script type="text/javascript">
 		$(function () {
 			let items = new Array();
+			let journals = new Array();
             $('#product').on('change', function () {
                 var selectVal = $("#product").val();
-                $("#product-lable").val(selectVal);
-            });
+				$("#vProductlable").val(selectVal);
+			});
+
 			$('#add-refund').on('click', function () {
-				//// prevent default action (going to the another page)
-				//event.preventDefault()
-				//let qty = parseFloat($("#vProductQty").val());
-				//let price = parseFloat($("#vProductPrice").val());
-				//items.push({ "product": $("#product").val(), "glAccount": $("#vProductAcc").val(), "quantity": qty, "price": price, "subTotal": qty * price });
-				//let tablerows = new Array();
-				//items.forEach(i => {
-				//	tablerows.push(`<tr>
-				//	<td>${i.product}</td>
-				//	<td>${i.glAccount}</td>
-				//	<td>${i.price}</td>
-				//	<td>${i.quantity}</td>
-				//	<td>${i.subTotal}</td>
-				//</tr>`)
-				//});
+				// prevent default action (going to the another page)
+				event.preventDefault()
+				let qty = parseFloat($("#vProductQty").val());
+				let price = parseFloat($("#vProductPrice").val());
+				items.push(
+					{
+						product: $("#product").val(),
+						lable: $("#vProductlable").val(),
+						glAccount: $("#vProductAcc").val(),
+						quantity: qty,
+						price: price,
+						tax: '',
+						subTotal: qty * price
+					}
+				);
+				let tablerows = new Array();
+				items.forEach(i => {
+					tablerows.push(`<tr>
+					<td>${i.product}</td>
+					<td>${i.glAccount}</td>
+					<td>${i.price}</td>
+					<td>${i.quantity}</td>
+					<td>${i.subTotal}</td>
+				</tr>`)
+				});
 
-				//$('#refundItems').html(tablerows)
+				$('#refundItems').html(tablerows)
+			});
 
-				//$.ajax({
-				//	type: "POST",
-				//	url: "/Vendors/refund/EditRefunds/?handler=OnPostItem",
-				//	contentType: "application/json",
-				//	dataType: "json",
-				//	success: function (response) {
-				//		var dvItems = $("#dvItems");
-				//		dvItems.empty();
-				//		$.each(response, function (i, item) {
-				//			var $tr = $('<li>').append(item).appendTo(dvItems);
-				//		});
-				//	},
-				//	failure: function (response) {
-				//		alert(response);
-				//	}
-				//});
-				//var person = { "FirstName": "Andrew", "LastName": "Lock", "Age": "31" };
-				@*$.ajax({
+			$('#btn-save-refund').on('click', function () {
+				let refund = {
+					billRef: $("#refund-billRef").val(),
+					vendor: $("#refund-vendor").val(),
+					ref: $("#refund-ref").val(),
+					billDate: $("#refund-bill-date").val(),
+					dueDate: $("#refund-due-date").val(),
+					journal: $("#refund-journal").val(),
+					receipientBank: $("#refund-receipient-bank").val(),
+					incoTerm: $("#refund-inco-term").val(),
+					fiscalPosition: '',
+					refundDetails: items,
+					refundJournals: journals
+				};
+
+				$.ajax({
 					type: 'POST',
 					url: '@Url.Page("EditRefunds", "item")',
-					contentType: "application/json",
-					body: {},
-					datatype: "html",
-					headers:{
-						"RequestVerificationToken":"@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
 					},
-					//RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
-					//data: JSON.stringify(person),
-                    success: function (result) {
-                        //$('#result2').html(result);
-                    }
-                });*@
-
-				// suppose the data to be posted
-      // is a name value pair
-			  let dataToSend = { v1: "2" };
-
-				fetch("/Vendors/refund/EditRefunds",
-				{
-				  method: "POST",
-
-				  body: JSON.stringify(dataToSend),
-
-				  headers:
-				  {
-					"RequestVerificationToken":
-					  "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
-				  }
-
-				}
-			  )
-				// if any exceptions - log them
-				.catch(err => console.log("network error: " + err))
-
-				.then(response => {
-
-				  // read json from the response stream
-				  response.json().then(data => {
-
-				  //  do anything - we are showing it
-				  // in an alert popup
-					alert("Server responded: " + data);
-
-				  });
+					data: JSON.stringify(refund),
+					//success: function (response) {
+						
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
 				});
 			});
 		});

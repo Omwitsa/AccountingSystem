@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
@@ -7,6 +8,7 @@ using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace AccountingSystem.Pages.Vendors
 {
@@ -15,8 +17,6 @@ namespace AccountingSystem.Pages.Vendors
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Refund Refund { get; set; }
-
-		
 		[BindProperty]
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
@@ -109,103 +109,101 @@ namespace AccountingSystem.Pages.Vendors
 			}
 		}
 
-		//public IActionResult OnPost()
-		//{
-		//	try
-		//	{
-		//		Refund.CreatedDate = DateTime.UtcNow.AddHours(3);
-		//		Refund.ModifiedDate = DateTime.UtcNow.AddHours(3);
-		//		if (string.IsNullOrEmpty(Refund.Vendor))
-		//		{
-		//			Success = false;
-		//			Message = "Sorry, Kindly provide vendor";
-		//			return Page();
-		//		}
-
-
-		//		if (string.IsNullOrEmpty(Refund.Journal))
-		//		{
-		//			Success = false;
-		//			Message = "Sorry, Kindly provide journal";
-		//			return Page();
-		//		}
-		//              Refund.RefundDetails = Refund.RefundDetails == null ? new List<RefundDetail>() : Refund.RefundDetails;
-		//              if (!Refund.RefundDetails.Any())
-		//              {
-		//                  Success = false;
-		//                  Message = "Sorry, Kindly provide refund items";
-		//                  return Page();
-		//              }
-
-		//              foreach (var detail in Refund.RefundDetails)
-		//              {
-		//                  if (string.IsNullOrEmpty(detail.Product))
-		//                  {
-		//                      Success = false;
-		//                      Message = "Sorry, There is a product missing in the invoice";
-		//                      return Page();
-		//                  }
-
-		//                  detail.Price = detail?.Price ?? 0;
-		//                  if (detail.Price < 1)
-		//                  {
-		//                      Success = false;
-		//                      Message = $"Kindly enter the price for product {detail.Product}";
-		//                      return Page();
-		//                  }
-
-		//                  detail.Quantity = detail?.Quantity ?? 0;
-		//                  if (detail.Quantity < 1)
-		//                  {
-		//                      Success = false;
-		//                      Message = $"Kindly enter the quantity for product {detail.Product}";
-		//                      return Page();
-		//                  }
-
-		//              }
-		//              var reference = "Add Refund";
-		//		var savedRefund = _dbContext.Refunds.FirstOrDefault(b => b.Id == Id);
-		//		if (savedRefund != null)
-		//		{
-		//			reference = "Edit Refund";
-		//			Refund.CreatedDate = savedRefund.CreatedDate;
-		//			if (savedRefund != null)
-		//			{
-		//				var details = _dbContext.RefundDetails.Where(b => b.RefundId == savedRefund.Id);
-		//				if (details.Any())
-		//					_dbContext.RefundDetails.RemoveRange(details);
-		//				var journals = _dbContext.RefundJournals.Where(b => b.RefundId == savedRefund.Id);
-		//				if (journals.Any())
-		//					_dbContext.RefundJournals.RemoveRange(journals);
-		//				_dbContext.Refunds.Remove(savedRefund);
-		//			}
-		//		}
-		//		_dbContext.Audits.Add(new Audit
-		//		{
-		//			UserName = Refund.Personnel,
-		//			Date = DateTime.UtcNow.AddHours(3),
-		//			Reference = reference,
-		//			ModuleId = "Venders"
-		//		});
-
-		//		_dbContext.Refunds.Add(Refund);
-		//		_dbContext.SaveChanges();
-		//		Success = true;
-		//		Message = "Refund saved successfully";
-		//		return Page();
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Success = false;
-		//		Message = "Sorry, An error occurred";
-		//		return Page();
-		//	}
-		//}
-
-		// The return type of the OnPost method MUST be a JsonResult, otherwise it will NOT receive the Ajax call!
-		public JsonResult OnPost(String v1)
+		public IActionResult OnPost()
 		{
+			try
+			{
+				Refund.CreatedDate = DateTime.UtcNow.AddHours(3);
+				Refund.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(Refund.Vendor))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide vendor";
+					return Page();
+				}
 
+
+				if (string.IsNullOrEmpty(Refund.Journal))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide journal";
+					return Page();
+				}
+				Refund.RefundDetails = Refund.RefundDetails == null ? new List<RefundDetail>() : Refund.RefundDetails;
+				if (!Refund.RefundDetails.Any())
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide refund items";
+					return Page();
+				}
+
+				foreach (var detail in Refund.RefundDetails)
+				{
+					if (string.IsNullOrEmpty(detail.Product))
+					{
+						Success = false;
+						Message = "Sorry, There is a product missing in the invoice";
+						return Page();
+					}
+
+					detail.Price = detail?.Price ?? 0;
+					if (detail.Price < 1)
+					{
+						Success = false;
+						Message = $"Kindly enter the price for product {detail.Product}";
+						return Page();
+					}
+
+					detail.Quantity = detail?.Quantity ?? 0;
+					if (detail.Quantity < 1)
+					{
+						Success = false;
+						Message = $"Kindly enter the quantity for product {detail.Product}";
+						return Page();
+					}
+
+				}
+				var reference = "Add Refund";
+				var savedRefund = _dbContext.Refunds.FirstOrDefault(b => b.Id == Id);
+				if (savedRefund != null)
+				{
+					reference = "Edit Refund";
+					Refund.CreatedDate = savedRefund.CreatedDate;
+					if (savedRefund != null)
+					{
+						var details = _dbContext.RefundDetails.Where(b => b.RefundId == savedRefund.Id);
+						if (details.Any())
+							_dbContext.RefundDetails.RemoveRange(details);
+						var journals = _dbContext.RefundJournals.Where(b => b.RefundId == savedRefund.Id);
+						if (journals.Any())
+							_dbContext.RefundJournals.RemoveRange(journals);
+						_dbContext.Refunds.Remove(savedRefund);
+					}
+				}
+				_dbContext.Audits.Add(new Audit
+				{
+					UserName = Refund.Personnel,
+					Date = DateTime.UtcNow.AddHours(3),
+					Reference = reference,
+					ModuleId = "Venders"
+				});
+
+				_dbContext.Refunds.Add(Refund);
+				_dbContext.SaveChanges();
+				Success = true;
+				Message = "Refund saved successfully";
+				return Page();
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+
+		public JsonResult OnPostItem([FromBody] Refund refund)
+		{
 			List<string> lstString = new List<string>
 			{
 				"Val 1",
@@ -213,25 +211,6 @@ namespace AccountingSystem.Pages.Vendors
 				"Val 3"
 			};
 			return new JsonResult(lstString);
-
 		}
-
-		public IActionResult OnPostItem()
-        {
-			//RefundDetails.Add(RefundDetail);
-			//Refund.RefundDetails = RefundDetails;
-			return Page();
-        }
-
-		//public async Task<IActionResult> OnPostList()
-		//{
-		//	List<string> lstString = new List<string>
-		//	{
-		//		"Val 1",
-		//		"Val 2",
-		//		"Val 3"
-		//	};
-		//	return new JsonResult("JSONResponse: (OK) " );
-		//}
 	}
 }
