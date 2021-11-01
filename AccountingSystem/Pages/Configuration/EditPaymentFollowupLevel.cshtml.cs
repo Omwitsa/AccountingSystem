@@ -50,7 +50,7 @@ namespace AccountingSystem.Pages.Configuration
 					Message = "Kindly provide level";
 					return Page();
 				}
-				var savedLevel = _dbContext.IPaymentFollowupLevels.FirstOrDefault(l => l.Id == PaymentFollowupLevel.Id);
+				var savedLevel = _dbContext.IPaymentFollowupLevels.FirstOrDefault(l => l.Id == Id);
 				if (savedLevel != null)
 				{
 					savedLevel.Level = PaymentFollowupLevel.Level;

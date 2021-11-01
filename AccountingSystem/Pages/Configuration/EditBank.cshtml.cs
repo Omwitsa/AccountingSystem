@@ -60,7 +60,7 @@ namespace AccountingSystem.Pages.Configuration
 					
 
 				Bank.Closed = Bank?.Closed ?? false;
-				var savedBank = _dbContext.Banks.FirstOrDefault(b => b.Id == Bank.Id);
+				var savedBank = _dbContext.Banks.FirstOrDefault(b => b.Id == Id);
 				if (savedBank != null)
 				{
 					savedBank.AccNo = Bank.AccNo;

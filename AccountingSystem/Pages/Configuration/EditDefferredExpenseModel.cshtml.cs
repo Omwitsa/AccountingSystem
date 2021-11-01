@@ -81,7 +81,7 @@ namespace AccountingSystem.Pages.Configuration
 					return Page();
 				}
 
-				var savedModel = _dbContext.DefferredExpenseModels.FirstOrDefault(e => e.Id == DefferredExpenseModel.Id);
+				var savedModel = _dbContext.DefferredExpenseModels.FirstOrDefault(e => e.Id == Id);
 				if (savedModel != null)
 				{
 					savedModel.Name = DefferredExpenseModel.Name;

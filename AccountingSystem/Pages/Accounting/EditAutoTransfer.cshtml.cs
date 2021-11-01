@@ -1,16 +1,99 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AccountingSystem.Data;
+using AccountingSystem.Model.Accounting;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Accounting
 {
-    public class EditAutoTransferModel : PageModel
+	public class EditAutoTransferModel : PageModel
     {
-        public void OnGet()
-        {
-        }
-    }
+		private AccountingSystemContext _dbContext;
+		[BindProperty]
+		public AutoTransfer AutoTransfer { get; set; }
+		[BindProperty]
+		public List<AccountChart> Accounts { get; set; }
+		[BindProperty]
+		public List<Journal> Journals { get; set; }
+		[BindProperty]
+		public string[] Frequencies { get; set; }
+		[BindProperty]
+		public bool Success { get; set; }
+		[BindProperty]
+		public string Message { get; set; }
+		[TempData]
+		public Guid Id { get; set; }
+
+		public EditAutoTransferModel(AccountingSystemContext dbContext)
+		{
+			_dbContext = dbContext;
+			Success = true;
+		}
+
+		public void OnGet(Guid id)
+		{
+			try
+			{
+				Frequencies = new string[] { "Monthly", "Quarterly", "Yearly" };
+				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				Journals = _dbContext.Journals.Where(j => !(bool)j.Closed)
+					.Select(j => new Journal
+					{
+						Name = j.Name
+					}).ToList();
+				AutoTransfer = _dbContext.AutoTransfers.FirstOrDefault(a => a.Id == id);
+				if (AutoTransfer != null)
+					Id = AutoTransfer.Id;
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+			}
+		}
+
+		public IActionResult OnPost()
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(AutoTransfer.Name))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide name";
+					return Page();
+				}
+
+				var savedTransfer = _dbContext.AutoTransfers.FirstOrDefault(b => b.Id == Id);
+				if (savedTransfer != null)
+				{
+					var originalAccounts = _dbContext.OriginalAccounts.Where(b => b.AutoTransferId == savedTransfer.Id);
+					if (originalAccounts.Any())
+						_dbContext.OriginalAccounts.RemoveRange(originalAccounts);
+					var transferredToAccounts = _dbContext.TransferredToAccounts.Where(b => b.AutoTransferId == savedTransfer.Id);
+					if (transferredToAccounts.Any())
+						_dbContext.TransferredToAccounts.RemoveRange(transferredToAccounts);
+					_dbContext.AutoTransfers.Remove(savedTransfer);
+				}
+				_dbContext.AutoTransfers.Add(AutoTransfer);
+				_dbContext.SaveChanges();
+				Success = true;
+				Message = "Transferred successfully";
+				return RedirectToPage("./ListAutoTransfers");
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+	}
 }

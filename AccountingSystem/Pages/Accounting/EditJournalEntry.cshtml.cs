@@ -1,16 +1,108 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AccountingSystem.Data;
+using AccountingSystem.Model.Accounting;
+using AccountingSystem.Model.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Accounting
 {
-    public class EditJournalEntryModel : PageModel
+	public class EditJournalEntryModel : PageModel
     {
-        public void OnGet()
-        {
-        }
-    }
+		private AccountingSystemContext _dbContext;
+		[BindProperty]
+		public JournalEntry JournalEntry { get; set; }
+		[BindProperty]
+		public List<AccountChart> Accounts { get; set; }
+		[BindProperty]
+		public List<Journal> Journals { get; set; }
+		[BindProperty]
+		public bool Success { get; set; }
+		[BindProperty]
+		public string Message { get; set; }
+		[TempData]
+		public Guid Id { get; set; }
+
+		public EditJournalEntryModel(AccountingSystemContext dbContext)
+		{
+			_dbContext = dbContext;
+			Success = true;
+		}
+
+		public void OnGet(Guid id)
+		{
+			try
+			{
+				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Name = a.Name,
+						Code = a.Code
+					}).ToList();
+				Journals = _dbContext.Journals.Where(j => !(bool)j.Closed)
+					.Select(j => new Journal
+					{
+						Name = j.Name
+					}).ToList();
+				JournalEntry = _dbContext.JournalEntries.FirstOrDefault(a => a.Id == id);
+				if (JournalEntry != null)
+					Id = JournalEntry.Id;
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+			}
+		}
+
+		public IActionResult OnPost()
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(JournalEntry.Ref))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide Reference No.";
+					return Page();
+				}
+
+				if (string.IsNullOrEmpty(JournalEntry.Journal))
+				{
+					Success = false;
+					Message = "Sorry, Kindly provide journal";
+					return Page();
+				}
+
+				var savedJournal = _dbContext.JournalEntries.FirstOrDefault(b => b.Id == Id);
+				if (savedJournal != null)
+				{
+					savedJournal.Date = JournalEntry.Date;
+					savedJournal.No = JournalEntry.No;
+					savedJournal.Partner = JournalEntry.Partner;
+					savedJournal.Ref = JournalEntry.Ref;
+					savedJournal.Journal = JournalEntry.Journal;
+					savedJournal.Total = JournalEntry.Total;
+					savedJournal.Personnel = JournalEntry.Personnel;
+					savedJournal.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				}
+				else
+				{
+					_dbContext.JournalEntries.Add(JournalEntry);
+				}
+				
+				_dbContext.SaveChanges();
+				Success = true;
+				Message = "Emtry saved successfully";
+				return RedirectToPage("./ListJournalEntries");
+			}
+			catch (Exception ex)
+			{
+				Success = false;
+				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+	}
 }

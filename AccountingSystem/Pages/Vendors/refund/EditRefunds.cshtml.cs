@@ -202,11 +202,22 @@ namespace AccountingSystem.Pages.Vendors
 			}
 		}
 
-		public IActionResult AddInvoiceItem()
+		public IActionResult OnPostItem()
         {
 			//RefundDetails.Add(RefundDetail);
 			//Refund.RefundDetails = RefundDetails;
 			return Page();
         }
+
+		public JsonResult OnPostList()
+		{
+			List<string> lstString = new List<string>
+			{
+				"Val 1",
+				"Val 2",
+				"Val 3"
+			};
+			return new JsonResult(lstString);
+		}
 	}
 }

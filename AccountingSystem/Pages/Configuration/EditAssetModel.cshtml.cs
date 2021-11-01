@@ -67,7 +67,7 @@ namespace AccountingSystem.Pages.Configuration
 					return Page();
 				}
 
-				var savedAsset = _dbContext.AssetModels.FirstOrDefault(a => a.Id == AssetModel.Id);
+				var savedAsset = _dbContext.AssetModels.FirstOrDefault(a => a.Id == Id);
 				if (savedAsset != null)
 				{
 					
