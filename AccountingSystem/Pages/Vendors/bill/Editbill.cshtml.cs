@@ -98,14 +98,14 @@ namespace AccountingSystem.Pages.Vendors
 				Message = "Sorry, An error occurred";
 			}
 		}
-		public IActionResult OnPost()
+		public IActionResult OnPost([FromBody] Bill bill)
 		{
 			try
 			{
-				Bill.CreatedDate = DateTime.UtcNow.AddHours(3);
-				Bill.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				Bill.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Bill.Vender))
+				bill.CreatedDate = DateTime.UtcNow.AddHours(3);
+				bill.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				bill.Date = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(bill.Vender))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide vendor";
@@ -113,21 +113,21 @@ namespace AccountingSystem.Pages.Vendors
 				}
 
 
-				if (string.IsNullOrEmpty(Bill.Journal))
+				if (string.IsNullOrEmpty(bill.Journal))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 				
-				if (!Bill.BillDetails.Any())
+				if (!bill.BillDetails.Any())
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
 
-				foreach (var detail in Bill.BillDetails)
+				foreach (var detail in bill.BillDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
 					{
@@ -158,7 +158,7 @@ namespace AccountingSystem.Pages.Vendors
 				if (savedBill != null)
 				{
 					reference = "Edit Bill";
-					Bill.CreatedDate = savedBill.CreatedDate;
+					bill.CreatedDate = savedBill.CreatedDate;
 					if (savedBill != null)
 					{
 						var details = _dbContext.BillDetails.Where(b => b.BillId == savedBill.Id);
@@ -172,13 +172,13 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = Bill.Personnel,
+					UserName = bill.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
 					ModuleId = "Venders"
 				});
 
-				_dbContext.Bills.Add(Bill);
+				_dbContext.Bills.Add(bill);
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Bill saved successfully";

@@ -1,324 +1,412 @@
 ﻿@page
 @model AccountingSystem.Pages.Vendors.EditbillModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
 }
-<form method="post">
-    <div class="modal-content hold-transition login-page">
-        <div class="modal-header" ;color:white;text-align:center">
-            <h5 class="modal-title w-100 text-center">Vendors Registration Form</h5>
-        </div>
-        <div class="modal-body">
-            @if (!Model.Success)
-            {
-                <div class="alert-danger text-center">
-                    @Model.Message
-                </div>
-            }
-            <div class="row">
-                <div class="form-group mt-1">
-                    <label for="" style="color:green"><b>Vendor Bill</b></label>
-                </div>
-                <div class="row mt-1">
-                    <input type="text" asp-for="Bill.No" class="form-control" placeholder="Bill No" />
-                </div><hr><br>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="row m-0">
-                        <label for="" style="color:green">Vendor</label>
-                    </div><br>
-                    <div class="row m-0">
-                        <label for="" style="color:green">Bill Reference</label>
-                    </div><br>
-                    <div class="row m-0">
-                        <label for="" style="color:green">Payment Reference</label>
-                    </div><br>
-                    <div class="row m-0">
-                        <label for="" style="color:green">Recipient Bank</label>
-                    </div><br>
-                    <div class="row m-0">
-                        <label for="" style="color:green">Auto-Complete</label>
-                    </div><br>
-                </div>
-                <div class="col-sm-4">
-                    <div class="row">
-                        <select class="form-control" asp-for="Bill.Vender">
-                            <option selected>Select Journal</option>
-                            @foreach (var vender in Model.Venders)
-                            {
-                                <option value="@vender.Name">@vender.Name</option>
-                            }
-                        </select>
-                    </div><br>
-                    <div class="row">
-                        <input type="text" asp-for="Bill.Ref" class="form-control" placeholder="Bill Re..." />
-                    </div><br>
-                    <div class="row">
-                        <input type="text" asp-for="Bill.BillDetails" class="form-control" placeholder="Payement Re..." />
-                    </div><br>
-                    <div class="row">
-                        <select class="form-control" asp-for="Bill.RecipientBank">
-                            <option selected>Select Journal</option>
-                            @foreach (var bank in Model.Banks)
-                            {
-                                <option value="@bank.Name">@bank.Name</option>
-                            }
-                        </select>
-                    </div><br>
-                    <div class="row">
-                        <select class="form-control" asp-for="Bill.RecipientBank">
-                            <option selected>Select Journal</option>
-                            @foreach (var bank in Model.Banks)
-                            {
-                                <option value="@bank.Name">@bank.Name</option>
-                            }
-                        </select>
-                    </div><br>
-                </div>
-                <div class="col-sm-2">
-                    <div class="row m-0">
-                        <label for="" style="color:green">Bill Date</label>
-                    </div><br>
-                    @*<div class="row m-0">
-                        <label for="" style="color:green">Accounting Date</label>
-                    </div>*@
-                    <div class="row m-0">
-                        <label for="" style="color:green">Due Date</label>
-                    </div><br>
-                    <div class="row m-0">
-                        <label for="" style="color:green">Journal</label>
-                    </div><br>
-                </div>
-                <div class="col-sm-4">
-                    <div class="row">
-                        <input type="date" asp-for="Bill.Date" class="form-control" placeholder="" />
-                    </div><br>
-                    @*<div class="row">
+<div class="card border-primary mt-3">
+	<div class="card-header border-primary"><strong>VENDOR BILL</strong></div>
+	<div class="card-body">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		
+	<form method="post">
+		<div class="row">
+			<div class="col-sm-2">
+				Bill No.
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<input type="text" id="bill-no" class="form-control" placeholder="Bill No" />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				Bill Ref
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<input type="text" id="bill-ref" class="form-control" placeholder="Bill Ref" />
+				</div>
+			</div>
+		</div>
 
-                    </div>*@
-                    <div class="row m-0">
-                        <div class="col-sm-5">
-                            <input type="date" asp-for="Bill.DueDate" class="form-control" placeholder="" />
-                        </div>Or
-                        <div class="col-sm-4">
-                            <select class="form-control" asp-for="Bill.IncoTerm">
-                                <option selected>Select Journal</option>
-                                @foreach (var term in Model.IncoTerms)
-                                {
-                                    <option value="@term.Code">@term.Code @term.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <select class="form-control" asp-for="Bill.Journal">
-                            <option selected>Select Journal</option>
-                            @foreach (var journal in Model.Journals)
-                            {
-                                <option value="@journal.Name">@journal.Name</option>
-                            }
-                        </select>
-                    </div><br>
-                </div>
-            </div><br>
-        </div>
-        <nav class="navbar navbar-invers">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <div class="row">
+		<div class="row">
+			<div class="col-sm-2">
+				Vender
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control" id="vendor">
+					<option selected>Select vender</option>
+					@foreach (var vender in Model.Venders)
+					{
+						<option value="@vender.Name">@vender.Name</option>
+					}
+				</select>
+			</div>
+			<div class="col-sm-2">
+				Payment Reference
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<input type="text" id="pay-ref" class="form-control" placeholder="Payment Reference" />
+				</div>
+			</div>
+		</div>
 
-                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
-                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseJournal" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
-                    <li class="btn btn-primary" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
-            </div>
-        </nav>
-        <div id="myGroup">
-            <div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
-                <div class="card card-body">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <b>Product</b>
-                        </div><br>
-                        <div class="col-sm-2">
-                            <b>Label</b>
-                        </div><br>
-                        <div class="col-sm-2">
-                            <b>Account</b>
-                        </div><br>
-                        <div class="col-sm-2">
-                            <b>Quantity</b>
-                        </div><br>
-                        <div class="col-sm-2">
-                            <b>Taxes</b>
-                        </div><br>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <select class="form-control" asp-for="BillDetail.Product">
-                                <option selected></option>
-                                @foreach (var product in Model.Products)
-                                {
-                                    <option value="@product.Name">@product.Name</option>
-                                }
-                            </select>
-                            @*<input type="text" name="Product" class="form-control" style="height:30px;" autocomplete="off" />*@
-                        </div><br>
-                        <div class="col-sm-2">
-                            @*<input type="text" asp-for="" class="form-control" placeholder="" />*@
-                            <input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
-                        </div><br>
-                        <div class="col-sm-2">
-                            <select class="form-control" asp-for="BillDetail.GlAccount">
-                                <option selected></option>
-                                @foreach (var account in Model.Accounts)
-                                {
-                                    <option value="@account.Code">@account.Code @account.Name</option>
-                                }
-                            </select>
-                            @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
-                        </div><br>
-                        <div class="col-sm-2">
-                            <input type="text" asp-for="Bill.Quantity" class="form-control" placeholder="" />
-                            @*<input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />*@
-                        </div><br>
-                        <div class="col-sm-2">
-                            <select class="form-control" asp-for="BillDetail.Tax">
-                                <option selected></option>
-                                @foreach (var tax in Model.Taxes)
-                                {
-                                    <option value="@tax.Type">@tax.Type @tax.Name</option>
-                                }
-                            </select>
-                            @*<input type="text" name="Price" class="form-control" style="height:30px;" autocomplete="off" />*@
-                        </div><br>
-                    </div> <hr>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
-                        </div>
-                    </div>
-                </div>
-               </div>
-                <div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                Account
-                            </div><br>
-                            @*<div class="col-sm-2">
-                        Label
-                    </div><br>
-                    <div class="col-sm-2">
-                        Debit
-                    </div><br>
-                    <div class="col-sm-2">
-                        Credit
-                    </div><br>
-                    <div class="col-sm-3">
-                        Tax Grids
-                    </div><br>*@
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <input type="text" asp-for="BillDetail.GlAccount" class="form-control" placeholder="" />
-                                @*<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />*@
-                            </div>
-                            <!--<div class="col-sm-2">-->
-                            @*<input type="text" asp-for="BillDetail.GlAccount" class="form-control" placeholder="" />*@
-                            <!--<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" asp-for="Bill.d" class="form-control" placeholder="" />
-                    <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
-                </div>-->
-                        </div><hr>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
-                            </div>
-                        </div><br>
-                    </div>
-                </div>
-                <div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
-                    <div class="card card-body">
-                        <label><b>Accounting</b></label>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="row">
-                                    <div class="form-control">
-                                        Incoterm
-                                    </div>
-                                </div><br>
-                                @*<div class="row">
-                            <div class="form-control">
-                                Fiscal Position
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-control">
-                                Post Automatically
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-control">
-                                To Check
-                            </div>
-                        </div>*@
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="row">
-                                    <select class="form-control" asp-for="Bill.IncoTerm">
-                                        <option selected></option>
-                                        @foreach (var incoTerm in Model.IncoTerms)
-                                        {
-                                            <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
-                                        }
-                                    </select>
-                                    @*<select class="form-control"></select>*@
-                                </div><br>
+		<div class="row">
+			<div class="col-sm-2">
+				Recipient Bank
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control" id="bank">
+					<option selected>Select Bank</option>
+					@foreach (var bank in Model.Banks)
+					{
+						<option value="@bank.Name">@bank.Name</option>
+					}
+				</select>
+			</div>
+			<div class="col-sm-2">
+				Journal
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control" id="journal">
+					<option selected>Select Journal</option>
+					@foreach (var journal in Model.Journals)
+					{
+						<option value="@journal.Name">@journal.Name</option>
+					}
+				</select>
+			</div>
+		</div><br />
 
+		<div class="row">
+			<div class="col-sm-2">
+				Date
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<input type="date" id="date" class="form-control" />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				Due Date
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<input type="date" id="due-date" class="form-control" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-2">
+				Remarks
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<textarea class="form-control" id="remarks" rows="3" placeholder="Remarks"></textarea>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				Inco Terms
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control" id="ico-term">
+					<option selected>Select Term</option>
+					@foreach (var term in Model.IncoTerms)
+					{
+						<option value="@term.Code">@term.Code @term.Name</option>
+					}
+				</select>
+			</div>
+		</div>
+	</form>
 
+		<div class="m-4">
+			<ul class="list-inline">
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseJournal" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
+			</ul>
+		</div>
 
-                            <!--<div class="row">
-                    <select class="form-control" asp-for="Bill.IncoTerm">
-                        <option selected></option>
-                        @foreach (var incoTerm in Model.IncoTerms)
-                        {
-                            <option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
-                        }
-                    </select>-->
-                            @*<select class="form-control"></select>*@
-                            <!--</div>-->
-                            @*<div class="row">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="Post">
-                            </label>
-                        </div>
-                        <div class="row">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="ToCheck">
-                            </label>
-                        </div>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-sm-6 m-2">
-                <textarea class="span6" asp-for="Bill.remarks" cols="100" style="width:800px;" rows="2" placeholder="terms and conditions.."></textarea>
-            </div>
-        </div>
-            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-                <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
-                <a class="btn btn-secondary" asp-page="/Listbill">BACK</a>
-            </div>
-        </div>
-</form>
+		<div id="myGroup">
+			<div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
+				<div class="card card-body">
+					<div class="row">
+						<div class="col-sm-2">
+							Product
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="product">
+								<option selected>Select product</option>
+								@foreach (var product in Model.Products)
+								{
+									<option value="@product.Name">@product.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-sm-2">
+							Label
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Label" id="lable" disabled />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-2">
+							GL Account
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="glAccount">
+								<option selected>Select Account</option>
+								@foreach (var account in Model.Accounts)
+								{
+									<option value="@account.Code">@account.Code @account.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-sm-2">
+							Price
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="price" class="form-control" placeholder="Price" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							Quantity
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="qty" class="form-control" placeholder="Quantity" />
+							</div>
+						</div>
+						<div class="col-sm-2">
+							Tax
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="tax">
+								<option selected>Select Tax</option>
+								@foreach (var tax in Model.Taxes)
+								{
+									<option value="@tax.Name">@tax.Name</option>
+								}
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Product</th>
+									<th scope="col">GL Account</th>
+									<th scope="col">Price</th>
+									<th scope="col">Product</th>
+									<th scope="col">Subtotal</th>
+								</tr>
+							</thead>
+							<tbody id="items">
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							<a class="btn btn-success" id="add-item">Add</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
+				<div class="card card-body">
+					<div class="row">
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th scope="col">GL Account</th>
+									<th scope="col">Label</th>
+									<th scope="col">Debit</th>
+									<th scope="col">Credit</th>
+								</tr>
+							</thead>
+							<tbody id="journals">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
+				<div class="card card-body">
+					<label><b>Accounting</b></label>
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="row">
+								<div class="form-control">
+									Incoterm
+								</div>
+							</div><br>
+						</div>
+						<div class="col-sm-5">
+							<div class="row">
+								<select class="form-control" asp-for="Bill.IncoTerm">
+									<option selected></option>
+									@foreach (var incoTerm in Model.IncoTerms)
+									{
+										<option value="@incoTerm.Code">@incoTerm.Code @incoTerm.Name</option>
+									}
+								</select>
+							</div><br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer" style="text-align:right">
+		<button id="btn-save" class="btn btn-success">SAVE</button>
+		<a class="btn btn-secondary" asp-page="/Listbill">BACK</a>
+	</div>
+</div>
+
+@section Scripts {
+	<script type="text/javascript">
+		$(function () {
+			//let taxes = Model.Taxes;
+			let items = new Array();
+			let journals = new Array();
+            $('#product').on('change', function () {
+				var selectVal = $("#product").val();
+				$("#lable").val(selectVal);
+			});
+			$('#add-item').on('click', function () {
+				// prevent default action (going to the another page)
+				event.preventDefault()
+				let qty = parseFloat($("#qty").val());
+				let price = parseFloat($("#price").val());
+				let product = $("#product").val();
+				let account = $("#glAccount").val();
+				if (!product || !account || !price || !qty) {
+					return
+				}
+				
+				items.push(
+					{
+						product: product,
+						label: $("#lable").val(),
+						glAccount: account,
+						quantity: qty,
+						price: price,
+						tax: $("#tax").val(),
+						subTotal: qty * price
+					}
+				);
+
+				let itemTableRows = new Array();
+				items.forEach(i => {
+					itemTableRows.push(`<tr>
+					<td>${i.product}</td>
+					<td>${i.glAccount}</td>
+					<td>${i.price}</td>
+					<td>${i.quantity}</td>
+					<td>${i.subTotal}</td>
+				</tr>`)
+				});
+
+				$('#items').html(itemTableRows);
+
+				let tax = 0;
+				let total = 0;
+				let itemJournals = new Array();
+				items.forEach(i => {
+					let rate = 15;
+					tax += (i.subTotal * rate * 0.01);
+					total += i.subTotal;
+					itemJournals.push(
+						{
+							glAccount: i.glAccount,
+							label: i.label,
+							debit: i.subTotal,
+							credit: 0
+						}
+					);
+				});
+
+				itemJournals.push(
+					{
+						glAccount: "Tax Received",
+						label: "Tax 15%",
+						debit: tax,
+						credit: 0
+					}
+				);
+
+				itemJournals.push(
+					{
+						glAccount: "Account Receivable",
+						label: "Account Receivable",
+						debit: 0,
+						credit: total + tax
+					}
+				);
+
+				journals = itemJournals;
+				let journalTableRows = new Array();
+				journals.forEach(i => {
+					journalTableRows.push(`<tr>
+					<td>${i.glAccount}</td>
+					<td>${i.label}</td>
+					<td>${i.debit}</td>
+					<td>${i.credit}</td>
+				</tr>`)
+				});
+
+				$('#journals').html(journalTableRows);
+			});
+			$('#btn-save').on('click', function () {
+				let bill = {
+					no: $("#bill-no").val(),
+					vender: $("#vendor").val(),
+					ref: $("#bill-ref").val(),
+					remarks: $("#remarks").val(),
+					Date: $("#date").val(),
+					dueDate: $("#due-date").val(),
+					journal: $("#journal").val(),
+					recipientBank: $("#bank").val(),
+					incoTerm: $("#ico-term").val(),
+					fiscalPosition: '',
+					billDetails: items,
+					billJournals: journals
+				};
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("Editbill")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(bill),
+					//success: function (response) {
+
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+			});
+		});
+	</script>
+}

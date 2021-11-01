@@ -28,6 +28,8 @@ namespace AccountingSystem.Pages.Customers
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
 		[BindProperty]
+		public List<Tax> Taxes { get; set; }
+		[BindProperty]
 		public bool Success { get; set; }
 		[BindProperty]
 		public string Message { get; set; }
@@ -69,6 +71,12 @@ namespace AccountingSystem.Pages.Customers
 					{
 						Name = p.Name
 					}).ToList();
+				Taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax { 
+						Name = t.Name,
+						GlAcccount = t.GlAcccount,
+						Rate = t.Rate
+					}).ToList();
 				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
 					.Select(c => new AccountChart
 					{
@@ -86,36 +94,35 @@ namespace AccountingSystem.Pages.Customers
 			}
 		}
 
-		public IActionResult OnPost()
+		public IActionResult OnPost([FromBody] CInvoice invoice)
 		{
 			try
 			{
-				Invoice.CreatedDate = DateTime.UtcNow.AddHours(3);
-				Invoice.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				Invoice.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Invoice.Customer))
+				invoice.CreatedDate = DateTime.UtcNow.AddHours(3);
+				invoice.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				invoice.Date = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(invoice.Customer))
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide customer";
 					return Page();
 				}
 
-
-				if (string.IsNullOrEmpty(Invoice.Journal))
+				if (string.IsNullOrEmpty(invoice.Journal))
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 
-				if (!Invoice.CInvoiceDetails.Any())
+				if (!invoice.CInvoiceDetails.Any())
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
 					
-				foreach (var detail in Invoice.CInvoiceDetails)
+				foreach (var detail in invoice.CInvoiceDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
                     {
@@ -146,7 +153,7 @@ namespace AccountingSystem.Pages.Customers
 				if (savedInvoice != null)
 				{
 					reference = "Edit invoice";
-					Invoice.CreatedDate = savedInvoice.CreatedDate;
+					invoice.CreatedDate = savedInvoice.CreatedDate;
 					if (savedInvoice != null)
 					{
 						var details = _dbContext.CInvoiceDetails.Where(b => b.CInvoiceId == savedInvoice.Id);
@@ -160,17 +167,17 @@ namespace AccountingSystem.Pages.Customers
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = Invoice.Personnel,
+					UserName = invoice.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
 					ModuleId = "Customer"
 				});
 
-				_dbContext.CInvoices.Add(Invoice);
+				_dbContext.CInvoices.Add(invoice);
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Invoice saved successfully";
-				return Page();
+				return RedirectToPage("./ListCustomerInvoice");
 			}
 			catch (Exception ex)
 			{
