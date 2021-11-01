@@ -14,10 +14,13 @@
                     @Model.Message
                 </div>
             }
-            <div class="row">
+        <div class="row">
+            <div class="col-sm-2">
                 <div class="form-group mt-1">
                     <label for="" style="color:green"><b>Vendor Bill</b></label>
                 </div>
+            </div>
+                
                 <div class="row mt-1">
                     <input type="text" asp-for="Bill.No" class="form-control" placeholder="Bill No" />
                 </div><hr><br>
@@ -80,8 +83,8 @@
                         <label for="" style="color:green">Bill Date</label>
                     </div><br>
                     @*<div class="row m-0">
-                        <label for="" style="color:green">Accounting Date</label>
-                    </div>*@
+                    <label for="" style="color:green">Accounting Date</label>
+                </div>*@
                     <div class="row m-0">
                         <label for="" style="color:green">Due Date</label>
                     </div><br>
@@ -95,7 +98,7 @@
                     </div><br>
                     @*<div class="row">
 
-                    </div>*@
+                </div>*@
                     <div class="row m-0">
                         <div class="col-sm-5">
                             <input type="date" asp-for="Bill.DueDate" class="form-control" placeholder="" />

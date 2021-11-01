@@ -5,18 +5,7 @@
 }
 <div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
     <form method="post">
-        <div class="modal-content hold-transition login-page" style="border-radius:5px;border:1px solid #DDDDDD;padding:5px; max-width: 100%;" role="document">
-            <div class="row m-1">Refunds/New</div>
-            <div class="row m-1">
-                <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                <a class="btn btn-secondary" asp-page="/ListRefunds">BACK</a>
-                <br><hr>
-            </div>
-            <div class="row m-1">
-                <button type="button" class="btn btn-light" data-dismiss="modal">CONFIRM</button>
-                @*<button type="button" class="btn btn-danger" data-dismiss="modal">DISCARD</button>*@
-            </div>
-        </div>
+        <div>Refunds/New</div>
         <div class="row" style="height:10px;">
 
         </div>
@@ -147,7 +136,7 @@
             <div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
                 <div class="card card-body">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <b>Product</b>
                         </div>
                         <div class="col-sm-2">
@@ -159,12 +148,15 @@
                         <div class="col-sm-2">
                             <b>Quantity</b>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <b>Price</b>
+                        </div>
+                        <div class="col-sm-2">
                             <b>Taxes</b>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <select class="form-control" asp-for="RefundDetail.Product" id="product">
                                 <option selected>Select product</option>
                                 @foreach (var product in Model.Products)
@@ -191,9 +183,18 @@
                             <input type="text" asp-for="RefundDetail.Quantity" class="form-control" placeholder="Quantity" />
                             @*<input type="text" name="Quantity" class="form-control" style="height:30px;" autocomplete="off" />*@
                         </div>
-                        <div class="col-sm-3">
-                            <input type="text" asp-for="RefundDetail.Tax" class="form-control" placeholder="Taxes" />
+                        <div class="col-sm-2">
+                            <input type="text" asp-for="RefundDetail.Price" class="form-control" placeholder="Taxes" />
                             @*<input type="text" name="Taxes" class="form-control" style="height:30px;" autocomplete="off" />*@
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control" asp-for="RefundDetail.Tax">
+                                <option selected>Select Account</option>
+                                @foreach (var tax in Model.Taxes)
+                                {
+                                    <option value="@tax.Name">@tax.Name @tax.Rate</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="row" style="height:10px;">
@@ -202,9 +203,9 @@
                     <div class="row">
                         <div class="col-sm-2">
                             @*<form asp-page-handler="delete" method="post">
-                                    <button class="btn btn-default">Delete</button>
-                                    <input type="hidden" name="id" value="@vender.Id" />
-                                </form>*@
+                                <button class="btn btn-default">Delete</button>
+                                <input type="hidden" name="id" value="@vender.Id" />
+                            </form>*@
                             <a class="btn btn-success" id="add-refund">Add</a>
                         </div>
                     </div>
@@ -240,7 +241,6 @@
                         </div>
                         <div class="col-sm-2">
                             <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
-                            <input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
                         </div>
                         <div class="col-sm-2">
                             <input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
@@ -248,9 +248,6 @@
                         <div class="col-sm-3">
                             <input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
                         </div>
-                    </div>
-                    <div class="row" style="height:10px;">
-
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -270,10 +267,10 @@
                                 </div>
                             </div>
                             @*<div class="row">
-                                    <div class="form-control">
-                                        Fiscal Position
-                                    </div>
-                                </div>*@
+                                <div class="form-control">
+                                    Fiscal Position
+                                </div>
+                            </div>*@
                             <div class="row">
                                 <div class="form-control">
                                     Post Automatically
@@ -297,24 +294,30 @@
                                 @*<select class="form-control"></select>*@
                             </div>
                             @*<div class="row">
-                                    <select class="form-control"></select>
-                                </div>*@
+                                <select class="form-control"></select>
+                            </div>*@
                             @*<div class="row">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" asp-for="RefundDetail.a" class="form-control" />
-                                        <input type="checkbox" name="Post">
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label class="checkbox-inline">
-                                        <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
-                                        <input type="checkbox" name="ToCheck">
-                                    </label>
-                                </div>*@
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" asp-for="RefundDetail.a" class="form-control" />
+                                    <input type="checkbox" name="Post">
+                                </label>
+                            </div>
+                            <div class="row">
+                                <label class="checkbox-inline">
+                                    <input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
+                                    <input type="checkbox" name="ToCheck">
+                                </label>
+                            </div>*@
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+            <button type="submit" id="register" class="btn btn-success">SAVE</button>
+            @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+            <a class="btn btn-secondary" asp-page="/ListRefunds">BACK</a>
         </div>
     </form>
 </div>
@@ -359,5 +362,4 @@
             });
         });
     </script>
-
 }
