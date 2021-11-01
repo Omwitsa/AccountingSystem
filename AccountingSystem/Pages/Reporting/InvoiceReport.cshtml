@@ -1,0 +1,51 @@
+﻿@page
+@model AccountingSystem.Pages.Reporting.InvoiceReportModel
+@{
+    var count = 0;
+}
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <button class="fas fa-file-download" >EXPORT TO PDF</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Invoice Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Next Activity</th>
+                    <th scope="col">Tax Excluded</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var invoice in Model.Invoices)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@invoice.Ref</td>
+                        <td>@invoice.Customer</td>
+                        <td>@invoice.CreatedDate</td>
+                        <td>@invoice.DueDate</td>
+                        <td>@invoice.Personnel</td>
+                        <td>@invoice.Journal</td>
+                        <td>@invoice.IncoTerm</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    @*<td>@Model.Invoices.Sum(i => i.Total)</td>*@
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
