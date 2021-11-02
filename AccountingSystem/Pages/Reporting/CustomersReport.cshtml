@@ -1,0 +1,56 @@
+﻿@page
+@model AccountingSystem.Pages.Reporting.CustomersReportModel
+@{
+    var count = 0;
+}
+
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <button id="Button5" class="fas fa-file-download" onclick="Button5_Click">EXPORT TO PDF</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">PhoneNo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model.Customers)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@customer.Name</td>
+                        <td>@customer.City</td>
+                        <td>@customer.Country</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.PhoneNo</td>
+                        <td class="text-right">
+                            @*<div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <form asp-page-handler="edit" method="post">
+                                            <button class="btn btn-default">Edit</button>
+                                            <input type="hidden" name="id" value="@customer.Id" />
+                                        </form>
+                                        <form asp-page-handler="delete" method="post">
+                                            <button class="btn btn-default">Delete</button>
+                                            <input type="hidden" name="id" value="@customer.Id" />
+                                        </form>
+                                    </div>
+                                </div>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

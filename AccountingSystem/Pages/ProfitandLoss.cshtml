@@ -1,0 +1,2037 @@
+﻿@page
+@model AccountingSystem.Pages.ProfitandLossModel
+@{
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Profit and Loss - Odoo</title>
+    <link type="image/x-icon" rel="shortcut icon" href="/web/image/res.company/1/favicon/">
+
+    <script id="web.layout.odooscript" type="text/javascript">
+        var odoo = {
+            csrf_token: "b435c78906b04ef4a6837c62a8a268704875b70fo1666941634",
+            debug: "",
+        };
+    </script>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="theme-color" content="#875A7B">
+    <link rel="icon" sizes="192x192" href="/web_enterprise/static/src/img/mobile-icons/android-192x192.png">
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/web_enterprise/static/src/img/mobile-icons/apple-152x152.png">
+
+
+    <meta name="msapplication-navbutton-color" content="#875A7B">
+    <meta name="msapplication-TileColor" content="#875A7B">
+    <meta name="msapplication-TileImage" content="/web_enterprise/static/src/img/mobile-icons/windows-144x144.png">
+
+    <script type="text/javascript">
+        odoo.session_info = { "uid": 2, "is_system": true, "is_admin": true, "user_context": { "lang": "en_US", "tz": "Africa/Nairobi", "uid": 2 }, "db": "amtech", "server_version": "14.0+e", "server_version_info": [14, 0, 0, "final", 0, "e"], "name": "Pius sigei", "username": "psigei@amtechafrica.com", "partner_display_name": "Pius sigei", "company_id": 1, "partner_id": 3, "web.base.url": "https://amtech.odoo.com", "active_ids_limit": 20000, "max_file_upload_size": 134217728, "user_companies": { "current_company": [1, "Amtech"], "allowed_companies": [[1, "Amtech"]] }, "currencies": { "1": { "symbol": "\u20ac", "position": "after", "digits": [69, 2] }, "95": { "symbol": "KSh", "position": "after", "digits": [69, 2] }, "2": { "symbol": "$", "position": "before", "digits": [69, 2] } }, "show_effect": "True", "display_switch_company_menu": false, "cache_hashes": { "load_menus": "a7c43382f5bb48d3fb89960092bc467d92a22c28584d4f3551799d8f1fcc8d6f", "qweb": "1a6f1e874cbb9ead2bcf0019d9e375b1a5c2d7ef21356967c047f4680406c4a0", "translations": "5227498d9df4b403b0244c75aac21e0c091e50ce" }, "user_id": [2], "warning": "admin", "expiration_date": "2022-01-25 08:30:47", "expiration_reason": "trial", "web_tours": [], "notification_type": "email", "map_box_token": false, "odoobot_initialized": true, "ocn_token_key": false, "fcm_project_id": false, "inbox_action": 109 };
+        odoo.reloadMenus = () => fetch(`/web/webclient/load_menus/${odoo.session_info.cache_hashes.load_menus}`).then(res => res.json());
+        odoo.loadMenusPromise = odoo.reloadMenus();
+    </script>
+    <link type="text/css" rel="stylesheet" href="/web/content/145-83697f9/web.assets_common.css" data-asset-xmlid="web.assets_common" data-asset-version="83697f9">
+    <link type="text/css" rel="stylesheet" href="/web/content/146-955aad0/web.assets_backend.css" data-asset-xmlid="web.assets_backend" data-asset-version="955aad0">
+    <script type="text/javascript" src="/web/content/147-83697f9/web.assets_common.js" data-asset-xmlid="web.assets_common" data-asset-version="83697f9"></script>
+    <script type="text/javascript" src="/web/content/148-955aad0/web.assets_backend.js" data-asset-xmlid="web.assets_backend" data-asset-version="955aad0"></script>
+    <script type="text/javascript" src="/web/content/98-63a923b/web.assets_backend_prod_only.js" data-asset-xmlid="web.assets_backend_prod_only" data-asset-version="63a923b"></script>
+
+
+
+
+    <script type="text/javascript" src="https://amtech.odoo.com/web/webclient/locale/en_US"></script>
+    <script type="text/javascript" src="/partner_autocomplete/static/lib/jsvat.js"></script>
+}
+<form method="post">
+    <div class="o_web_client" style="">
+        <div class="o_notification_manager"></div><div class="demo_subscribe_panel" id="announcement_bar_table" style="display: none;"></div><header>
+            <nav class="o_main_navbar">
+                <a href="#" class="fa fa-th o_menu_toggle" title="Applications" aria-label="Applications" accesskey="h"></a>
+                <button type="button" class="fa fa-bars float-right d-block d-md-none o_mobile_menu_toggle" title="Toggle menu" aria-label="Toggle menu"></button>
+
+                <a href="#" class="o_menu_brand" role="button" style="">Accounting</a>
+                <ul class="o_menu_sections" role="menu" style="">
+                    <li class="">
+
+                        <a role="menuitem" href="#menu_id=102&amp;action=240" data-menu="102" data-action-model="ir.actions.act_window" data-action-id="240" data-menu-xmlid="account.menu_board_journal_1" class="o_menu_entry_lvl_1" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                            <span>Dashboard</span>
+                        </a>
+
+                    </li>
+                    <li class="">
+                        <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" data-menu-xmlid="account.menu_finance_receivables" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Customers
+                        </a>
+                        <div class="dropdown-menu" role="menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 5px, 0px);">
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=104&amp;action=196" data-menu="104" data-action-model="ir.actions.act_window" data-action-id="196" data-menu-xmlid="account.menu_action_move_out_invoice_type" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Invoices</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=105&amp;action=197" data-menu="105" data-action-model="ir.actions.act_window" data-action-id="197" data-menu-xmlid="account.menu_action_move_out_refund_type" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Credit Notes</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=107&amp;action=175" data-menu="107" data-action-model="ir.actions.act_window" data-action-id="175" data-menu-xmlid="account.menu_action_account_payments_receivable" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Payments</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=202&amp;action=314" data-menu="202" data-action-model="ir.actions.act_window" data-action-id="314" data-menu-xmlid="account_followup.customer_statements_menu" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Follow-up Reports</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=108&amp;action=232" data-menu="108" data-action-model="ir.actions.act_window" data-action-id="232" data-menu-xmlid="account.product_product_menu_sellable" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Products</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=109&amp;action=207" data-menu="109" data-action-model="ir.actions.act_window" data-action-id="207" data-menu-xmlid="account.menu_account_customer" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Customers</span>
+                            </a>
+
+
+
+
+
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" data-menu-xmlid="account.menu_finance_payables" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Vendors
+                        </a>
+                        <div class="dropdown-menu" role="menu">
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=111&amp;action=198" data-menu="111" data-action-model="ir.actions.act_window" data-action-id="198" data-menu-xmlid="account.menu_action_move_in_invoice_type" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Bills</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=112&amp;action=199" data-menu="112" data-action-model="ir.actions.act_window" data-action-id="199" data-menu-xmlid="account.menu_action_move_in_refund_type" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Refunds</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=114&amp;action=176" data-menu="114" data-action-model="ir.actions.act_window" data-action-id="176" data-menu-xmlid="account.menu_action_account_payments_payable" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Payments</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=115&amp;action=233" data-menu="115" data-action-model="ir.actions.act_window" data-action-id="233" data-menu-xmlid="account.product_product_menu_purchasable" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Products</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=116&amp;action=208" data-menu="116" data-action-model="ir.actions.act_window" data-action-id="208" data-menu-xmlid="account.menu_account_supplier" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Vendors</span>
+                            </a>
+
+
+
+
+
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" data-menu-xmlid="account.menu_finance_entries" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Accounting
+                        </a>
+                        <div class="dropdown-menu" role="menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 5px, 0px);">
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Miscellaneous</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=119&amp;action=195" data-menu="119" data-action-model="ir.actions.act_window" data-action-id="195" data-menu-xmlid="account.menu_action_move_journal_line_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Journal Entries</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Journals</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=122&amp;action=187" data-menu="122" data-action-model="ir.actions.act_window" data-action-id="187" data-menu-xmlid="account.menu_action_account_moves_journal_sales" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Sales</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=123&amp;action=188" data-menu="123" data-action-model="ir.actions.act_window" data-action-id="188" data-menu-xmlid="account.menu_action_account_moves_journal_purchase" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Purchases</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=124&amp;action=189" data-menu="124" data-action-model="ir.actions.act_window" data-action-id="189" data-menu-xmlid="account.menu_action_account_moves_journal_bank_cash" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Bank and Cash</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=125&amp;action=190" data-menu="125" data-action-model="ir.actions.act_window" data-action-id="190" data-menu-xmlid="account.menu_action_account_moves_journal_misc" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Miscellaneous</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Ledgers</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=127&amp;action=191" data-menu="127" data-action-model="ir.actions.act_window" data-action-id="191" data-menu-xmlid="account.menu_action_account_moves_ledger_general" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>General Ledger</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=128&amp;action=192" data-menu="128" data-action-model="ir.actions.act_window" data-action-id="192" data-menu-xmlid="account.menu_action_account_moves_ledger_partner" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Partner Ledger</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Management</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=176&amp;action=281" data-menu="176" data-action-model="ir.actions.act_window" data-action-id="281" data-menu-xmlid="account_auto_transfer.menu_auto_transfer" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Automatic Transfers</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=194&amp;action=304" data-menu="194" data-action-model="ir.actions.act_window" data-action-id="304" data-menu-xmlid="account_asset.menu_action_account_asset_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Assets</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=197&amp;action=306" data-menu="197" data-action-model="ir.actions.act_window" data-action-id="306" data-menu-xmlid="account_asset.menu_action_account_revenue_recognition" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Deferred Revenues</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=199&amp;action=308" data-menu="199" data-action-model="ir.actions.act_window" data-action-id="308" data-menu-xmlid="account_asset.menu_action_account_expense_recognition" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Deferred Expenses</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Actions</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=171&amp;action=278" data-menu="171" data-action-model="ir.actions.client" data-action-id="278" data-menu-xmlid="account_accountant.menu_action_manual_reconciliation" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Reconciliation</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=175&amp;action=279" data-menu="175" data-action-model="ir.actions.act_window" data-action-id="279" data-menu-xmlid="account_accountant.menu_action_change_lock_date" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Lock Dates</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" data-menu-xmlid="account.menu_finance_reports" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Reporting
+                        </a>
+                        <div class="dropdown-menu" role="menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 5px, 0px);">
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Generic Statements</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=177&amp;action=285" data-menu="177" data-action-model="ir.actions.client" data-action-id="285" data-menu-xmlid="account_reports.account_financial_html_report_menu_1" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Profit and Loss</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=178&amp;action=286" data-menu="178" data-action-model="ir.actions.client" data-action-id="286" data-menu-xmlid="account_reports.account_financial_html_report_menu_2" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Balance Sheet</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=179&amp;action=287" data-menu="179" data-action-model="ir.actions.client" data-action-id="287" data-menu-xmlid="account_reports.account_financial_html_report_menu_3" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Executive Summary</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=192&amp;action=290" data-menu="192" data-action-model="ir.actions.client" data-action-id="290" data-menu-xmlid="account_reports.menu_action_account_report_cash_flow" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Cash Flow Statement</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Partner Reports</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=182&amp;action=300" data-menu="182" data-action-model="ir.actions.client" data-action-id="300" data-menu-xmlid="account_reports.menu_action_account_report_partner_ledger" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Partner Ledger</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=183&amp;action=297" data-menu="183" data-action-model="ir.actions.client" data-action-id="297" data-menu-xmlid="account_reports.menu_action_account_report_aged_receivable" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Aged Receivable</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=184&amp;action=298" data-menu="184" data-action-model="ir.actions.client" data-action-id="298" data-menu-xmlid="account_reports.menu_action_account_report_aged_payable" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Aged Payable</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Audit Reports</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=185&amp;action=295" data-menu="185" data-action-model="ir.actions.client" data-action-id="295" data-menu-xmlid="account_reports.menu_action_account_report_general_ledger" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>General Ledger</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=186&amp;action=299" data-menu="186" data-action-model="ir.actions.client" data-action-id="299" data-menu-xmlid="account_reports.menu_action_account_report_coa" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Trial Balance</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=187&amp;action=292" data-menu="187" data-action-model="ir.actions.client" data-action-id="292" data-menu-xmlid="account_reports.menu_action_account_report_cj" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Consolidated Journals</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=188&amp;action=291" data-menu="188" data-action-model="ir.actions.client" data-action-id="291" data-menu-xmlid="account_reports.menu_action_account_report_gt" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Tax Report</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=191&amp;action=302" data-menu="191" data-action-model="ir.actions.act_window" data-action-id="302" data-menu-xmlid="account_reports.menu_print_journal" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Journals Audit</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Management</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=135&amp;action=235" data-menu="135" data-action-model="ir.actions.act_window" data-action-id="235" data-menu-xmlid="account.menu_action_account_invoice_report_all" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Invoice Analysis</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=201&amp;action=311" data-menu="201" data-action-model="ir.actions.client" data-action-id="311" data-menu-xmlid="account_asset.menu_action_account_report_assets" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Depreciation Schedule</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" data-menu-xmlid="account.menu_finance_configuration" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Configuration
+                        </a>
+                        <div class="dropdown-menu" role="menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 5px, 0px);">
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=138&amp;action=239" data-menu="138" data-action-model="ir.actions.act_window" data-action-id="239" data-menu-xmlid="account.menu_account_config" class="dropdown-item o_menu_entry_lvl_2" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Settings</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Invoicing</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=140&amp;action=220" data-menu="140" data-action-model="ir.actions.act_window" data-action-id="220" data-menu-xmlid="account.menu_action_payment_term_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Payment Terms</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=203&amp;action=316" data-menu="203" data-action-model="ir.actions.act_window" data-action-id="316" data-menu-xmlid="account_followup.account_followup_menu" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Follow-up Levels</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=141&amp;action=246" data-menu="141" data-action-model="ir.actions.act_window" data-action-id="246" data-menu-xmlid="account.menu_action_incoterm_open" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Incoterms</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Banks</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=143&amp;action=223" data-menu="143" data-action-model="ir.actions.server" data-action-id="223" data-menu-xmlid="account.menu_action_account_bank_journal_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Add a Bank Account</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=144&amp;action=218" data-menu="144" data-action-model="ir.actions.act_window" data-action-id="218" data-menu-xmlid="account.action_account_reconcile_model_menu" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Reconciliation Models</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Accounting</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=146&amp;action=210" data-menu="146" data-action-model="ir.actions.act_window" data-action-id="210" data-menu-xmlid="account.menu_action_account_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Chart of Accounts</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=147&amp;action=219" data-menu="147" data-action-model="ir.actions.act_window" data-action-id="219" data-menu-xmlid="account.menu_action_tax_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Taxes</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=148&amp;action=212" data-menu="148" data-action-model="ir.actions.act_window" data-action-id="212" data-menu-xmlid="account.menu_action_account_journal_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Journals</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=151&amp;action=206" data-menu="151" data-action-model="ir.actions.act_window" data-action-id="206" data-menu-xmlid="account.menu_action_account_fiscal_position_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Fiscal Positions</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=152&amp;action=213" data-menu="152" data-action-model="ir.actions.act_window" data-action-id="213" data-menu-xmlid="account.menu_action_account_journal_group_list" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Journal Groups</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=169&amp;action=268" data-menu="169" data-action-model="ir.actions.act_window" data-action-id="268" data-menu-xmlid="account_online_synchronization.menu_action_online_link_account" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Online Synchronization</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Payments</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=165&amp;action=261" data-menu="165" data-action-model="ir.actions.act_window" data-action-id="261" data-menu-xmlid="payment.payment_acquirer_menu" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Payment Acquirers</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="dropdown-header o_menu_header_lvl_2">
+                                <span>Management</span>
+                            </div>
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=195&amp;action=305" data-menu="195" data-action-model="ir.actions.act_window" data-action-id="305" data-menu-xmlid="account_asset.menu_action_account_asset_model_form" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Asset Models</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=198&amp;action=307" data-menu="198" data-action-model="ir.actions.act_window" data-action-id="307" data-menu-xmlid="account_asset.menu_action_account_revenue_model_recognition" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Deferred Revenue Models</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=155&amp;action=139" data-menu="155" data-action-model="ir.actions.act_window" data-action-id="139" data-menu-xmlid="account.menu_product_product_categories" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Product Categories</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a role="menuitem" href="#menu_id=200&amp;action=309" data-menu="200" data-action-model="ir.actions.act_window" data-action-id="309" data-menu-xmlid="account_asset.menu_action_account_expense_model_recognition" class="dropdown-item o_menu_entry_lvl_3" data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                                <span>Deferred Expense Models</span>
+                            </a>
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </li>
+                </ul>
+                <ul class="o_menu_systray" role="menu">
+                    <li class="o_MessagingMenu"><a href="#" title="Conversations" role="button" aria-expanded="false" aria-haspopup="true" class="o_MessagingMenu_toggler"><i role="img" aria-label="Messages" class="o_MessagingMenu_icon fa fa-comments"></i><span class="o_MessagingMenu_counter badge badge-pill">1</span></a></li>
+                    <li class="o_mail_systray_item o_hidden">
+
+                        <a class="dropdown-toggle o-no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false" title="Upgrade available" href="#" role="button">
+                            <i class="fa fa-level-up" role="img" aria-label="Upgrade available"></i>&nbsp;&nbsp;<span class="o_notification_counter badge badge-pill"></span>
+                        </a>
+                        <div class="o_mail_systray_dropdown dropdown-menu dropdown-menu-right" role="menu">
+                            <div class="o_mail_systray_dropdown_items rr-widget-div">
+                                <span style="font-weight: bold">Odoo <span class="o_release_version"></span> is available for upgrade!</span><br>
+                                <br>
+                                You can upgrade now. The process might take a few minutes. During this time, your database will be unavailable.<br>
+                                <br>
+                                You can go to your database manager to perform a test of the upgrade before the final upgrade.<br>
+                                <br>
+                                Get more info about release notes <a href="#" target="_new" class="o_release_notes_link">here</a>.<br>
+                                <br>
+                                <button type="button" class="btn btn-primary o_prod_upgrade">Upgrade now</button> <a href="https://www.odoo.com/my/databases?need_auth=1" class="btn btn-secondary">My Databases Manager</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="o_mail_systray_item">
+                        <a class="dropdown-toggle o-no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false" title="Activities" href="#" role="button">
+                            <i class="fa fa-clock-o" role="img" aria-label="Activities"></i> <span class="o_notification_counter badge badge-pill">1</span>
+                        </a>
+                        <div class="o_mail_systray_dropdown dropdown-menu dropdown-menu-right" role="menu">
+                            <div class="o_mail_systray_dropdown_items">
+
+
+
+                                <div class="o_mail_preview o_systray_activity" data-res_model="account.move" data-model_name="Journal Entry" data-filter="my">
+                                    <div class="o_mail_preview_image o_mail_preview_app">
+                                        <img src="/account/static/description/icon.png" alt="Activity">
+                                    </div>
+                                    <div class="o_preview_info">
+                                        <div class="o_preview_title">
+                                            <span class="o_preview_name">
+                                                Journal Entry
+                                            </span>
+                                            <div class="o_mail_activity_action_buttons">
+
+                                                <button type="button" title="Summary" class="o_mail_activity_action btn btn-link fa fa-clock-o" data-res_model="account.move" data-model_name="Journal Entry">
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-link o_activity_filter_button mr16" data-res_model="account.move" data-model_name="Journal Entry" data-filter="overdue">1 Late </button>
+
+
+                                            <span class="o_no_activity mr16">0 Today </span>
+
+                                            <span class="o_no_activity float-right">0 Future</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="o_sys_documents_request">
+                                    <a role="button" class="btn btn-block text-center">Request a Document</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="o_user_menu">
+                        <a role="button" class="dropdown-toggle o-no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false" href="#">
+                            <img class="rounded-circle oe_topbar_avatar" src="https://amtech.odoo.com/web/image?model=res.users&amp;field=image_128&amp;id=2" alt="User">
+                            <span class="oe_topbar_name">Pius sigei</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+
+                            <a role="menuitem" href="#" data-menu="documentation" class="dropdown-item">Documentation</a>
+                            <a role="menuitem" href="#" data-menu="support" class="dropdown-item">Support</a>
+
+                            <a role="menuitem" href="#" data-menu="shortcuts" class="dropdown-item d-none d-md-inline-block">Shortcuts</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a role="menuitem" href="#" data-menu="settings" class="dropdown-item">Preferences</a>
+                            <a role="menuitem" href="#" data-menu="account" class="dropdown-item">My Odoo.com account</a>
+                            <a role="menuitem" href="#" data-menu="logout" class="dropdown-item">Log out</a>
+                            <a href="#" class="dropdown-item d-none" data-menu="shortcut">Add to Home Screen</a>
+                            <a href="#" class="dropdown-item d-none" data-menu="switch"> Switch/Add Account</a>
+
+
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="o_loading" style="display: none;">Loading</div><div class="o_action_manager">
+            <div class="o_action">
+                <div class="o_control_panel">
+                    <div class="o_cp_top"><div class="o_cp_top_left"><ol role="navigation" class="breadcrumb"><li class="breadcrumb-item active">Profit and Loss</li></ol></div><div class="o_cp_top_right"><div role="search" class="o_cp_searchview"></div></div></div><div class="o_cp_bottom">
+                        <div class="o_cp_bottom_left">
+                            <div role="toolbar" aria-label="Control panel buttons" class="o_cp_buttons">
+                                <button type="button" class="btn btn-primary" action="print_pdf">Print Preview</button>
+
+                                <button type="button" class="btn btn-primary" action="print_xlsx">Export (XLSX)</button>
+
+                                <button type="button" class="btn btn-primary" action="open_report_export_wizard">Save</button>
+                            </div>
+                        </div><div class="o_cp_bottom_right">
+                            <div role="search" class="btn-group o_search_options position-static">
+                                <div class="btn-group o_dropdown o_account_reports_filter_date">
+
+                                    <button type="button" class="o_dropdown_toggler_btn btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                                        2021
+
+                                    </button>
+                                    <div class="dropdown-menu o_filter_menu" role="menu">
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter" title="This Month" data-filter="this_month">This Month</a>
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter" title="This Quarter" data-filter="this_quarter">This Quarter</a>
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter selected" title="This Financial Year" data-filter="this_year">This Financial Year</a>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter" title="Last Month" data-filter="last_month">Last Month</a>
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter" title="Last Quarter" data-filter="last_quarter">Last Quarter</a>
+                                        <a role="menuitem" class="dropdown-item js_account_report_date_filter" title="Last Financial Year" data-filter="last_year">Last Financial Year</a>
+
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter="custom_filter_date">Custom</a>
+                                        <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="custom_filter_date">
+
+                                            <label class="custom-date" for="date_from">Start Date :</label>
+                                            <div class="form-group custom-date">
+                                                <div class="o_datepicker" aria-atomic="true" id="datepicker941" data-target-input="nearest">
+                                                    <input type="text" class="o_datepicker_input o_input datetimepicker-input" data-target="#datepicker941" autocomplete="off" name="date_from">
+                                                    <span class="o_datepicker_button"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <label class="custom-date" for="date_to">Date :</label>
+                                            <div class="form-group custom-date">
+                                                <div class="o_datepicker" aria-atomic="true" id="datepicker942" data-target-input="nearest">
+                                                    <input type="text" class="o_datepicker_input o_input datetimepicker-input" data-target="#datepicker942" autocomplete="off" name="date_to">
+                                                    <span class="o_datepicker_button"></span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary js_account_report_date_filter" data-filter="custom">Apply</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="btn-group o_dropdown o_account_reports_filter_date_cmp">
+
+                                    <button type="button" class="o_dropdown_toggler_btn btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-bar-chart"></span> Comparison:
+
+
+                                    </button>
+                                    <div class="dropdown-menu o_filter_menu" role="menu">
+                                        <a role="menuitem" title="No Comparison" data-filter="no_comparison" class="dropdown-item js_account_report_date_cmp_filter selected">No Comparison</a>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter="previous_period_filter">Previous Period</a>
+                                        <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="previous_period_filter">
+                                            <label for="periods_number">Number of periods :</label><br>
+                                            <input type="number" name="periods_number" value="1"><br>
+                                            <button type="button" class="btn btn-primary js_account_report_date_cmp_filter" data-filter="previous_period">Apply</button>
+                                        </div>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter="same_last_year_filter">Same Period Last Year</a>
+                                        <li class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="same_last_year_filter">
+                                            <label for="periods_number">Number of periods :</label><br>
+                                            <input type="number" name="periods_number" value="1"><br>
+                                            <button type="button" class="btn btn-primary js_account_report_date_cmp_filter" data-filter="same_last_year">Apply</button>
+                                        </li>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter="custom_cmp_filter">Custom</a>
+                                        <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="custom_cmp_filter">
+
+                                            <label class="custom-date" for="date_from_cmp">Start Date :</label>
+                                            <div class="form-group custom-date">
+                                                <div class="o_datepicker" aria-atomic="true" id="datepicker943" data-target-input="nearest">
+                                                    <input type="text" class="o_datepicker_input o_input datetimepicker-input" data-target="#datepicker943" autocomplete="off" name="date_from_cmp">
+                                                    <span class="o_datepicker_button"></span>
+                                                </div>
+                                            </div>
+
+                                            <label class="custom-date" for="date_to_cmp">End Date :</label>
+
+                                            <div class="form-group custom-date">
+                                                <div class="o_datepicker" aria-atomic="true" id="datepicker944" data-target-input="nearest">
+                                                    <input type="text" class="o_datepicker_input o_input datetimepicker-input" data-target="#datepicker944" autocomplete="off" name="date_to_cmp">
+                                                    <span class="o_datepicker_button"></span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary js_account_report_date_cmp_filter" data-filter="custom">Apply</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="btn-group o_dropdown o_account_reports_filter_journals">
+
+                                    <button type="button" class="o_dropdown_toggler_btn btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-book"></span>
+                                        Journals:
+
+
+                                        All
+
+                                    </button>
+                                    <div class="o_dropdown_menu dropdown-menu o_filter_menu" role="menu">
+
+
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <b role="menuitem" class="ml4 dropdown-item-text">Amtech</b>
+                                        <div role="separator" class="dropdown-divider"></div>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Bank-BNK1" data-id="7">
+                                            Bank
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Cash-CSH1" data-id="6">
+                                            Cash
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Cash Basis Taxes-CABA" data-id="5">
+                                            Cash Basis Taxes
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Customer Invoices-INV" data-id="1">
+                                            Customer Invoices
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Exchange Difference-EXCH" data-id="4">
+                                            Exchange Difference
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Miscellaneous Operations-MISC" data-id="3">
+                                            Miscellaneous Operations
+                                        </a>
+
+
+
+
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_choice_filter" data-filter="journals" title="Vendor Bills-BILL" data-id="2">
+                                            Vendor Bills
+                                        </a>
+
+
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+                                <div id="extra_options_dropdown" class="btn-group o_dropdown o_account_reports_filter_bool">
+
+                                    <button type="button" class="o_dropdown_toggler_btn btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-filter"></span> Options:
+
+                                        With Draft Entries
+
+
+
+                                    </button>
+                                    <div class="dropdown-menu o_filter_menu" role="menu">
+                                        <a role="menuitem" class="dropdown-item js_account_report_bool_filter selected" title="Include unposted entries" data-filter="all_entries">Include Unposted Entries</a>
+
+
+                                        <a role="menuitem" class="dropdown-item js_account_report_bool_filter" title="Unfold" data-filter="unfold_all">Unfold All</a>
+                                    </div>
+
+                                </div>
+                            </div><div role="search" class="o_cp_pager"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="o_content">
+                    <div class="o_account_reports_body">
+                        <div id="warnings_div">
+
+                        </div>
+                        <div class="o_account_reports_page o_account_reports_no_print">
+
+                            <div class="o_account_reports_header">
+                                <div class="print_only"><h2>Profit and Loss</h2></div>
+
+                                <div class="row print_only" style="margin-top: 20px; margin-bottom: 10px;">
+                                    <div class="col-4">
+                                        2021
+
+                                        <br>Amtech
+
+
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="col-12">
+
+                                            Journals:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            All
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="o_account_reports_summary"></div>
+                            <div class="table-responsive">
+                                <table class="o_account_reports_table table-hover">
+
+                                    <thead class="o_account_reports_header_hierarchy">
+
+                                        <tr>
+
+                                            <th class="o_account_report_column_header number" colspan="1" style="">
+
+
+
+                                            </th>
+
+                                            <th class="o_account_report_column_header number" colspan="1" style="">
+
+                                                2021
+
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level0 o_account_reports_totals_below_sections o_js_account_report_parent_row_unfolded" style="">
+                                            <td data-id="2" class="o_account_report_line o_account_report_line_indent  " data-unfolded="True">
+
+                                                <span class="o_account_reports_caret_icon" data-id="2">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Income
+                                                    <span class="js_account_report_line_footnote" data-id="2"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 131,888.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level2 o_account_reports_totals_below_sections o_js_account_report_parent_row_unfolded" style="">
+                                            <td data-id="3" class="o_account_report_line o_account_report_line_indent  " data-unfolded="True">
+
+                                                <span class="o_account_reports_caret_icon" data-id="3">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Gross Profit
+                                                    <span class="js_account_report_line_footnote" data-id="3"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 131,888.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level3 o_account_reports_totals_below_sections" style="">
+                                            <td data-id="4" class="o_account_report_line o_account_report_line_indent js_account_report_foldable o_foldable_total folded">
+
+                                                <span class="o_account_reports_caret_icon" data-id="4">
+
+                                                    <i class="fa fa-caret-right" role="img" aria-label="Folded" title="Folded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Operating Income
+                                                    <span class="js_account_report_line_footnote" data-id="4"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_foldable_total o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 131,888.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level3 o_account_reports_totals_below_sections " style="">
+                                            <td data-id="5" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="5">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Cost of Revenue
+                                                    <span class="js_account_report_line_footnote" data-id="5"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 0.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level3 total o_js_account_report_inner_row" data-parent-id="3" style="">
+                                            <td data-id="total_3" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="total_3">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Total Gross Profit
+                                                    <span class="js_account_report_line_footnote" data-id="total_3"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 131,888.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level2 o_account_reports_totals_below_sections " style="">
+                                            <td data-id="6" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="6">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Other Income
+                                                    <span class="js_account_report_line_footnote" data-id="6"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 0.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level1 total o_js_account_report_inner_row" data-parent-id="2" style="">
+                                            <td data-id="total_2" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="total_2">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Total Income
+                                                    <span class="js_account_report_line_footnote" data-id="total_2"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 131,888.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level0 o_account_reports_totals_below_sections o_js_account_report_parent_row_unfolded" style="">
+                                            <td data-id="7" class="o_account_report_line o_account_report_line_indent  " data-unfolded="True">
+
+                                                <span class="o_account_reports_caret_icon" data-id="7">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Expenses
+                                                    <span class="js_account_report_line_footnote" data-id="7"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 340,000.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level2 o_account_reports_totals_below_sections" style="">
+                                            <td data-id="8" class="o_account_report_line o_account_report_line_indent js_account_report_foldable o_foldable_total folded">
+
+                                                <span class="o_account_reports_caret_icon" data-id="8">
+
+                                                    <i class="fa fa-caret-right" role="img" aria-label="Folded" title="Folded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Expenses
+                                                    <span class="js_account_report_line_footnote" data-id="8"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_foldable_total o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 340,000.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level2 o_account_reports_totals_below_sections " style="">
+                                            <td data-id="9" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="9">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Depreciation
+                                                    <span class="js_account_report_line_footnote" data-id="9"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 0.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level1 total o_js_account_report_inner_row" data-parent-id="7" style="">
+                                            <td data-id="total_7" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="total_7">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Total Expenses
+                                                    <span class="js_account_report_line_footnote" data-id="total_7"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ 340,000.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+
+
+
+
+
+
+
+                                        <tr class="o_account_searchable_line o_account_reports_level0 o_account_reports_totals_below_sections " style="">
+                                            <td data-id="1" class="o_account_report_line o_account_report_line_indent  ">
+
+                                                <span class="o_account_reports_caret_icon" data-id="1">
+                                                    <i class="fa fa-caret-right invisible" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                                </span>
+
+
+                                                <span class="account_report_line_name">
+
+                                                    Net Profit
+                                                    <span class="js_account_report_line_footnote" data-id="1"></span>
+                                                </span>
+
+
+                                            </td>
+
+
+
+
+                                            <td class="o_account_report_line number o_account_report_line_indent" style="">
+                                                <span class="o_account_report_column_value">
+
+                                                    $ -208,112.00
+
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="js_account_report_footnotes">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="o_DialogManager"></div><div class="o_ChatWindowManager"></div>
+    </div>
+</form>

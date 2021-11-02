@@ -1,0 +1,62 @@
+﻿@page
+@model AccountingSystem.Pages.Reporting.JournalEntriesReportModel
+@{
+    var count = 0;
+}
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <button class="fas fa-file-download" >EXPORT TO PDF</button>
+    </div>
+    <div class="table-responsive">
+        @if (!Model.Success)
+        {
+            <div class="alert-danger text-center">
+                @Model.Message
+            </div>
+        }
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Partner</th>
+                    <th scope="col">Reference</th>
+                    <th scope="col">Journal</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var journal in Model.JournalEntries)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@journal.Date</td>
+                        <td>@journal.No</td>
+                        <td>@journal.Partner</td>
+                        <td>@journal.Ref</td>
+                        <td>@journal.Journal</td>
+                        <td>@journal.Total</td>
+                        <td>@journal.Personnel</td>
+                        <td class="text-right">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="card-header-pills" style="font-size:x-large;">Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@Model.JournalEntries.Sum(i => i.Total)</td>
+                </tr>
+
+    </tfoot>
+    </table>
+</div>
+</div>
