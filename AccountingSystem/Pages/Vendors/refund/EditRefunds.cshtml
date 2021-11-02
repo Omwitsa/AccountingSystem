@@ -278,7 +278,7 @@
 		</div>
 	</div>
 	<div class="card-footer" style="text-align:right">
-		<button id="btn-save-refund" class="btn btn-success">SAVE</button>
+		<button id="btn-save" class="btn btn-success">SAVE</button>
 		<a class="btn btn-secondary" asp-page="/ListRefunds">BACK</a>
 	</div>
 </div>
@@ -303,7 +303,6 @@
 				if (!product || !account || !price || !qty) {
 					return
 				}
-
 				items.push(
 					{
 						product: product,
@@ -328,7 +327,6 @@
 				});
 
 				$('#items').html(itemTableRows);
-
 				let tax = 0;
 				let total = 0;
 				let itemJournals = new Array();
@@ -363,7 +361,6 @@
 						credit: 0
 					}
 				);
-
 				journals = itemJournals;
 				let journalTableRows = new Array();
 				journals.forEach(i => {
@@ -398,6 +395,7 @@
 					refundDetails: items,
 					refundJournals: journals
 				};
+
 				$.ajax({
 					type: 'POST',
 					url: '@Url.Page("EditRefunds")',

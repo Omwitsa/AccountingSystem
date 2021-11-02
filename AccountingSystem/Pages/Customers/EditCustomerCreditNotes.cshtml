@@ -253,6 +253,7 @@
 				if (!product || !account || !price || !qty) {
 					return
 				}
+
 				items.push(
 					{
 						product: product,
@@ -288,7 +289,7 @@
 					itemJournals.push(
 						{
 							glAccount: i.glAccount,
-							label: i.label,
+							label: i.lable,
 							debit: i.subTotal,
 							credit: 0
 						}
@@ -348,7 +349,7 @@
 				};
 				$.ajax({
 					type: 'POST',
-					url: '@Url.Page("EditCustomerInvoice")',
+					url: '@Url.Page("EditCustomerCreditNotes")',
 					contentType: 'application/json',
 					headers:
 					{

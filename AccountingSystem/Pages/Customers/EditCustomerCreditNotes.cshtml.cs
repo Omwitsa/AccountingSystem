@@ -68,7 +68,7 @@ namespace AccountingSystem.Pages.Customers
 					{
 						Name = t.Name
 					}).ToList();
-				Products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
+				Products = _dbContext.CProducts.Where(p => !(bool)p.Closed)
 					.Select(p => new CProduct
 					{
 						Name = p.Name
