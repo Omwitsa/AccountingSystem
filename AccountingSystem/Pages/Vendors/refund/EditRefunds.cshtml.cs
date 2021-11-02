@@ -109,35 +109,33 @@ namespace AccountingSystem.Pages.Vendors
 			}
 		}
 
-		public IActionResult OnPost()
+		public IActionResult OnPost([FromBody] Refund refund)
 		{
 			try
 			{
-				Refund.CreatedDate = DateTime.UtcNow.AddHours(3);
-				Refund.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Refund.Vendor))
+				refund.CreatedDate = DateTime.UtcNow.AddHours(3);
+				refund.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(refund.Vendor))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide vendor";
 					return Page();
 				}
 
-
-				if (string.IsNullOrEmpty(Refund.Journal))
+				if (string.IsNullOrEmpty(refund.Journal))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
-				Refund.RefundDetails = Refund.RefundDetails == null ? new List<RefundDetail>() : Refund.RefundDetails;
-				if (!Refund.RefundDetails.Any())
+				if (!refund.RefundDetails.Any())
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide refund items";
 					return Page();
 				}
 
-				foreach (var detail in Refund.RefundDetails)
+				foreach (var detail in refund.RefundDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
 					{
@@ -168,7 +166,7 @@ namespace AccountingSystem.Pages.Vendors
 				if (savedRefund != null)
 				{
 					reference = "Edit Refund";
-					Refund.CreatedDate = savedRefund.CreatedDate;
+					refund.CreatedDate = savedRefund.CreatedDate;
 					if (savedRefund != null)
 					{
 						var details = _dbContext.RefundDetails.Where(b => b.RefundId == savedRefund.Id);
@@ -182,17 +180,17 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = Refund.Personnel,
+					UserName = refund.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
 					ModuleId = "Venders"
 				});
 
-				_dbContext.Refunds.Add(Refund);
+				_dbContext.Refunds.Add(refund);
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Refund saved successfully";
-				return Page();
+				return RedirectToPage("./ListRefunds");
 			}
 			catch (Exception ex)
 			{
@@ -200,17 +198,6 @@ namespace AccountingSystem.Pages.Vendors
 				Message = "Sorry, An error occurred";
 				return Page();
 			}
-		}
-
-		public JsonResult OnPostItem([FromBody] Refund refund)
-		{
-			List<string> lstString = new List<string>
-			{
-				"Val 1",
-				"Val 2",
-				"Val 3"
-			};
-			return new JsonResult(lstString);
 		}
 	}
 }

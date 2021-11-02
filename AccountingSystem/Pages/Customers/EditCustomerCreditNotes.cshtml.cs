@@ -100,13 +100,13 @@ namespace AccountingSystem.Pages.Customers
 			}
 		}
 
-		public IActionResult OnPost()
+		public IActionResult OnPost([FromBody] CreditNote note)
 		{
 			try
 			{
-				CreditNote.CreatedDate = DateTime.UtcNow.AddHours(3);
-				CreditNote.ModifiedDate = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(CreditNote.Customer))
+				note.CreatedDate = DateTime.UtcNow.AddHours(3);
+				note.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				if (string.IsNullOrEmpty(note.Customer))
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide customer";
@@ -114,21 +114,21 @@ namespace AccountingSystem.Pages.Customers
 				}
 
 
-				if (string.IsNullOrEmpty(CreditNote.Journal))
+				if (string.IsNullOrEmpty(note.Journal))
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
 
-				if (!CreditNote.CreditNoteDetails.Any())
+				if (!note.CreditNoteDetails.Any())
                 {
 					Success = false;
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
 					
-				foreach (var detail in CreditNote.CreditNoteDetails)
+				foreach (var detail in note.CreditNoteDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
                     {
@@ -159,7 +159,7 @@ namespace AccountingSystem.Pages.Customers
 				if (savedNote != null)
 				{
 					reference = "Edit Credit note";
-					CreditNote.CreatedDate = savedNote.CreatedDate;
+					note.CreatedDate = savedNote.CreatedDate;
 					if (savedNote != null)
 					{
 						var details = _dbContext.CreditNoteDetails.Where(b => b.CreditNoteId == savedNote.Id);
@@ -173,17 +173,17 @@ namespace AccountingSystem.Pages.Customers
 				}
 				_dbContext.Audits.Add(new Audit
 				{
-					UserName = CreditNote.Personnel,
+					UserName = note.Personnel,
 					Date = DateTime.UtcNow.AddHours(3),
 					Reference = reference,
 					ModuleId = "Customer"
 				});
 
-				_dbContext.CreditNotes.Add(CreditNote);
+				_dbContext.CreditNotes.Add(note);
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Credit note saved successfully";
-				return Page();
+				return RedirectToPage("./ListCustomerCreditNotes");
 			}
 			catch (Exception ex)
 			{

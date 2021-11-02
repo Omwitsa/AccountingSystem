@@ -288,7 +288,7 @@
 			$('#add-item').on('click', function () {
 				// prevent default action (going to the another page)
 				event.preventDefault()
-				let qty = parseFloat($("#qty").val());
+				let qty = parseFloat($("#qty").val()); 
 				let price = parseFloat($("#price").val());
 				let product = $("#product").val();
 				let account = $("#glAccount").val();
@@ -367,6 +367,12 @@
 				});
 
 				$('#journals').html(journalTableRows);
+				$("#product").val("");
+				$("#lable").val("");
+				$("#glAccount").val("");
+				$("#price").val("");
+				$("#qty").val("");
+				$("#tax").val("");
 			});
 			$('#btn-save').on('click', function () {
 				let invoice = {

@@ -1,282 +1,369 @@
 ﻿@page
 @model AccountingSystem.Pages.Customers.EditCustomerCreditNotesModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
 }
-<form method="post">
-    @*< class="modal-content hold-transition login-page">
-        <div class="modal-header" style="background-color:#467fd0;color:white;text-align:center">
-                <h5 class="modal-title w-100 text-center">Customer Registration Form</h5>
-            </div>*@
-    <div class="container-fluid">
-        <div class="card border-primary mt-3">
-            <div class="card-header border-primary"><strong>Credit Notes</strong></div>
-            <div class="card-body">
-                <div class="card-header-pills  text-left" style="margin-left:88px;">Customer Credit Note</div>
+<div class="card border-primary mt-3">
+	<div class="card-header border-primary"><strong>CREDIT NOTES</strong></div>
+	<div class="card-body">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center">
+				@Model.Message
+			</div>
+		}
+		<form method="post">
+			<div class="row">
+				<div class="col-sm-2">
+					Customer
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="customer">
+						<option selected>Select Customer</option>
+						@foreach (var customer in Model.Customers)
+						{
+							<option value="@customer.Name">@customer.Name</option>
+						}
+					</select>
+				</div>
+				<div class="col-sm-2">
+					Payment Reference
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" id="pay-ref" class="form-control" placeholder="Payment Reference" />
+					</div>
+				</div>
+			</div>
 
-                <div class="card-header-pills  text-left" style="margin-left:88px;margin-bottom:20px"><strong style="font-size:x-large;text-align:center">Draft</strong></div>
-                @if (!Model.Success)
-                {
-                    <div class="alert-danger text-center">
-                        @Model.Message
-                    </div>
-                }
-                <div class="row">
-                    <div class="column">
+			<div class="row">
+				<div class="col-sm-2">
+					Invoice Date
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="date" id="date" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					Due Date
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input id="due-date" type="date" class="form-control">
+					</div>
+				</div>
+			</div>
 
-                        <label for="firstName" style="margin-left:100px;">Customer</label>
+			<div class="row">
+				<div class="col-sm-2">
+					Terms
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" id="ico-term" placeholder="Terms" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					Journal
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="journal">
+						<option selected>Select Journals</option>
+						@foreach (var journal in Model.Journals)
+						{
+							<option value="@journal.Name">@journal.Name</option>
+						}
+					</select>
+				</div>
+			</div>
+		</form>
+		<div class="m-4">
+			<ul class="list-inline">
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
+				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
+			</ul>
+		</div>
 
-                    </div>
-                    <div class="column">
-                        <select class="form-control" style="width:209px;margin-left:140px;height:35px;margin-top:5px;" asp-for="CreditNote.Customer">
-                            <option selected>Select Customer</option>
-                            @foreach (var customer in Model.Customers)
-                            {
-                                <option value="@customer.Name">@customer.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="column">
-                        <label for="firstName" style="margin-left:100px;">Invoice Date</label>
-                    </div>
+		<div id="myGroup">
+			<div class="collapse" id="collapseExample" data-parent="#myGroup">
+				<div class="card card-body">
+					<div class="row">
+						<div class="col-sm-2">
+							Product
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="product">
+								<option selected>Select product</option>
+								@foreach (var product in Model.Products)
+								{
+									<option value="@product.Name">@product.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-sm-2">
+							Label
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Label" id="lable" disabled />
+							</div>
+						</div>
+					</div>
 
-                    <div class="column">
-                        <input type="date" style="width:209px;margin-left:51px;height:25px;margin-top:5px;" asp-for="CreditNote.InvoiceDate" class="form-control">
+					<div class="row">
+						<div class="col-sm-2">
+							GL Account
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="glAccount">
+								<option selected>Select Account</option>
+								@foreach (var account in Model.Accounts)
+								{
+									<option value="@account.Code">@account.Code @account.Name</option>
+								}
+							</select>
+						</div>
+						<div class="col-sm-2">
+							Price
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="price" class="form-control" placeholder="Price" />
+							</div>
+						</div>
+					</div>
 
-                    </div>
+					<div class="row">
+						<div class="col-sm-2">
+							Quantity
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="qty" class="form-control" placeholder="Quantity" />
+							</div>
+						</div>
+						<div class="col-sm-2">
+							Tax
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="tax">
+								<option selected>Select Tax</option>
+								@foreach (var tax in Model.Taxes)
+								{
+									<option value="@tax.Name">@tax.Name</option>
+								}
+							</select>
+						</div>
+					</div>
 
-                </div>
-                <div class="row">
-                    <div class="column">
+					<div class="row">
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Product</th>
+									<th scope="col">GL Account</th>
+									<th scope="col">Price</th>
+									<th scope="col">Product</th>
+									<th scope="col">Subtotal</th>
+								</tr>
+							</thead>
+							<tbody id="items">
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							<a class="btn btn-success" id="add-item">Add</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                        <label for="firstName" style="margin-left:100px;">Payment Reference</label>
+			<div class="collapse" id="collapseExample2" data-parent="#myGroup">
+				<div class="card card-body">
+					<div class="row">
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th scope="col">GL Account</th>
+									<th scope="col">Label</th>
+									<th scope="col">Debit</th>
+									<th scope="col">Credit</th>
+								</tr>
+							</thead>
+							<tbody id="journals">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 
-                    </div>
-                    <div class="column">
-                        <input type="text" style="width:209px;margin-left:73px;height:25px;margin-top:5px;" asp-for="CreditNote.Ref" class="form-control">
-                    </div>
-                    <div class="column">
-                        <label for="firstName" style="margin-left:100px;">Due Date</label>
-                    </div>
-                    <div class="column">
-                        <input type="date" style="width:209px;margin-left:73px;height:25px;margin-top:5px;" asp-for="CreditNote.DueDate" placeholder="due date" class="form-control">
+			<div class="collapse" id="collapseExample4" data-parent="#myGroup">
+				<div class="card card-body">
+					<div class="row">
+						<div class="column">
 
-                    </div>
-                    <div class="column">
-                        Or
-                    </div>
-                    <div class="column">
-                        <input type="text" style="width:209px;margin-left:2px;height:25px;margin-top:5px;" asp-for="CreditNote.IncoTerm" placeholder="Terms" class="form-control">
+							<div class="table-responsive">
+								<table class="table table-sm table-hover">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Account</th>
+											<th scope="col">Label</th>
+											<th scope="col">Debit</th>
+											<th scope="col">Credit</th>
+											<th scope="col">Tax Grids</th>
+										</tr>
+									</thead>
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
+								</table>
+							</div>
 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer" style="text-align:right">
+		<button id="btn-save" class="btn btn-success">SAVE</button>
+		<a class="btn btn-secondary" asp-page="/ListCustomerCreditNotes">BACK</a>
+	</div>
+</div>
 
+@section Scripts {
+	<script type="text/javascript">
+		$(function () {
+			//let taxes = Model.Taxes;
+			let items = new Array();
+			let journals = new Array();
+            $('#product').on('change', function () {
+				var selectVal = $("#product").val();
+				$("#lable").val(selectVal);
+			});
+			$('#add-item').on('click', function () {
+				// prevent default action (going to the another page)
+				event.preventDefault()
+				let qty = parseFloat($("#qty").val());
+				let price = parseFloat($("#price").val());
+				let product = $("#product").val();
+				let account = $("#glAccount").val();
+				if (!product || !account || !price || !qty) {
+					return
+				}
+				items.push(
+					{
+						product: product,
+						lable: $("#lable").val(),
+						glAccount: account,
+						quantity: qty,
+						price: price,
+						tax: $("#tax").val(),
+						subTotal: qty * price
+					}
+				);
 
-                    </div>
-                    <div class="column"></div>
+				let itemTableRows = new Array();
+				items.forEach(i => {
+					itemTableRows.push(`<tr>
+					<td>${i.product}</td>
+					<td>${i.glAccount}</td>
+					<td>${i.price}</td>
+					<td>${i.quantity}</td>
+					<td>${i.subTotal}</td>
+				</tr>`)
+				});
 
-                    <div class="column">
-                        <label for="firstName" style="margin-left:616px;">Journal</label>
+				$('#items').html(itemTableRows);
 
-                    </div>
-                    <div class="column">
-                        <select class="form-control" style="width:209px;margin-left:89px;height:35px;margin-top:5px;" asp-for="CreditNote.Journal">
-                            <option selected>Select Journals</option>
-                            @foreach (var journal in Model.Journals)
-                            {
-                                <option value="@journal.Name">@journal.Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <input id="Button1" style="margin-left:100px;" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Invoice Lines" value="Invoice Lines" />
-                    </div>
-                    <div class="column">
-                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Journal Items" value="Journal Items" />
-                    </div>
-                    <div class="column">
-                        <input id="Button1" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" placeholder="Other Info" value="Other Info" />
-                    </div>
-                </div>
-                <div id="myGroup">
-                    <div class="collapse" id="collapseExample" data-parent="#myGroup">
-                        <div class="card card-body">
-                            <div class="row">
-                                <div class="column">
+				let tax = 0;
+				let total = 0;
+				let itemJournals = new Array();
+				items.forEach(i => {
+					let rate = 15;
+					tax += (i.subTotal * rate * 0.01);
+					total += i.subTotal;
+					itemJournals.push(
+						{
+							glAccount: i.glAccount,
+							label: i.label,
+							debit: i.subTotal,
+							credit: 0
+						}
+					);
+				});
 
-                                    <label for="firstName" class="col-form-label-lg" style="margin-left:100px;">Invoice</label>
+				itemJournals.push(
+					{
+						glAccount: "Tax Received",
+						label: "Tax 15%",
+						debit: tax,
+						credit: 0
+					}
+				);
 
-                                </div>
-                                <div class="column">
+				itemJournals.push(
+					{
+						glAccount: "Account Receivable",
+						label: "Account Receivable",
+						debit: 0,
+						credit: total + tax
+					}
+				);
 
-                                    <label for="firstName" class="col-form-label-lg" style="margin-left:442px;">Accounting</label>
+				journals = itemJournals;
+				let journalTableRows = new Array();
+				journals.forEach(i => {
+					journalTableRows.push(`<tr>
+					<td>${i.glAccount}</td>
+					<td>${i.label}</td>
+					<td>${i.debit}</td>
+					<td>${i.credit}</td>
+				</tr>`)
+				});
 
-                                </div>
+				$('#journals').html(journalTableRows);
+				$("#product").val("");
+				$("#lable").val("");
+				$("#glAccount").val("");
+				$("#price").val("");
+				$("#qty").val("");
+				$("#tax").val("");
+			});
+			$('#btn-save').on('click', function () {
+				let creditNote = {
+					customer: $("#customer").val(),
+					ref: '',
+					invoiceDate: $("#date").val(),
+					dueDate: $("#due-date").val(),
+					journal: $("#journal").val(),
+					salesPerson: '',
+					receipientBank: '',
+					incoTerm: $("#ico-term").val(),
+					fiscalPosition: '',
+					creditNoteDetails: items,
+					creditNoteJournals: journals
+				};
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditCustomerInvoice")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(creditNote),
+					//success: function (response) {
 
-                            </div>
-                            <div class="row">
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:100px;">Customer Reference</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input name="firstName" style="margin-left:52px;" id="firstName" asp-for="CreditNote.Ref" class="required" type="text">
-
-                                </div>
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:100px;">Incoterm</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input type="text" style="width:209px;margin-left:129px;height:25px;margin-top:5px;" asp-for="CreditNote.IncoTerm" class="form-control">
-
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:100px;">Salesperson</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input style="width:209px;margin-left:110px;height:25px;margin-top:5px;" type="text" asp-for="CreditNote.SalesPerson" class="form-control">
-
-
-                                </div>
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:100px;">Fiscal Position</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input type="text" asp-for="CreditNote.FiscalPosition" style="width:209px;margin-left:93px;height:25px;margin-top:5px;" class="form-control">
-
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:100px;">Recipient Bank</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <select class="form-control" style="width:209px;margin-left:89px;height:35px;margin-top:5px;" asp-for="CreditNote.ReceipientBank">
-                                        <option selected>Select Banks</option>
-                                        @foreach (var bank in Model.Banks)
-                                        {
-                                            <option value="@bank.Name">@bank.Name</option>
-                                        }
-                                    </select>
-
-                                </div>
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:102px;">Post Automatically</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input name="firstName" style="margin-left:65px;" id="firstName" class="required" type="checkbox">
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-
-                                    <label for="firstName" style="margin-left:603px;">To Check</label>
-
-                                </div>
-                                <div class="column">
-
-                                    <input name="firstName" style="margin-left:133px;" id="firstName" class="required" type="checkbox">
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapseExample4" data-parent="#myGroup">
-                        <div class="card card-body">
-                            <div class="row">
-                                <div class="column">
-
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Product</th>
-                                                    <th scope="col">Label</th>
-                                                    <th scope="col">Account</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th scope="col">Price</th>
-                                                    <th scope="col">Taxes</th>
-                                                    <th scope="col">Subtotal</th>
-                                                </tr>
-                                            </thead>
-
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="collapse" id="collapseExample2" data-parent="#myGroup">
-                        <div class="card card-body">
-                            <div class="row">
-                                <div class="column">
-
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Account</th>
-                                                    <th scope="col">Label</th>
-                                                    <th scope="col">Debit</th>
-                                                    <th scope="col">Credit</th>
-                                                    <th scope="col">Tax Grids</th>
-                                                </tr>
-                                            </thead>
-
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="column">
-                            <button id="btnsavep" style="margin-left:850px;" class="btn btn-primary">SAVE</button>
-                        </div>
-
-                        <div class="column">
-                            <button id="btndiscard" style="margin-left:10px;" class="btn btn-primary">DISCARD</button>
-                        </div>
-                        <div class="column">
-                            <a class="btn btn-secondary" asp-page="/ListCustomerCreditNotes">BACK</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-                </div>
-            </div>
-</form>
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+			});
+		});
+	</script>
+}

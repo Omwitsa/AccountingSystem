@@ -5,7 +5,7 @@
 
 }
 <div class="card border-primary mt-3">
-	<div class="card-header border-primary"><strong>VENDOR CREDIT NOTE</strong></div>
+	<div class="card-header border-primary"><strong>REFUNDS</strong></div>
 	<div class="card-body">
 		@if (!Model.Success)
 		{
@@ -15,19 +15,6 @@
 		}
 
 		<form method="post" id="refundForm">
-			@*<div class="row">
-					<div class="row col-sm-8">
-						<div class="card card-body">
-							<div class="row">
-								<input type="text" class="form-control" placeholder="Refund Bill No" />
-							</div>
-							<div class="row">
-								<div class="h-divider"></div>
-							</div>
-						</div>
-					</div>
-				</div><br>*@
-
 			<div class="row">
 				<div class="col-sm-2">
 					<div class="row m-0">
@@ -37,7 +24,7 @@
 						<label for="" style="color:green">Bill Reference</label>
 					</div><br>
 					<div class="row m-0">
-						<label for="" style="color:green">Payment Reference</label>
+						<label for="" style="color:green">Reference</label>
 					</div><br>
 					<div class="row m-0">
 						<label for="" style="color:green">Recipient Bank</label>
@@ -45,7 +32,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="row">
-						<select class="form-control" id="refund-vendor">
+						<select class="form-control" id="vendor">
 							<option selected>Select payment terms</option>
 							@foreach (var vender in Model.Venders)
 							{
@@ -54,13 +41,13 @@
 						</select>
 					</div><br>
 					<div class="row">
-						<input type="text" id="refund-billRef" class="form-control" placeholder="" />
+						<input type="text" id="bill-ref" class="form-control" placeholder="" />
+					</div><br> 
+					<div class="row">
+						<input type="text" id="ref" class="form-control" placeholder="" />
 					</div><br>
 					<div class="row">
-						<input type="text" id="refund-ref" class="form-control" placeholder="" />
-					</div><br>
-					<div class="row">
-						<select class="form-control" id="refund-receipient-bank">
+						<select class="form-control" id="bank">
 							<option selected>Select Bank</option>
 							@foreach (var bank in Model.Banks)
 							{
@@ -82,24 +69,24 @@
 				</div><br>
 				<div class="col-sm-4">
 					<div class="row">
-						<input type="date" id="refund-bill-date" class="form-control" placeholder="" />
+						<input type="date" id="date" class="form-control" placeholder="" />
 					</div><br>
-					<div class="row m-0">
-						<div class="col-sm-6">
-							<input type="date" id="refund-due-date" class="form-control" placeholder="" />
-						</div>Or
-						<div class="col-sm-5">
-							<select class="form-control" id="refund-inco-term">
-								<option selected>Select payment terms</option>
-								@foreach (var term in Model.PaymentTerms)
+						  <div class="row m-0">
+						  	<div class="col-sm-6">
+						  		<input type="date" id="due-date" class="form-control" placeholder="" />
+						  	</div>Or
+						  	<div class="col-sm-5">
+						  		<select class="form-control" id="ico-term">
+						  			<option selected>Select payment terms</option>
+						  			@foreach (var term in Model.PaymentTerms)
 								{
-									<option value="@term.Term">@term.Term</option>
-								}
-							</select>
-						</div>
-					</div><br>
+						  		<option value="@term.Term">@term.Term</option>
+						}
+						  </select>
+						  </div> 
+						  </div><br>
 					<div class="row">
-						<select class="form-control" id="refund-journal">
+						<select class="form-control" id="journal">
 							<option selected>Select Journal</option>
 							@foreach (var journal in Model.Journals)
 							{
@@ -123,27 +110,10 @@
 				<div class="card card-body">
 					<div class="row">
 						<div class="col-sm-2">
-							<b>Product</b>
+							Product
 						</div>
-						<div class="col-sm-2">
-							<b>Label</b>
-						</div>
-						<div class="col-sm-2">
-							<b>Account</b>
-						</div>
-						<div class="col-sm-2">
-							<b>Price</b>
-						</div>
-						<div class="col-sm-2">
-							<b>Quantity</b>
-						</div>
-						<div class="col-sm-2">
-							<b>Taxes</b>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">
-							<select class="form-control" asp-for="RefundDetail.Product" id="product">
+						<div class="col-sm-4">
+							<select class="form-control" id="product">
 								<option selected>Select product</option>
 								@foreach (var product in Model.Products)
 								{
@@ -152,27 +122,60 @@
 							</select>
 						</div>
 						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Lable" class="form-control" placeholder="Label" id="vProductlable" disabled />
+							Label
 						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Label" id="lable" disabled />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-sm-2">
-							<select class="form-control" asp-for="RefundDetail.GlAccount" id="vProductAcc">
+							GL Account
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="glAccount">
 								<option selected>Select Account</option>
-								@foreach (var account in Model.Banks)
+								@foreach (var account in Model.Accounts)
 								{
-									<option value="@account.AccNo">@account.AccNo @account.Name</option>
+									<option value="@account.Code">@account.Code @account.Name</option>
 								}
 							</select>
 						</div>
 						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Price" id="vProductPrice" class="form-control" placeholder="Price" />
+							Price
 						</div>
-						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Quantity" id="vProductQty" class="form-control" placeholder="Quantity" />
-						</div>
-						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Tax" class="form-control" placeholder="Taxes" />
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="price" class="form-control" placeholder="Price" />
+							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							Quantity
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input type="text" id="qty" class="form-control" placeholder="Quantity" />
+							</div>
+						</div>
+						<div class="col-sm-2">
+							Tax
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" id="tax">
+								<option selected>Select Tax</option>
+								@foreach (var tax in Model.Taxes)
+								{
+									<option value="@tax.Name">@tax.Name</option>
+								}
+							</select>
+						</div>
+					</div>
+
 					<div class="row">
 						<table class="table table-sm table-hover">
 							<thead>
@@ -184,13 +187,13 @@
 									<th scope="col">Subtotal</th>
 								</tr>
 							</thead>
-							<tbody id="refundItems">
+							<tbody id="items">
 							</tbody>
 						</table>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">
-							<a class="btn btn-success" id="add-refund">Add</a>
+							<a class="btn btn-success" id="add-item">Add</a>
 						</div>
 					</div>
 				</div>
@@ -199,49 +202,18 @@
 			<div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
 				<div class="card card-body">
 					<div class="row">
-						<div class="col-sm-3">
-							Account
-						</div>
-						<div class="col-sm-2">
-							Label
-						</div>
-						<div class="col-sm-2">
-							Debit
-						</div>
-						<div class="col-sm-2">
-							Credit
-						</div>
-						<div class="col-sm-3">
-							Tax Grids
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-3">
-							<input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
-							<input type="text" name="Account" class="form-control" style="height:30px;" autocomplete="off" />
-						</div>
-						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.Lable" class="form-control" />
-							<input type="text" name="Label" class="form-control" style="height:30px;" autocomplete="off" />
-						</div>
-						<div class="col-sm-2">
-							<input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
-							<input type="text" name="Debit" class="form-control" style="height:30px;" autocomplete="off" />
-						</div>
-						<div class="col-sm-2">
-							<input type="text" name="Credit" class="form-control" style="height:30px;" autocomplete="off" />
-						</div>
-						<div class="col-sm-3">
-							<input type="text" name="Tax" class="form-control" style="height:30px;" autocomplete="off" />
-						</div>
-					</div>
-					<div class="row" style="height:10px;">
-
-					</div>
-					<div class="row">
-						<div class="col-sm-2">
-							<button type="submit" style="height:30px;" id="register" class="btn btn-success">Add</button>
-						</div>
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th scope="col">GL Account</th>
+									<th scope="col">Label</th>
+									<th scope="col">Debit</th>
+									<th scope="col">Credit</th>
+								</tr>
+							</thead>
+							<tbody id="journals">
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -311,35 +283,42 @@
 	</div>
 </div>
 
-	@section Scripts {
-		<script type="text/javascript">
+@section Scripts {
+	<script type="text/javascript">
 		$(function () {
+			//let taxes = Model.Taxes;
 			let items = new Array();
 			let journals = new Array();
             $('#product').on('change', function () {
-                var selectVal = $("#product").val();
-				$("#vProductlable").val(selectVal);
+				var selectVal = $("#product").val();
+				$("#lable").val(selectVal);
 			});
-
-			$('#add-refund').on('click', function () {
+			$('#add-item').on('click', function () {
 				// prevent default action (going to the another page)
 				event.preventDefault()
-				let qty = parseFloat($("#vProductQty").val());
-				let price = parseFloat($("#vProductPrice").val());
+				let qty = parseFloat($("#qty").val());
+				let price = parseFloat($("#price").val());
+				let product = $("#product").val();
+				let account = $("#glAccount").val();
+				if (!product || !account || !price || !qty) {
+					return
+				}
+
 				items.push(
 					{
-						product: $("#product").val(),
-						lable: $("#vProductlable").val(),
-						glAccount: $("#vProductAcc").val(),
+						product: product,
+						label: $("#lable").val(),
+						glAccount: account,
 						quantity: qty,
 						price: price,
-						tax: '',
+						tax: $("#tax").val(),
 						subTotal: qty * price
 					}
 				);
-				let tablerows = new Array();
+
+				let itemTableRows = new Array();
 				items.forEach(i => {
-					tablerows.push(`<tr>
+					itemTableRows.push(`<tr>
 					<td>${i.product}</td>
 					<td>${i.glAccount}</td>
 					<td>${i.price}</td>
@@ -348,27 +327,80 @@
 				</tr>`)
 				});
 
-				$('#refundItems').html(tablerows)
-			});
+				$('#items').html(itemTableRows);
 
-			$('#btn-save-refund').on('click', function () {
+				let tax = 0;
+				let total = 0;
+				let itemJournals = new Array();
+				items.forEach(i => {
+					let rate = 15;
+					tax += (i.subTotal * rate * 0.01);
+					total += i.subTotal;
+					itemJournals.push(
+						{
+							glAccount: i.glAccount,
+							label: i.label,
+							debit: 0,
+							credit: i.subTotal
+						}
+					);
+				});
+
+				itemJournals.push(
+					{
+						glAccount: "Tax Paid",
+						label: "Tax 15%",
+						debit: 0,
+						credit: tax
+					}
+				);
+
+				itemJournals.push(
+					{
+						glAccount: "Account Payable",
+						label: "Account Payable",
+						debit: total + tax,
+						credit: 0
+					}
+				);
+
+				journals = itemJournals;
+				let journalTableRows = new Array();
+				journals.forEach(i => {
+					journalTableRows.push(`<tr>
+					<td>${i.glAccount}</td>
+					<td>${i.label}</td>
+					<td>${i.debit}</td>
+					<td>${i.credit}</td>
+				</tr>`)
+				});
+
+				$('#journals').html(journalTableRows);
+
+				$("#product").val("");
+				$("#lable").val("");
+				$("#glAccount").val("");
+				$("#price").val("");
+				$("#qty").val("");
+				$("#tax").val("");
+			});
+			$('#btn-save').on('click', function () {
 				let refund = {
-					billRef: $("#refund-billRef").val(),
-					vendor: $("#refund-vendor").val(),
-					ref: $("#refund-ref").val(),
-					billDate: $("#refund-bill-date").val(),
-					dueDate: $("#refund-due-date").val(),
-					journal: $("#refund-journal").val(),
-					receipientBank: $("#refund-receipient-bank").val(),
-					incoTerm: $("#refund-inco-term").val(),
+					billRef: $("#bill-ref").val(),
+					vendor: $("#vendor").val(),
+					ref: $("#ref").val(),
+					billDate: $("#date").val(),
+					dueDate: $("#due-date").val(),
+					journal: $("#journal").val(),
+					receipientBank: $("#bank").val(),
+					incoTerm: $("#ico-term").val(),
 					fiscalPosition: '',
 					refundDetails: items,
 					refundJournals: journals
 				};
-
 				$.ajax({
 					type: 'POST',
-					url: '@Url.Page("EditRefunds", "item")',
+					url: '@Url.Page("EditRefunds")',
 					contentType: 'application/json',
 					headers:
 					{
@@ -385,5 +417,5 @@
 				});
 			});
 		});
-		</script>
-	}
+	</script>
+}

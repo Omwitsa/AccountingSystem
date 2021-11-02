@@ -286,7 +286,7 @@
 			//let taxes = Model.Taxes;
 			let items = new Array();
 			let journals = new Array();
-            $('#product').on('change', function () {
+			$('#product').on('change', function () {
 				var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
 			});
@@ -345,7 +345,7 @@
 
 				itemJournals.push(
 					{
-						glAccount: "Tax Received",
+						glAccount: "Tax Paid",
 						label: "Tax 15%",
 						debit: tax,
 						credit: 0
@@ -354,8 +354,8 @@
 
 				itemJournals.push(
 					{
-						glAccount: "Account Receivable",
-						label: "Account Receivable",
+						glAccount: "Account Payable",
+						label: "Account Payable",
 						debit: 0,
 						credit: total + tax
 					}
@@ -373,6 +373,13 @@
 				});
 
 				$('#journals').html(journalTableRows);
+
+				$("#product").val("");
+				$("#lable").val("");
+				$("#glAccount").val("");
+				$("#price").val("");
+				$("#qty").val("");
+				$("#tax").val("");
 			});
 			$('#btn-save').on('click', function () {
 				let bill = {
