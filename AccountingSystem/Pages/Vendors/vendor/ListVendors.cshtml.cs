@@ -5,12 +5,14 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Web.Mvc;
+using Rotativa;
 
 namespace AccountingSystem.Pages.Vendors
 {
 	public class ListVendorsModel : PageModel
     {
-        private AccountingSystemContext _dbContext;
+       private AccountingSystemContext _dbContext;
         [BindProperty]
         public List<Vender> Venders { get; set; }
         [BindProperty]

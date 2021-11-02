@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountingSystem.Migrations
 {
     [DbContext(typeof(AccountingSystemContext))]
-    [Migration("20211024095806_Tax-GlAccount")]
-    partial class TaxGlAccount
+    [Migration("20211102075409_Initial-Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,8 +95,8 @@ namespace AccountingSystem.Migrations
                     b.Property<string>("Frequency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("From")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("From")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Journal")
                         .HasColumnType("nvarchar(max)");
@@ -110,8 +110,8 @@ namespace AccountingSystem.Migrations
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("To")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("To")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -843,8 +843,8 @@ namespace AccountingSystem.Migrations
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PurchaseTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("PurchaseTax")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Reminder")
                         .HasColumnType("int");
@@ -852,8 +852,8 @@ namespace AccountingSystem.Migrations
                     b.Property<int>("RoundingMethod")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("SalesTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("SalesTax")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1453,19 +1453,16 @@ namespace AccountingSystem.Migrations
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RecipientBank")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Vender")
+                    b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("remarks")
+                    b.Property<string>("Vender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

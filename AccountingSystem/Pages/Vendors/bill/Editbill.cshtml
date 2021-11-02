@@ -13,118 +13,118 @@
 			</div>
 		}
 		
-	<form method="post">
-		<div class="row">
-			<div class="col-sm-2">
-				Bill No.
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<input type="text" id="bill-no" class="form-control" placeholder="Bill No" />
+		<form method="post">
+			<div class="row">
+				<div class="col-sm-2">
+					Bill No.
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" id="bill-no" class="form-control" placeholder="Bill No" />
+					</div>
+				</div>
+				<div class="col-sm-2">
+					Bill Ref
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" id="bill-ref" class="form-control" placeholder="Bill Ref" />
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-2">
-				Bill Ref
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<input type="text" id="bill-ref" class="form-control" placeholder="Bill Ref" />
-				</div>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-sm-2">
-				Vender
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" id="vendor">
-					<option selected>Select vender</option>
-					@foreach (var vender in Model.Venders)
-					{
-						<option value="@vender.Name">@vender.Name</option>
-					}
-				</select>
-			</div>
-			<div class="col-sm-2">
-				Payment Reference
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<input type="text" id="pay-ref" class="form-control" placeholder="Payment Reference" />
+			<div class="row">
+				<div class="col-sm-2">
+					Vender
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="vendor">
+						<option selected>Select vender</option>
+						@foreach (var vender in Model.Venders)
+						{
+							<option value="@vender.Name">@vender.Name</option>
+						}
+					</select>
+				</div>
+				<div class="col-sm-2">
+					Payment Reference
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="text" id="pay-ref" class="form-control" placeholder="Payment Reference" />
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-sm-2">
-				Recipient Bank
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" id="bank">
-					<option selected>Select Bank</option>
-					@foreach (var bank in Model.Banks)
-					{
-						<option value="@bank.Name">@bank.Name</option>
-					}
-				</select>
-			</div>
-			<div class="col-sm-2">
-				Journal
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" id="journal">
-					<option selected>Select Journal</option>
-					@foreach (var journal in Model.Journals)
-					{
-						<option value="@journal.Name">@journal.Name</option>
-					}
-				</select>
-			</div>
-		</div><br />
+			<div class="row">
+				<div class="col-sm-2">
+					Recipient Bank
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="bank">
+						<option selected>Select Bank</option>
+						@foreach (var bank in Model.Banks)
+						{
+							<option value="@bank.Name">@bank.Name</option>
+						}
+					</select>
+				</div>
+				<div class="col-sm-2">
+					Journal
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="journal">
+						<option selected>Select Journal</option>
+						@foreach (var journal in Model.Journals)
+						{
+							<option value="@journal.Name">@journal.Name</option>
+						}
+					</select>
+				</div>
+			</div><br />
 
-		<div class="row">
-			<div class="col-sm-2">
-				Date
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<input type="date" id="date" class="form-control" />
+			<div class="row">
+				<div class="col-sm-2">
+					Date
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="date" id="date" class="form-control" />
+					</div>
+				</div>
+				<div class="col-sm-2">
+					Due Date
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<input type="date" id="due-date" class="form-control" />
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-2">
-				Due Date
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<input type="date" id="due-date" class="form-control" />
-				</div>
-			</div>
-		</div>
 		
-		<div class="row">
-			<div class="col-sm-2">
-				Remarks
-			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<textarea class="form-control" id="remarks" rows="3" placeholder="Remarks"></textarea>
+			<div class="row">
+				<div class="col-sm-2">
+					Remarks
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<textarea class="form-control" id="remarks" rows="3" placeholder="Remarks"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					Inco Terms
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control" id="ico-term">
+						<option selected>Select Term</option>
+						@foreach (var term in Model.IncoTerms)
+						{
+							<option value="@term.Code">@term.Code @term.Name</option>
+						}
+					</select>
 				</div>
 			</div>
-			<div class="col-sm-2">
-				Inco Terms
-			</div>
-			<div class="col-sm-4">
-				<select class="form-control" id="ico-term">
-					<option selected>Select Term</option>
-					@foreach (var term in Model.IncoTerms)
-					{
-						<option value="@term.Code">@term.Code @term.Name</option>
-					}
-				</select>
-			</div>
-		</div>
-	</form>
+		</form>
 
 		<div class="m-4">
 			<ul class="list-inline">

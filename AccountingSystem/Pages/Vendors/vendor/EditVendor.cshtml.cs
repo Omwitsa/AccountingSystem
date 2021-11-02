@@ -11,6 +11,8 @@ namespace AccountingSystem.Pages.Vendors
 {
 	public class EditVendorModel : PageModel
     {
+		
+
 		private AccountingSystemContext _dbContext;
 		[BindProperty]
 		public Vender Vender { get; set; }

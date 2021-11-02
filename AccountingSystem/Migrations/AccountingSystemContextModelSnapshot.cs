@@ -1451,19 +1451,16 @@ namespace AccountingSystem.Migrations
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RecipientBank")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Vender")
+                    b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("remarks")
+                    b.Property<string>("Vender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
