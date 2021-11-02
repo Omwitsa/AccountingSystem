@@ -1,0 +1,99 @@
+﻿@page
+@model AccountingSystem.Pages.Reporting.RefundsReportModel
+@{
+    var count = 0;
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+<div>
+    <div class="modal-header" style="background-color:white;color:white;text-align:center">
+        <button class="fas fa-file-download" onclick="generate()">EXPORT TO PDF</button>
+    </div>
+    <div class="table-responsive">
+        @if (!Model.Success)
+        {
+            <div class="alert-danger text-center">
+                @Model.Message
+            </div>
+        }
+        <table class="table table-sm table-hover" id="simple_table">
+            <thead>
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Vendor</th>
+                    <th scope="col">Bill Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Reference</th>
+                    <th scope="col">Next Activity</th>
+                    <th scope="col">Tax Excluded</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var refund in Model.Refunds)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@refund.Vendor </td>
+                        <td>@refund.BillDate </td>
+                        <td>@refund.DueDate </td>
+                        <td>@refund.Ref </td>
+                        @*<td>@refund.t </td>
+                            <td>@refund.Industry</td>
+                            <td>@refund.PhoneNo</td>
+                            <td>@refund.Industry</td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function generate() {
+            var doc = new jsPDF('p', 'pt', 'letter');
+            var htmlstring = '';
+            var tempVarToCheckPageHeight = 0;
+            var pageHeight = 0;
+            pageHeight = doc.internal.pageSize.height;
+            specialElementHandlers = {
+                // element with id of "bypass" - jQuery style selector
+                '#bypassme': function (element, renderer) {
+                    // true = "handled elsewhere, bypass text extraction"
+                    return true
+                }
+            };
+            margins = {
+                top: 150,
+                bottom: 60,
+                left: 40,
+                right: 40,
+                width: 600
+            };
+            var y = 20;
+            doc.setLineWidth(2);
+            doc.text(200, y = y + 30, "REFUNDS LIST");
+            doc.autoTable({
+                html: "#simple_table",
+                startY: 70,
+                theme: 'grid',
+                columnStyles: {
+                    0: {
+                        cellWidth: 0,
+                    },
+                    1: {
+                        cellWidth: 0,
+                    },
+                    2: {
+                        cellWidth: 0,
+                    }
+                },
+                styles: {
+                    minCellHeight: 40
+                }
+            })
+            doc.save('Refunds.pdf');
+        }
+    </script>
+</div>
