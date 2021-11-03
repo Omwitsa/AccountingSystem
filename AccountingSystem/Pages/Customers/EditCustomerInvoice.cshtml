@@ -24,10 +24,10 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-sm-2">
+							<div class="col-sm-4">
 								Journal
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-8">
 								<select class="form-control" id="p-journal">
 									<option selected>Select Journal</option>
 									@foreach (var journal1 in Model.Journals)
@@ -36,10 +36,12 @@
 									}
 								</select>
 							</div>
-							<div class="col-sm-2">
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
 								Amount
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-8">
 								<div class="form-group">
 									<input type="text" id="p-amount" class="form-control" placeholder="Amount" />
 								</div>
@@ -47,10 +49,10 @@
 						</div>
 
 						<div class="row">
-							<div class="col-sm-2">
+							<div class="col-sm-4">
 								Recipient Bank
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-8">
 								<select class="form-control" id="p-bank">
 									<option selected>Select Bank</option>
 									@foreach (var bank in Model.Banks)
@@ -59,37 +61,34 @@
 									}
 								</select>
 							</div>
-							<div class="col-sm-2">
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
 								Payment Date
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-8">
 								<div class="form-group">
 									<input type="date" id="p-date" class="form-control">
 								</div>
 							</div>
 						</div>
-						
-						<div class="row">
-							<div class="col-sm-2">
-								Memo
-							</div>
-							<div class="col-sm-4">
-								<div class="form-group">
-									<input type="text" id="p-ref" asp-for="Invoice.Ref" class="form-control">
+
+							<div class="row">
+								<div class="col-sm-4">
+									Memo
+								</div>
+								<div class="col-sm-8">
+									<div class="form-group">
+										<input type="text" id="p-ref" asp-for="Invoice.Ref" class="form-control">
+									</div>
 								</div>
 							</div>
-							<div class="col-sm-2">
-							</div>
-							<div class="col-sm-4">
-
-							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="save-payment">Create Payment</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="save-payment">Create Payment</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
