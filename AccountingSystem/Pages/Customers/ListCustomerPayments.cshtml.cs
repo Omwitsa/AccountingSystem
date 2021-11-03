@@ -45,7 +45,7 @@ namespace AccountingSystem.Pages.Customers
             try
             {
                 Payments = _dbContext.CPayments.Where(p =>
-                (string.IsNullOrEmpty(Payment.Vender) || p.Vender.ToUpper().Equals(Payment.Vender.ToUpper()))
+                (string.IsNullOrEmpty(Payment.Customer) || p.Customer.ToUpper().Equals(Payment.Customer.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.GlAccount) || p.GlAccount.ToUpper().Equals(Payment.GlAccount.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.Journal) || p.Journal.ToUpper().Equals(Payment.Journal.ToUpper()))
                 && (string.IsNullOrEmpty(Payment.BankAccount) || p.BankAccount.ToUpper().Equals(Payment.BankAccount.ToUpper()))

@@ -66,12 +66,6 @@
                         <label for="firstName" style="margin-left:100px;">Partner Type</label>
 
                     </div>
-                    <div class="column">
-                        <select style="width:209px;margin-left:110px;height:35px;margin-top:5px;" asp-for="Payment.PartnerType" class="form-control">
-                            <option selected>Customer</option>
-                            <option selected>Vender</option>
-                        </select>
-                    </div>
                     <div class="column"></div>
                     <div class="column"></div>
                 </div>
@@ -80,11 +74,11 @@
                         <label for="firstName" style="margin-left:100px;">Customer/Vendor</label>
                     </div>
                     <div class="column">
-                        <select style="width:209px;margin-left:73px;height:35px;margin-top:5px;" asp-for="Payment.Vender" class="form-control">
+                        <select style="width:209px;margin-left:73px;height:35px;margin-top:5px;" asp-for="Payment.Customer" class="form-control">
                            
-                            @foreach (var vender in Model.Venders)
+                            @foreach (var customer in Model.Customers)
                             {
-                                <option value="@vender.Name">@vender.Name</option>
+                                <option value="@customer.Name">@customer.Name</option>
                             }
                         </select>
                     </div>

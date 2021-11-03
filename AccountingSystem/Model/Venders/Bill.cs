@@ -14,6 +14,11 @@ namespace AccountingSystem.Model.Venders
 		public DateTime? Date { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public decimal? NetAmount { get; set; }
+		public decimal? Tax { get; set; }
+		public decimal? TotalAmount { get; set; }
+		public decimal? Arrears { get; set; }
+		public string Status { get; set; }
 		public IEnumerable<BillDetail> BillDetails { get; set; }
 		public IEnumerable<BillJournal> BillJournals { get; set; }
 		public string RecipientBank { get; set; }

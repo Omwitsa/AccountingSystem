@@ -22,7 +22,6 @@ namespace AccountingSystem.Model.Customers
 		public string SalesPaymentTerms { get; set; }
 		public string FiscalPosition { get; set; }
 		public string ARGlAccount { get; set; }
-		public string APGlAccount { get; set; }
 		public string Bank { get; set; }
 		public string Tags { get; set; }
 		public string Notes { get; set; }

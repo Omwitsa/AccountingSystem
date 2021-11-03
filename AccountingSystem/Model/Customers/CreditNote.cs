@@ -11,6 +11,11 @@ namespace AccountingSystem.Model.Customers
 		public DateTime? InvoiceDate { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public decimal? NetAmount { get; set; }
+		public decimal? Tax { get; set; }
+		public decimal? TotalAmount { get; set; }
+		public decimal? Arrears { get; set; }
+		public string Status { get; set; }
 		public IEnumerable<CreditNoteDetail> CreditNoteDetails { get; set; }
 		public IEnumerable<CreditNoteJournal> CreditNoteJournals { get; set; }
 		public string SalesPerson { get; set; }

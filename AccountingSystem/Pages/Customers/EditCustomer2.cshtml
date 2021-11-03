@@ -136,18 +136,6 @@
             </div><br />
             <div class="row">
                 <div class="col-sm-2">
-                    Account Payable
-                </div>
-                <div class="col-sm-4">
-                    <select class="form-control" asp-for="Customer.APGlAccount">
-                        <option selected>Select Account Payable</option>
-                        @foreach (var account in Model.PAccounts)
-                        {
-                            <option value="@account.Name">@account.Code @account.Name</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-sm-2">
                     Account Receivable
                 </div>
                 <div class="col-sm-4">
@@ -158,6 +146,11 @@
                             <option value="@account.Name">@account.Code @account.Name</option>
                         }
                     </select>
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4">
+                    
                 </div>
             </div>
             <div class="row">

@@ -19,8 +19,6 @@ namespace AccountingSystem.Pages.Vendors
 		[BindProperty]
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
-		public List<Customer> customers { get; set; }
-		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
 		public List<Bank> Banks { get; set; }
@@ -44,12 +42,6 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
-				
-				customers = _dbContext.Customers.Where(R => !(bool)R.Closed)
-					.Select(R => new Customer
-					{
-						Name=R.Name
-					}).ToList();
 				Venders = _dbContext.Venders.Where(c => !(bool)c.Closed)
 					.Select(c => new Vender
 					{
@@ -87,7 +79,7 @@ namespace AccountingSystem.Pages.Vendors
 			try
 			{
 				Payment.Date = DateTime.UtcNow.AddHours(3);
-				if (string.IsNullOrEmpty(Payment.Customer))
+				if (string.IsNullOrEmpty(Payment.Vender))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide customer";
@@ -133,7 +125,7 @@ namespace AccountingSystem.Pages.Vendors
 				{
 					reference = "Edit Payment";
 					savedPayment.ModifiedDate = DateTime.UtcNow.AddHours(3);
-					savedPayment.Customer = Payment.Customer;
+					savedPayment.Vender = Payment.Vender;
 					savedPayment.GlAccount = Payment.GlAccount;
 					savedPayment.IsInternalTransfer = Payment.IsInternalTransfer;
 					savedPayment.Amount = Payment.Amount;

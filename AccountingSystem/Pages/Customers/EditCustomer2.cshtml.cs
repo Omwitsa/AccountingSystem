@@ -83,13 +83,6 @@ namespace AccountingSystem.Pages.Customers
 					return Page();
 				}
 
-				if (string.IsNullOrEmpty(Customer.APGlAccount))
-				{
-					Success = false;
-					Message = "Sorry, Kindly provide account payable";
-					return Page();
-				}
-
 				if (string.IsNullOrEmpty(Customer.ARGlAccount))
 				{
 					Success = false;
@@ -116,7 +109,6 @@ namespace AccountingSystem.Pages.Customers
 					savedCustomer.PurchasePaymentTerms = Customer.PurchasePaymentTerms;
 					savedCustomer.SalesPaymentTerms = Customer.SalesPaymentTerms;
 					savedCustomer.FiscalPosition = Customer.FiscalPosition;
-					savedCustomer.APGlAccount = Customer.APGlAccount;
 					savedCustomer.ARGlAccount = Customer.ARGlAccount;
 					savedCustomer.Bank = Customer.Bank;
 					savedCustomer.Notes = Customer.Notes;

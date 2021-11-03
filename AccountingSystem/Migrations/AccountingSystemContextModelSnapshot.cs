@@ -905,6 +905,9 @@ namespace AccountingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal?>("Arrears")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -929,6 +932,9 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal?>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("PaymentReference")
                         .HasColumnType("nvarchar(max)");
 
@@ -943,6 +949,15 @@ namespace AccountingSystem.Migrations
 
                     b.Property<string>("SalesPerson")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1029,6 +1044,9 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Customer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
@@ -1047,13 +1065,7 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PartnerType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Personnel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Vender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1126,6 +1138,9 @@ namespace AccountingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal?>("Arrears")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -1150,6 +1165,9 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal?>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
@@ -1161,6 +1179,15 @@ namespace AccountingSystem.Migrations
 
                     b.Property<string>("SalesPerson")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1237,9 +1264,6 @@ namespace AccountingSystem.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("APGlAccount")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ARGlAccount")
                         .HasColumnType("nvarchar(max)");
@@ -1424,6 +1448,9 @@ namespace AccountingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal?>("Arrears")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -1445,6 +1472,9 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal?>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("No")
                         .HasColumnType("nvarchar(max)");
 
@@ -1459,6 +1489,15 @@ namespace AccountingSystem.Migrations
 
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Vender")
                         .HasColumnType("nvarchar(max)");
@@ -1539,6 +1578,9 @@ namespace AccountingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal?>("Arrears")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime?>("BillDate")
                         .HasColumnType("datetime2");
 
@@ -1563,6 +1605,9 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal?>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
@@ -1571,6 +1616,15 @@ namespace AccountingSystem.Migrations
 
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Vendor")
                         .HasColumnType("nvarchar(max)");
@@ -1663,9 +1717,6 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
@@ -1688,6 +1739,9 @@ namespace AccountingSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Vender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

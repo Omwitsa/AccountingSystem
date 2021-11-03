@@ -5,8 +5,6 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Web.Mvc;
-using Rotativa;
 
 namespace AccountingSystem.Pages.Vendors
 {

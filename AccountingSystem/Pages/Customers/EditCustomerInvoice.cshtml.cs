@@ -5,6 +5,7 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
+using AccountingSystem.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -35,6 +36,7 @@ namespace AccountingSystem.Pages.Customers
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+		private Util util = new Util();
 
 		public EditCustomerInvoiceModel(AccountingSystemContext dbContext)
 		{
@@ -121,7 +123,14 @@ namespace AccountingSystem.Pages.Customers
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
-					
+
+				invoice.Status = "Posted";
+				var suffix = "INV";
+				invoice.Ref = $"{suffix}1";
+				var invoice1 = _dbContext.CInvoices.ToList()
+					.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
+				if(invoice1 != null)
+					invoice.Ref = util.GetRef(invoice.Ref, suffix);
 				foreach (var detail in invoice.CInvoiceDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -154,6 +163,7 @@ namespace AccountingSystem.Pages.Customers
 				{
 					reference = "Edit invoice";
 					invoice.CreatedDate = savedInvoice.CreatedDate;
+					invoice.Ref = savedInvoice.Ref;
 					if (savedInvoice != null)
 					{
 						var details = _dbContext.CInvoiceDetails.Where(b => b.CInvoiceId == savedInvoice.Id);
@@ -183,6 +193,28 @@ namespace AccountingSystem.Pages.Customers
 			{
 				Success = false;
 				Message = "Sorry, An error occurred";
+				return Page();
+			}
+		}
+	
+		public IActionResult OnPostPayment([FromBody] CPayment payment)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(payment.Customer))
+				{
+					Success = false;
+					Message = "Kindly provide customer";
+					return Page();
+				}
+				var customer = _dbContext.Customers.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Customer.ToUpper()));
+				payment.GlAccount = customer.ARGlAccount;
+				_dbContext.CPayments.Add(payment);
+				_dbContext.SaveChanges();
+				return RedirectToPage("./ListCustomerInvoice");
+			}
+			catch (Exception ex)
+			{
 				return Page();
 			}
 		}

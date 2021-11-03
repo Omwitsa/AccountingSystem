@@ -6,7 +6,7 @@ namespace AccountingSystem.Model.Venders
 	{
 		public Guid Id { get; set; }
 		public string BillRef { get; set; }
-		public string Customer { get; set; }
+		public string Vender { get; set; }
 		public string GlAccount { get; set; }
 		public bool? IsInternalTransfer { get; set; }
 		public decimal? Amount { get; set; }
