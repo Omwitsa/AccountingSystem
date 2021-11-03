@@ -366,15 +366,39 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(function () {
-			$('#pay-model').hide();
-			if ($("#p-ref").val()) {
-				$('#pay-model').show();
-			}
-			//let taxes = Model.Taxes;
-			let items = new Array();
-			let journals = new Array();
 			let tax = 0;
 			let total = 0;
+			let taxes = new Array();
+			let items = new Array();
+			let journals = new Array();
+			let memo = $("#p-ref").val();
+			$('#pay-model').hide();
+			if (memo) {
+				$('#pay-model').show();
+				$('#add-item').hide();
+				$('#btn-save').hide();
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Page("EditCustomerInvoice", "invoice")',
+				contentType: 'application/json',
+				headers:
+				{
+					"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+				},
+				data: JSON.stringify({ ref: memo}),
+				success: function (response) {
+					response.invoice = response.invoice ? response.invoice : {};
+					taxes = response.taxes;
+					items = response.invoice.cInvoiceDetails;
+					items = items ? items : new Array();
+					populateItemtable(items)
+				},
+				failure: function (response) {
+				}
+			});
+
             $('#product').on('change', function () {
 				var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
@@ -402,74 +426,7 @@
 					}
 				);
 
-
-
-				let itemTableRows = new Array();
-				items.forEach(i => {
-					itemTableRows.push(`<tr>
-					<td>${i.product}</td>
-					<td>${i.glAccount}</td>
-					<td>${i.price}</td>
-					<td>${i.quantity}</td>
-					<td>${i.subTotal}</td>
-				</tr>`)
-				});
-
-				$('#items').html(itemTableRows);
-
-				tax = 0;
-				total = 0;
-				let itemJournals = new Array();
-				items.forEach(i => {
-					let rate = 15;
-					tax += (i.subTotal * rate * 0.01);
-					total += i.subTotal;
-					itemJournals.push(
-						{
-							glAccount: i.glAccount,
-							label: i.label,
-							debit: 0,
-							credit: i.subTotal
-						}
-					);
-				});
-
-				itemJournals.push(
-					{
-						glAccount: "Tax Received",
-						label: "Tax 15%",
-						debit: 0,
-						credit: tax
-					}
-				);
-
-				itemJournals.push(
-					{
-						glAccount: "Account Receivable",
-						label: "Account Receivable",
-						debit: total + tax,
-						credit: 0
-					}
-				);
-
-				journals = itemJournals;
-				let journalTableRows = new Array();
-				journals.forEach(i => {
-					journalTableRows.push(`<tr>
-					<td>${i.glAccount}</td>
-					<td>${i.label}</td>
-					<td>${i.debit}</td>
-					<td>${i.credit}</td>
-				</tr>`)
-				});
-
-				$('#journals').html(journalTableRows);
-				$("#product").val("");
-				$("#lable").val("");
-				$("#glAccount").val("");
-				$("#price").val("");
-				$("#qty").val("");
-				$("#tax").val("");
+				populateItemtable(items);
 			});
 			$('#btn-save').on('click', function () {
 				let invoice = {
@@ -524,7 +481,7 @@
 					customer: customer,
 					amount: amount,
 					date: $("#p-date").val(),
-					memo: $("#p-ref").val(),
+					memo: memo,
 					journal: $("#p-journal").val(),
 					bankAccount: $("#p-bank").val()
 				};
@@ -556,6 +513,80 @@
 				$("#p-journal").val("");
 				$("#p-bank").val("");
 			});
+
+			function populateItemtable(items) {
+				let itemTableRows = new Array();
+				items.forEach(i => {
+					itemTableRows.push(`<tr>
+					<td>${i.product}</td>
+					<td>${i.glAccount}</td>
+					<td>${i.price}</td>
+					<td>${i.quantity}</td>
+					<td>${i.subTotal}</td>
+				</tr>`)
+				});
+
+				$('#items').html(itemTableRows);
+
+				tax = 0;
+				total = 0;
+				let itemJournals = new Array();
+				items.forEach(i => {
+					let rate = 0;
+					taxes = taxes.filter(t => t.name === i.tax);
+					if (taxes[0]) {
+						rate = taxes[0].rate;
+					}
+					
+					tax += (i.subTotal * rate * 0.01);
+					total += i.subTotal;
+					itemJournals.push(
+						{
+							glAccount: i.glAccount,
+							label: i.label,
+							debit: 0,
+							credit: i.subTotal
+						}
+					);
+				});
+
+				itemJournals.push(
+					{
+						glAccount: "Tax Received",
+						label: "Tax 15%",
+						debit: 0,
+						credit: tax
+					}
+				);
+
+				itemJournals.push(
+					{
+						glAccount: "Account Receivable",
+						label: "Account Receivable",
+						debit: total + tax,
+						credit: 0
+					}
+				);
+
+				journals = itemJournals;
+				let journalTableRows = new Array();
+				journals.forEach(i => {
+					journalTableRows.push(`<tr>
+					<td>${i.glAccount}</td>
+					<td>${i.label}</td>
+					<td>${i.debit}</td>
+					<td>${i.credit}</td>
+				</tr>`)
+				});
+
+				$('#journals').html(journalTableRows);
+				$("#product").val("");
+				$("#lable").val("");
+				$("#glAccount").val("");
+				$("#price").val("");
+				$("#qty").val("");
+				$("#tax").val("");
+			}
 		});
 	</script>
 	}

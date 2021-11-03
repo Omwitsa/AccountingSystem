@@ -8,6 +8,7 @@ using AccountingSystem.Model.System;
 using AccountingSystem.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Pages.Customers
 {
@@ -216,6 +217,33 @@ namespace AccountingSystem.Pages.Customers
 			catch (Exception ex)
 			{
 				return Page();
+			}
+		}
+
+		public JsonResult OnPostInvoice([FromBody] CInvoice cInvoice)
+		{
+			try
+			{
+				var memo = cInvoice?.Ref ?? "";
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name,
+						GlAcccount = t.GlAcccount,
+						Rate = t.Rate
+					}).ToList();
+				var invoice = _dbContext.CInvoices.Include(i => i.CInvoiceDetails)
+					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
+				var results = new
+				{
+					taxes,
+					invoice
+				};
+				return new JsonResult(results);
+			}
+			catch (Exception)
+			{
+				return new JsonResult("");
 			}
 		}
 	}
