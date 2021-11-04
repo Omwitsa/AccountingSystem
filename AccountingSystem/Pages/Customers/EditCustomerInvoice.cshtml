@@ -43,7 +43,7 @@
 							</div>
 							<div class="col-sm-8">
 								<div class="form-group">
-									<input type="text" id="p-amount" class="form-control" placeholder="Amount" />
+									<input type="text" id="p-amount" asp-for="Invoice.TotalAmount" class="form-control" placeholder="Amount" />
 								</div>
 							</div>
 						</div>
@@ -148,9 +148,13 @@
 					Terms
 				</div>
 				<div class="col-sm-4">
-					<div class="form-group">
-						<input type="text" id="ico-term" asp-for="Invoice.IncoTerm" placeholder="Terms" class="form-control">
-					</div>
+					<select class="form-control" id="ico-term" asp-for="Invoice.IncoTerm">
+						<option selected>Select Terms</option>
+						@foreach (var term in Model.IncoTerms)
+						{
+							<option value="@term.Name">@term.Name</option>
+						}
+					</select>
 				</div>
 				<div class="col-sm-2">
 					Journal
@@ -393,7 +397,11 @@
 					taxes = response.taxes;
 					items = response.invoice.cInvoiceDetails;
 					items = items ? items : new Array();
-					populateItemtable(items)
+					if (response.isPaid) {
+						$('#pay-model').hide();
+					}
+
+					populateItemtable(items);
 				},
 				failure: function (response) {
 				}
@@ -470,7 +478,7 @@
 				$("#due-date").val("");
 				$("#journal").val("");
 				$("#pay-ref").val("");
-				$("#co-term").val("");
+				$("#ico-term").val("");
 				$('#journals').html("");
 				$('#items').html("");
 			});

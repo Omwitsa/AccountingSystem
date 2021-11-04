@@ -20,7 +20,6 @@ namespace AccountingSystem.Model.Venders
 		public string FiscalPosition { get; set; }
 		public string Ref { get; set; }
 		public string Industry { get; set; }
-		public string ARGlAccount { get; set; }
 		public string APGlAccount { get; set; }
 		public string Bank { get; set; }
 		public string BankAccount { get; set; }

@@ -5,17 +5,17 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
+using AccountingSystem.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Pages.Vendors
 {
-	public class EditbillModel : PageModel
+	public class EditBillModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
-        private Guid id;
-
-        [BindProperty]
+		[BindProperty]
 		public Bill Bill { get; set; }
 		[BindProperty]
 		public BillDetail BillDetail { get; set; }
@@ -23,7 +23,6 @@ namespace AccountingSystem.Pages.Vendors
 		public List<Vender> Venders { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
-
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
 		[BindProperty]
@@ -40,14 +39,16 @@ namespace AccountingSystem.Pages.Vendors
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+		private Util util = new Util();
 
-		public EditbillModel(AccountingSystemContext dbContext)
+		public EditBillModel(AccountingSystemContext dbContext)
 		{
 			_dbContext = dbContext;
 			Success = true;
 			BillDetail = new BillDetail();
 		}
-		public void OnGet()
+
+		public void OnGet(Guid id)
 		{
 			try
 			{
@@ -98,6 +99,7 @@ namespace AccountingSystem.Pages.Vendors
 				Message = "Sorry, An error occurred";
 			}
 		}
+
 		public IActionResult OnPost([FromBody] Bill bill)
 		{
 			try
@@ -119,7 +121,7 @@ namespace AccountingSystem.Pages.Vendors
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
-				
+
 				if (!bill.BillDetails.Any())
 				{
 					Success = false;
@@ -127,6 +129,7 @@ namespace AccountingSystem.Pages.Vendors
 					return Page();
 				}
 
+				bill.Status = "Posted";
 				foreach (var detail in bill.BillDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -159,16 +162,23 @@ namespace AccountingSystem.Pages.Vendors
 				{
 					reference = "Edit Bill";
 					bill.CreatedDate = savedBill.CreatedDate;
-					if (savedBill != null)
-					{
-						var details = _dbContext.BillDetails.Where(b => b.BillId == savedBill.Id);
-						if (details.Any())
-							_dbContext.BillDetails.RemoveRange(details);
-						var journals = _dbContext.BillJournals.Where(b => b.BillId == savedBill.Id);
-						if (journals.Any())
-							_dbContext.BillJournals.RemoveRange(journals);
-						_dbContext.Bills.Remove(savedBill);
-					}
+					bill.Ref = savedBill.Ref;
+					var details = _dbContext.BillDetails.Where(b => b.BillId == savedBill.Id);
+					if (details.Any())
+						_dbContext.BillDetails.RemoveRange(details);
+					var journals = _dbContext.BillJournals.Where(b => b.BillId == savedBill.Id);
+					if (journals.Any())
+						_dbContext.BillJournals.RemoveRange(journals);
+					_dbContext.Bills.Remove(savedBill);
+				}
+				else
+				{
+					var suffix = "BIL";
+					bill.Ref = $"{suffix}1";
+					var bill1 = _dbContext.Bills.ToList()
+						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
+					if (bill1 != null)
+						bill.Ref = util.GetRef(bill1.Ref, suffix);
 				}
 				_dbContext.Audits.Add(new Audit
 				{
@@ -182,13 +192,64 @@ namespace AccountingSystem.Pages.Vendors
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Bill saved successfully";
-				return RedirectToPage("./Listbill");
+				return RedirectToPage("./ListBill");
 			}
 			catch (Exception ex)
 			{
 				Success = false;
 				Message = "Sorry, An error occurred";
 				return Page();
+			}
+		}
+
+		public IActionResult OnPostPayment([FromBody] VPayment payment)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(payment.Vender))
+				{
+					Success = false;
+					Message = "Kindly provide vendor";
+					return Page();
+				}
+				var vender = _dbContext.Venders.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Vender.ToUpper()));
+				payment.GlAccount = vender.APGlAccount;
+				_dbContext.VPayments.Add(payment);
+				_dbContext.SaveChanges();
+				return RedirectToPage("./ListBill");
+			}
+			catch (Exception ex)
+			{
+				return Page();
+			}
+		}
+
+		public JsonResult OnPostBill([FromBody] Bill vInvoice)
+		{
+			try
+			{
+				var memo = vInvoice?.Ref ?? "";
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name,
+						GlAcccount = t.GlAcccount,
+						Rate = t.Rate
+					}).ToList();
+				var bill = _dbContext.Bills.Include(i => i.BillDetails)
+					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
+				var isPaid = _dbContext.VPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
+				var results = new
+				{
+					taxes,
+					bill,
+					isPaid
+				};
+				return new JsonResult(results);
+			}
+			catch (Exception)
+			{
+				return new JsonResult("");
 			}
 		}
 	}

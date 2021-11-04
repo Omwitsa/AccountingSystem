@@ -5,8 +5,10 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
+using AccountingSystem.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Pages.Customers
 {
@@ -37,6 +39,7 @@ namespace AccountingSystem.Pages.Customers
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+		private Util util = new Util();
 
 		public EditCustomerCreditNotesModel(AccountingSystemContext dbContext)
 		{
@@ -127,7 +130,8 @@ namespace AccountingSystem.Pages.Customers
 					Message = "Sorry, Kindly provide invoice items";
 					return Page();
 				}
-					
+
+				note.Status = "Posted";
 				foreach (var detail in note.CreditNoteDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -160,16 +164,23 @@ namespace AccountingSystem.Pages.Customers
 				{
 					reference = "Edit Credit note";
 					note.CreatedDate = savedNote.CreatedDate;
-					if (savedNote != null)
-					{
-						var details = _dbContext.CreditNoteDetails.Where(b => b.CreditNoteId == savedNote.Id);
-						if (details.Any())
-							_dbContext.CreditNoteDetails.RemoveRange(details);
-						var journals = _dbContext.CreditNoteJournals.Where(b => b.CreditNoteId == savedNote.Id);
-						if (journals.Any())
-							_dbContext.CreditNoteJournals.RemoveRange(journals);
-						_dbContext.CreditNotes.Remove(savedNote);
-					}
+					note.Ref = savedNote.Ref;
+					var details = _dbContext.CreditNoteDetails.Where(b => b.CreditNoteId == savedNote.Id);
+					if (details.Any())
+						_dbContext.CreditNoteDetails.RemoveRange(details);
+					var journals = _dbContext.CreditNoteJournals.Where(b => b.CreditNoteId == savedNote.Id);
+					if (journals.Any())
+						_dbContext.CreditNoteJournals.RemoveRange(journals);
+					_dbContext.CreditNotes.Remove(savedNote);
+				}
+				else
+				{
+					var suffix = "CRN";
+					note.Ref = $"{suffix}1";
+					var creditNote = _dbContext.CreditNotes.ToList()
+						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
+					if (creditNote != null)
+						note.Ref = util.GetRef(creditNote.Ref, suffix);
 				}
 				_dbContext.Audits.Add(new Audit
 				{
@@ -190,6 +201,57 @@ namespace AccountingSystem.Pages.Customers
 				Success = false;
 				Message = "Sorry, An error occurred";
 				return Page();
+			}
+		}
+
+		public IActionResult OnPostPayment([FromBody] CPayment payment)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(payment.Customer))
+				{
+					Success = false;
+					Message = "Kindly provide customer";
+					return Page();
+				}
+				var customer = _dbContext.Customers.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Customer.ToUpper()));
+				payment.GlAccount = customer.ARGlAccount;
+				_dbContext.CPayments.Add(payment);
+				_dbContext.SaveChanges();
+				return RedirectToPage("./ListCustomerCreditNotes");
+			}
+			catch (Exception ex)
+			{
+				return Page();
+			}
+		}
+
+		public JsonResult OnPostCreditNote([FromBody] CreditNote note)
+		{
+			try
+			{
+				var memo = note?.Ref ?? "";
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name,
+						GlAcccount = t.GlAcccount,
+						Rate = t.Rate
+					}).ToList();
+				var creditNote = _dbContext.CreditNotes.Include(i => i.CreditNoteDetails)
+					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
+				var isPaid = _dbContext.CPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
+				var results = new
+				{
+					taxes,
+					creditNote,
+					isPaid
+				};
+				return new JsonResult(results);
+			}
+			catch (Exception)
+			{
+				return new JsonResult("");
 			}
 		}
 	}

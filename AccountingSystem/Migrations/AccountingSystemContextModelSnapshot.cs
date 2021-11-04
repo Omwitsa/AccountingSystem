@@ -1168,6 +1168,9 @@ namespace AccountingSystem.Migrations
                     b.Property<decimal?>("NetAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("PaymentReference")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
@@ -1475,7 +1478,7 @@ namespace AccountingSystem.Migrations
                     b.Property<decimal?>("NetAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("No")
+                    b.Property<string>("PaymentReference")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Personnel")
@@ -1584,9 +1587,6 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("BillDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("BillRef")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -1607,6 +1607,12 @@ namespace AccountingSystem.Migrations
 
                     b.Property<decimal?>("NetAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PaymentReference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentTerms")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
@@ -1815,9 +1821,6 @@ namespace AccountingSystem.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("APGlAccount")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ARGlAccount")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Bank")

@@ -23,32 +23,47 @@
         <table class="table table-sm table-hover" id="simple_table">
             <thead>
                 <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Vendor</th>
-                    <th scope="col">Bill Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col">Reference</th>
-                    <th scope="col">Next Activity</th>
-                    <th scope="col">Tax Excluded</th>
+                    <th scope="col">#</th>
+					<th scope="col">Ref</th>
+					<th scope="col">Vendor</th>
+                    <th scope="col">Date</th>
+					<th scope="col">Due Date</th>
+					<th scope="col">Net Amount</th>
+                    <th scope="col">Tax</th>
                     <th scope="col">Total</th>
                     <th scope="col">Status</th>
+					<th scope="col">Personnel</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var refund in Model.Refunds)
                 {
                     count++;
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td>@refund.Vendor </td>
-                        <td>@refund.BillDate </td>
-                        <td>@refund.DueDate </td>
-                        <td>@refund.Ref </td>
-                        @*<td>@refund.t </td>
-                            <td>@refund.Industry</td>
-                            <td>@refund.PhoneNo</td>
-                            <td>@refund.Industry</td>*@
-                    </tr>
+				    <tr>
+					    <th scope="row">@count</th>
+					    <td>@refund.Ref </td>
+					    <td>@refund.Vendor </td>
+					    <td>@refund.BillDate </td>
+					    <td>@refund.DueDate </td>
+					    <td>@refund.NetAmount </td>
+					    <td>@refund.Tax </td>
+					    <td>@refund.TotalAmount </td>
+					    <td>@refund.Status </td>
+					    <td>@refund.Personnel </td>
+					    <td class="text-right">
+						    <div class="dropdown">
+							    <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <i class="fas fa-ellipsis-v"></i>
+							    </a>
+							    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+								    <form asp-page-handler="edit" method="post">
+									    <button class="btn btn-default">View</button>
+									    <input type="hidden" name="id" value="@refund.Id" />
+								    </form>
+							    </div>
+						    </div>
+					    </td>
+				    </tr>
                 }
             </tbody>
         </table>

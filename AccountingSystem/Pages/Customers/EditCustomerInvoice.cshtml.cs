@@ -126,12 +126,6 @@ namespace AccountingSystem.Pages.Customers
 				}
 
 				invoice.Status = "Posted";
-				var suffix = "INV";
-				invoice.Ref = $"{suffix}1";
-				var invoice1 = _dbContext.CInvoices.ToList()
-					.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
-				if(invoice1 != null)
-					invoice.Ref = util.GetRef(invoice.Ref, suffix);
 				foreach (var detail in invoice.CInvoiceDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -175,6 +169,15 @@ namespace AccountingSystem.Pages.Customers
 							_dbContext.CInvoiceJournal.RemoveRange(journals);
 						_dbContext.CInvoices.Remove(savedInvoice);
 					}
+				}
+				else
+				{
+					var suffix = "INV";
+					invoice.Ref = $"{suffix}1";
+					var invoice1 = _dbContext.CInvoices.ToList()
+						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
+					if (invoice1 != null)
+						invoice.Ref = util.GetRef(invoice1.Ref, suffix);
 				}
 				_dbContext.Audits.Add(new Audit
 				{
@@ -234,10 +237,12 @@ namespace AccountingSystem.Pages.Customers
 					}).ToList();
 				var invoice = _dbContext.CInvoices.Include(i => i.CInvoiceDetails)
 					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
+				var isPaid = _dbContext.CPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
 				var results = new
 				{
 					taxes,
-					invoice
+					invoice,
+					isPaid
 				};
 				return new JsonResult(results);
 			}

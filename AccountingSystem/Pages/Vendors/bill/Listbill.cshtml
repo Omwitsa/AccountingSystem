@@ -1,68 +1,73 @@
 ﻿@page
-@model AccountingSystem.Pages.Vendors.ListbillModel
+@model AccountingSystem.Pages.Vendors.ListBillModel
 @{
-    var count = 0;
+	var count = 0;
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
 <div>
-    <div class="row color m-1" style="color:green">Bills</div>
-    <div class="modal-header" style="background-color:white;color:white;text-align:center">
-        <a class="btn btn-info" asp-page="./Editbill">CREATE</a>
-        <input type="button" onclick="generate()" value="Export To PDF" />
-    </div>
-    <div class="table-responsive">
-        @if (!Model.Success)
-        {
-            <div class="alert-danger text-center" id="simple_table">
-                @Model.Message
-            </div>
-        }
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Vendor</th>
-                    <th scope="col">Bill Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col">Reference</th>
-                    <th scope="col">Next Activity</th>
-                    <th scope="col">Tax Excluded</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var bill in Model.Bills)
-                {
-                    count++;
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td>@bill.Vender</td>
-                        <td>@bill.Date</td>
-                        <td>@bill.DueDate</td>
-                        <td>@bill.Ref</td>
-                        <td>@bill.IncoTerm</td>
-                        <td class="text-right">
-                            <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <form asp-page-handler="edit" method="post">
-                                        <button class="btn btn-default">Edit</button>
-                                        <input type="hidden" name="id" value="@bill.Id" />
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <script type="text/javascript">
+	<div class="row color m-1" style="color:green">Bills</div>
+	<div class="modal-header" style="background-color:white;color:white;text-align:center">
+		<a class="btn btn-info" asp-page="./EditBill">CREATE</a>
+		<input type="button" onclick="generate()" value="Export To PDF" />
+	</div>
+	<div class="table-responsive">
+		@if (!Model.Success)
+		{
+			<div class="alert-danger text-center" id="simple_table">
+				@Model.Message
+			</div>
+		}
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Ref</th>
+					<th scope="col">Vender</th>
+					<th scope="col">Date</th>
+					<th scope="col">Due Date</th>
+					<th scope="col">Net Amount</th>
+					<th scope="col">Tax</th>
+					<th scope="col">Total</th>
+					<th scope="col">Status</th>
+					<th scope="col">Personnel</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var bill in Model.Bills)
+				{
+					count++;
+					<tr>
+						<th scope="row">@count</th>
+						<td>@bill.Ref</td>
+						<td>@bill.Vender</td>
+						<td>@bill.Date</td>
+						<td>@bill.DueDate</td>
+						<td>@bill.NetAmount</td>
+						<td>@bill.Tax</td>
+						<td>@bill.TotalAmount</td>
+						<td>@bill.Status</td>
+						<td>@bill.Personnel</td>
+						<td class="text-right">
+							<div class="dropdown">
+								<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<form asp-page-handler="edit" method="post">
+										<button class="btn btn-default">View</button>
+										<input type="hidden" name="id" value="@bill.Id" />
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
         function generate() {
             var doc = new jsPDF('p', 'pt', 'letter');
             var htmlstring = '';
@@ -107,5 +112,5 @@
             })
             doc.save('Bills.pdf');
         }
-    </script>
+	</script>
 </div>

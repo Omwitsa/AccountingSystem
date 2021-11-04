@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountingSystem.Pages.Vendors
 {
-	public class ListbillModel : PageModel
+	public class ListBillModel : PageModel
     {
         private AccountingSystemContext _dbContext;
         [BindProperty]
@@ -19,7 +19,7 @@ namespace AccountingSystem.Pages.Vendors
         public bool Success { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        public ListbillModel(AccountingSystemContext dbContext)
+        public ListBillModel(AccountingSystemContext dbContext)
         {
             _dbContext = dbContext;
             Success = true;
@@ -65,7 +65,7 @@ namespace AccountingSystem.Pages.Vendors
         public IActionResult OnPostEdit(Guid id)
         {
 
-            return RedirectToPage("./Editbills", new { id = id });
+            return RedirectToPage("./EditBill", new { id = id });
         }
 
         public IActionResult OnPostDelete(Guid id)

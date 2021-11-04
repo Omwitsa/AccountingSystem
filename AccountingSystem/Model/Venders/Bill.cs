@@ -7,13 +7,13 @@ namespace AccountingSystem.Model.Venders
 	public class Bill
 	{
 		public Guid Id { get; set; }
-		public string No { get; set; }
 		public string Vender { get; set; }
 		public string Ref { get; set; }
 		public string Remarks { get; set; }
 		public DateTime? Date { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public string PaymentReference { get; set; }
 		public decimal? NetAmount { get; set; }
 		public decimal? Tax { get; set; }
 		public decimal? TotalAmount { get; set; }

@@ -1,10 +1,97 @@
 ﻿@page
-@model AccountingSystem.Pages.Vendors.EditbillModel
+@model AccountingSystem.Pages.Vendors.EditBillModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
 }
 <div class="card border-primary mt-3">
 	<div class="card-header border-primary"><strong>VENDOR BILL</strong></div>
+	<div>
+		<div class="m-4">
+			<ul class="list-inline">
+				<li class="btn btn-primary list-inline-item" id="pay-model" data-toggle="modal" data-target="#paymentModal" aria-expanded="false" aria-controls="collapseExample" type="button">Register Payment</li>
+			</ul>
+		</div> <hr />
+
+		<!-- Modal -->
+		<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Register Payment</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-4">
+								Journal
+							</div>
+							<div class="col-sm-8">
+								<select class="form-control" id="p-journal">
+									<option selected>Select Journal</option>
+									@foreach (var journal1 in Model.Journals)
+									{
+										<option value="@journal1.Name">@journal1.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								Amount
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="text" id="p-amount" asp-for="Bill.TotalAmount" class="form-control" placeholder="Amount" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								Recipient Bank
+							</div>
+							<div class="col-sm-8">
+								<select class="form-control" id="p-bank">
+									<option selected>Select Bank</option>
+									@foreach (var bank in Model.Banks)
+									{
+										<option value="@bank.Name">@bank.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								Payment Date
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="date" id="p-date" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								Memo
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="text" id="p-ref" asp-for="Bill.Ref" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="save-payment">Create Payment</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="card-body">
 		@if (!Model.Success)
 		{
@@ -12,33 +99,14 @@
 				@Model.Message
 			</div>
 		}
-		
-		<form method="post">
-			<div class="row">
-				<div class="col-sm-2">
-					Bill No.
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<input type="text" id="bill-no" class="form-control" placeholder="Bill No" />
-					</div>
-				</div>
-				<div class="col-sm-2">
-					Bill Ref
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<input type="text" id="bill-ref" class="form-control" placeholder="Bill Ref" />
-					</div>
-				</div>
-			</div>
 
+		<form method="post">
 			<div class="row">
 				<div class="col-sm-2">
 					Vender
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control" id="vendor">
+					<select class="form-control" id="vendor" asp-for="Bill.Vender">
 						<option selected>Select vender</option>
 						@foreach (var vender in Model.Venders)
 						{
@@ -51,7 +119,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
-						<input type="text" id="pay-ref" class="form-control" placeholder="Payment Reference" />
+						<input type="text" id="pay-ref" asp-for="Bill.PaymentReference" class="form-control" placeholder="Payment Reference" />
 					</div>
 				</div>
 			</div>
@@ -61,7 +129,7 @@
 					Recipient Bank
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control" id="bank">
+					<select class="form-control" id="bank" asp-for="Bill.RecipientBank">
 						<option selected>Select Bank</option>
 						@foreach (var bank in Model.Banks)
 						{
@@ -73,7 +141,7 @@
 					Journal
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control" id="journal">
+					<select class="form-control" id="journal" asp-for="Bill.Journal">
 						<option selected>Select Journal</option>
 						@foreach (var journal in Model.Journals)
 						{
@@ -89,7 +157,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
-						<input type="date" id="date" class="form-control" />
+						<input type="date" id="date" class="form-control" asp-for="Bill.Date" />
 					</div>
 				</div>
 				<div class="col-sm-2">
@@ -97,25 +165,25 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
-						<input type="date" id="due-date" class="form-control" />
+						<input type="date" id="due-date" class="form-control" asp-for="Bill.DueDate" />
 					</div>
 				</div>
 			</div>
-		
+
 			<div class="row">
 				<div class="col-sm-2">
 					Remarks
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
-						<textarea class="form-control" id="remarks" rows="3" placeholder="Remarks"></textarea>
+						<textarea class="form-control" id="remarks" rows="3" placeholder="Remarks" asp-for="Bill.Remarks"></textarea>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					Inco Terms
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control" id="ico-term">
+					<select class="form-control" id="ico-term" asp-for="Bill.IncoTerm">
 						<option selected>Select Term</option>
 						@foreach (var term in Model.IncoTerms)
 						{
@@ -276,16 +344,50 @@
 	</div>
 	<div class="card-footer" style="text-align:right">
 		<button id="btn-save" class="btn btn-success">SAVE</button>
-		<a class="btn btn-secondary" asp-page="/Listbill">BACK</a>
+		<a class="btn btn-secondary" asp-page="/ListBill">BACK</a>
 	</div>
 </div>
 
 @section Scripts {
 	<script type="text/javascript">
 		$(function () {
-			//let taxes = Model.Taxes;
+			let tax = 0;
+			let total = 0;
+			let taxes = new Array();
 			let items = new Array();
 			let journals = new Array();
+			let memo = $("#p-ref").val();
+			$('#pay-model').hide();
+			if (memo) {
+				$('#pay-model').show();
+				$('#add-item').hide();
+				$('#btn-save').hide();
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Page("EditBill", "bill")',
+				contentType: 'application/json',
+				headers:
+				{
+					"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+				},
+				data: JSON.stringify({ ref: memo}),
+				success: function (response) {
+					response.bill = response.bill ? response.bill : {};
+					taxes = response.taxes;
+					items = response.bill.billDetails;
+					items = items ? items : new Array();
+					if (response.isPaid) {
+						$('#pay-model').hide();
+					}
+
+					populateItemtable(items);
+				},
+				failure: function (response) {
+				}
+			});
+
 			$('#product').on('change', function () {
 				var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
@@ -300,7 +402,7 @@
 				if (!product || !account || !price || !qty) {
 					return
 				}
-				
+
 				items.push(
 					{
 						product: product,
@@ -313,6 +415,97 @@
 					}
 				);
 
+				populateItemtable(items);
+			});
+			$('#btn-save').on('click', function () {
+				let bill = {
+					vender: $("#vendor").val(),
+					paymentReference: $("#pay-ref").val(),
+					remarks: $("#remarks").val(),
+					Date: $("#date").val(),
+					dueDate: $("#due-date").val(),
+					journal: $("#journal").val(),
+					netAmount: total,
+					tax: tax,
+					totalAmount: total + tax,
+					arrears: 0,
+					status: '',
+					recipientBank: $("#bank").val(),
+					incoTerm: $("#ico-term").val(),
+					fiscalPosition: '',
+					billDetails: items,
+					billJournals: journals
+				};
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditBill")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(bill),
+					//success: function (response) {
+
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+
+				$("#vendor").val("");
+				$("#pay-ref").val("");
+				$("#remarks").val("");
+				$("#date").val("");
+				$("#due-date").val("");
+				$("#journal").val("");
+				$("#bank").val("");
+				$("#ico-term").val("");
+				$('#journals').html("");
+				$('#items').html("");
+			});
+			$('#save-payment').on('click', function () {
+				let amount = parseFloat($("#p-amount").val());
+				let vendor = $("#vendor").val();
+				let payment = {
+					vender: vendor,
+					amount: amount,
+					date: $("#p-date").val(),
+					memo: memo,
+					journal: $("#p-journal").val(),
+					bankAccount: $("#p-bank").val()
+				};
+
+				if (!amount || !vendor) {
+					return;
+				}
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditBill", "payment")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(payment),
+					//success: function (response) {
+
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+
+				$("#vendor").val("");
+				$("#p-amount").val("");
+				$("#p-date").val("");
+				$("#p-journal").val("");
+				$("#p-bank").val("");
+			});
+
+			function populateItemtable(items) {
 				let itemTableRows = new Array();
 				items.forEach(i => {
 					itemTableRows.push(`<tr>
@@ -325,12 +518,16 @@
 				});
 
 				$('#items').html(itemTableRows);
-
-				let tax = 0;
-				let total = 0;
+				tax = 0;
+				total = 0;
 				let itemJournals = new Array();
 				items.forEach(i => {
-					let rate = 15;
+					let rate = 0;
+					taxes = taxes.filter(t => t.name === i.tax);
+					if (taxes[0]) {
+						rate = taxes[0].rate;
+					}
+
 					tax += (i.subTotal * rate * 0.01);
 					total += i.subTotal;
 					itemJournals.push(
@@ -373,47 +570,13 @@
 				});
 
 				$('#journals').html(journalTableRows);
-
 				$("#product").val("");
 				$("#lable").val("");
 				$("#glAccount").val("");
 				$("#price").val("");
 				$("#qty").val("");
 				$("#tax").val("");
-			});
-			$('#btn-save').on('click', function () {
-				let bill = {
-					no: $("#bill-no").val(),
-					vender: $("#vendor").val(),
-					ref: $("#bill-ref").val(),
-					remarks: $("#remarks").val(),
-					Date: $("#date").val(),
-					dueDate: $("#due-date").val(),
-					journal: $("#journal").val(),
-					recipientBank: $("#bank").val(),
-					incoTerm: $("#ico-term").val(),
-					fiscalPosition: '',
-					billDetails: items,
-					billJournals: journals
-				};
-				$.ajax({
-					type: 'POST',
-					url: '@Url.Page("Editbill")',
-					contentType: 'application/json',
-					headers:
-					{
-						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
-					},
-					data: JSON.stringify(bill),
-					//success: function (response) {
-
-					//},
-					//failure: function (response) {
-					//}
-				}).then(function () {
-					// ...
-				});
-			});
+			}
 		});
 	</script>
 }

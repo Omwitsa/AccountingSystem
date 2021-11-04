@@ -6,6 +6,93 @@
 }
 <div class="card border-primary mt-3">
 	<div class="card-header border-primary"><strong>REFUNDS</strong></div>
+	<div>
+		<div class="m-4">
+			<ul class="list-inline">
+				<li class="btn btn-primary list-inline-item" id="pay-model" data-toggle="modal" data-target="#paymentModal" aria-expanded="false" aria-controls="collapseExample" type="button">Register Payment</li>
+			</ul>
+		</div> <hr />
+
+		<!-- Modal -->
+		<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Register Payment</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-4">
+								Journal
+							</div>
+							<div class="col-sm-8">
+								<select class="form-control" id="p-journal">
+									<option selected>Select Journal</option>
+									@foreach (var journal1 in Model.Journals)
+									{
+										<option value="@journal1.Name">@journal1.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								Amount
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="text" id="p-amount" asp-for="Refund.TotalAmount" class="form-control" placeholder="Amount" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								Recipient Bank
+							</div>
+							<div class="col-sm-8">
+								<select class="form-control" id="p-bank">
+									<option selected>Select Bank</option>
+									@foreach (var bank in Model.Banks)
+									{
+										<option value="@bank.Name">@bank.Name</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								Payment Date
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="date" id="p-date" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								Memo
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<input type="text" id="p-ref" asp-for="Refund.Ref" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="save-payment">Create Payment</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="card-body">
 		@if (!Model.Success)
 		{
@@ -21,10 +108,7 @@
 						<label for="" style="color:green">Vendor</label>
 					</div><br>
 					<div class="row m-0">
-						<label for="" style="color:green">Bill Reference</label>
-					</div><br>
-					<div class="row m-0">
-						<label for="" style="color:green">Reference</label>
+						<label for="" style="color:green">Payment Reference</label>
 					</div><br>
 					<div class="row m-0">
 						<label for="" style="color:green">Recipient Bank</label>
@@ -32,7 +116,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="row">
-						<select class="form-control" id="vendor">
+						<select class="form-control" id="vendor" asp-for="Refund.Vendor">
 							<option selected>Select payment terms</option>
 							@foreach (var vender in Model.Venders)
 							{
@@ -41,13 +125,10 @@
 						</select>
 					</div><br>
 					<div class="row">
-						<input type="text" id="bill-ref" class="form-control" placeholder="" />
-					</div><br> 
-					<div class="row">
-						<input type="text" id="ref" class="form-control" placeholder="" />
+						<input type="text" id="pay-ref" asp-for="Refund.PaymentReference" class="form-control" placeholder="Payment Reference" />
 					</div><br>
 					<div class="row">
-						<select class="form-control" id="bank">
+						<select class="form-control" id="bank" asp-for="Refund.ReceipientBank">
 							<option selected>Select Bank</option>
 							@foreach (var bank in Model.Banks)
 							{
@@ -69,24 +150,24 @@
 				</div><br>
 				<div class="col-sm-4">
 					<div class="row">
-						<input type="date" id="date" class="form-control" placeholder="" />
+						<input type="date" id="date" asp-for="Refund.BillDate" class="form-control" placeholder="" />
 					</div><br>
-						  <div class="row m-0">
-						  	<div class="col-sm-6">
-						  		<input type="date" id="due-date" class="form-control" placeholder="" />
-						  	</div>Or
-						  	<div class="col-sm-5">
-						  		<select class="form-control" id="ico-term">
-						  			<option selected>Select payment terms</option>
-						  			@foreach (var term in Model.PaymentTerms)
+					<div class="row m-0">
+						<div class="col-sm-6">
+							<input type="date" id="due-date" asp-for="Refund.DueDate" class="form-control" placeholder="" />
+						</div>Or
+						<div class="col-sm-5">
+							<select class="form-control" id="pay-term" asp-for="Refund.PaymentTerms">
+								<option selected>Select payment terms</option>
+								@foreach (var term in Model.PaymentTerms)
 								{
-						  		<option value="@term.Term">@term.Term</option>
-						}
-						  </select>
-						  </div> 
-						  </div><br>
+									<option value="@term.Term">@term.Term</option>
+								}
+							</select>
+						</div>
+					</div><br>
 					<div class="row">
-						<select class="form-control" id="journal">
+						<select class="form-control" id="journal" asp-for="Refund.Journal">
 							<option selected>Select Journal</option>
 							@foreach (var journal in Model.Journals)
 							{
@@ -259,12 +340,6 @@
 							<div class="row">
 								<select class="form-control"></select>
 							</div>
-							@*<div class="row">
-									<label class="checkbox-inline">
-										<input type="checkbox" asp-for="RefundDetail.au" class="form-control" />
-										<input type="checkbox" name="Post">
-									</label>
-								</div>*@
 							<div class="row">
 								<label class="checkbox-inline">
 									<input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
@@ -286,9 +361,44 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(function () {
-			//let taxes = Model.Taxes;
+			// pay-term
+			let tax = 0;
+			let total = 0;
+			let taxes = new Array();
 			let items = new Array();
 			let journals = new Array();
+			let memo = $("#p-ref").val();
+			$('#pay-model').hide();
+			if (memo) {
+				$('#pay-model').show();
+				$('#add-item').hide();
+				$('#btn-save').hide();
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Page("EditRefunds", "refund")',
+				contentType: 'application/json',
+				headers:
+				{
+					"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+				},
+				data: JSON.stringify({ ref: memo}),
+				success: function (response) {
+					response.refund = response.refund ? response.refund : {};
+					taxes = response.taxes;
+					items = response.refund.refundDetails;
+					items = items ? items : new Array();
+					if (response.isPaid) {
+						$('#pay-model').hide();
+					}
+
+					populateItemtable(items);
+				},
+				failure: function (response) {
+				}
+			});
+
             $('#product').on('change', function () {
 				var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
@@ -314,7 +424,96 @@
 						subTotal: qty * price
 					}
 				);
+				populateItemtable(items);
+			});
+			$('#btn-save').on('click', function () {
+				let refund = {
+					paymentReference: $("#pay-ref").val(),
+					vendor: $("#vendor").val(),
+					billDate: $("#date").val(),
+					dueDate: $("#due-date").val(),
+					journal: $("#journal").val(),
+					netAmount: total,
+					tax: tax,
+					totalAmount: total + tax,
+					arrears: 0,
+					status: '',
+					receipientBank: $("#bank").val(),
+					incoTerm: $("#ico-term").val(),
+					fiscalPosition: '',
+					refundDetails: items,
+					refundJournals: journals
+				};
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditRefunds")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(refund),
+					//success: function (response) {
 
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+
+				$("#vendor").val("");
+				$("#pay-ref").val("");
+				$("#date").val("");
+				$("#due-date").val("");
+				$("#journal").val("");
+				$("#bank").val("");
+				$("#ico-term").val("");
+				$('#journals').html("");
+				$('#items').html("");
+			});
+
+			$('#save-payment').on('click', function () {
+				let amount = parseFloat($("#p-amount").val());
+				let vendor = $("#vendor").val();
+				let payment = {
+					vender: vendor,
+					amount: amount,
+					date: $("#p-date").val(),
+					memo: memo,
+					journal: $("#p-journal").val(),
+					bankAccount: $("#p-bank").val()
+				};
+
+				if (!amount || !vendor) {
+					return;
+				}
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditRefunds", "payment")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+					data: JSON.stringify(payment),
+					//success: function (response) {
+
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+
+				$("#vendor").val("");
+				$("#p-amount").val("");
+				$("#p-date").val("");
+				$("#p-journal").val("");
+				$("#p-bank").val("");
+			});
+
+			function populateItemtable(items) {
 				let itemTableRows = new Array();
 				items.forEach(i => {
 					itemTableRows.push(`<tr>
@@ -327,11 +526,16 @@
 				});
 
 				$('#items').html(itemTableRows);
-				let tax = 0;
-				let total = 0;
+				tax = 0;
+				total = 0;
 				let itemJournals = new Array();
 				items.forEach(i => {
-					let rate = 15;
+					let rate = 0;
+					taxes = taxes.filter(t => t.name === i.tax);
+					if (taxes[0]) {
+						rate = taxes[0].rate;
+					}
+
 					tax += (i.subTotal * rate * 0.01);
 					total += i.subTotal;
 					itemJournals.push(
@@ -361,6 +565,7 @@
 						credit: 0
 					}
 				);
+
 				journals = itemJournals;
 				let journalTableRows = new Array();
 				journals.forEach(i => {
@@ -380,40 +585,7 @@
 				$("#price").val("");
 				$("#qty").val("");
 				$("#tax").val("");
-			});
-			$('#btn-save').on('click', function () {
-				let refund = {
-					billRef: $("#bill-ref").val(),
-					vendor: $("#vendor").val(),
-					ref: $("#ref").val(),
-					billDate: $("#date").val(),
-					dueDate: $("#due-date").val(),
-					journal: $("#journal").val(),
-					receipientBank: $("#bank").val(),
-					incoTerm: $("#ico-term").val(),
-					fiscalPosition: '',
-					refundDetails: items,
-					refundJournals: journals
-				};
-
-				$.ajax({
-					type: 'POST',
-					url: '@Url.Page("EditRefunds")',
-					contentType: 'application/json',
-					headers:
-					{
-						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
-					},
-					data: JSON.stringify(refund),
-					//success: function (response) {
-
-					//},
-					//failure: function (response) {
-					//}
-				}).then(function () {
-					// ...
-				});
-			});
+			}
 		});
 	</script>
 }

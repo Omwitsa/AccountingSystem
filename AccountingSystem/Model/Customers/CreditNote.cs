@@ -11,6 +11,7 @@ namespace AccountingSystem.Model.Customers
 		public DateTime? InvoiceDate { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public string PaymentReference { get; set; }
 		public decimal? NetAmount { get; set; }
 		public decimal? Tax { get; set; }
 		public decimal? TotalAmount { get; set; }

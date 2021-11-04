@@ -95,13 +95,6 @@ namespace AccountingSystem.Pages.Vendors
 					return Page();
 				}
 
-				if (string.IsNullOrEmpty(Vender.ARGlAccount))
-				{
-					Success = false;
-					Message = "Sorry, Kindly provide account receivable";
-					return Page();
-				}
-					
 				Vender.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Vender.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Vender.Closed = Vender?.Closed ?? false;
@@ -124,8 +117,6 @@ namespace AccountingSystem.Pages.Vendors
 					savedVender.Bank = Vender.Bank;
 					savedVender.Bank = Vender.BankAccount;
 					savedVender.APGlAccount = Vender.APGlAccount;
-					savedVender.ARGlAccount = Vender.ARGlAccount;
-					
 					savedVender.Notes = Vender.Notes;
 					savedVender.Closed = Vender.Closed;
 					savedVender.Personnel = Vender.Personnel;

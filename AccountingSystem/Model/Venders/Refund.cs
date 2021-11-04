@@ -6,12 +6,13 @@ namespace AccountingSystem.Model.Venders
 	public class Refund
 	{
 		public Guid Id { get; set; }
-		public string BillRef { get; set; }
-		public string Vendor { get; set; }
 		public string Ref { get; set; }
+		public string Vendor { get; set; }
 		public DateTime? BillDate { get; set; }
 		public DateTime? DueDate { get; set; }
 		public string Journal { get; set; }
+		public string PaymentReference { get; set; }
+		public string PaymentTerms { get; set; }
 		public decimal? NetAmount { get; set; }
 		public decimal? Tax { get; set; }
 		public decimal? TotalAmount { get; set; }

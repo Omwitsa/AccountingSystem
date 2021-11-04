@@ -5,8 +5,10 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
+using AccountingSystem.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Pages.Vendors
 {
@@ -41,6 +43,7 @@ namespace AccountingSystem.Pages.Vendors
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+		private Util util = new Util();
 
 		public EditRefundsModel(AccountingSystemContext dbContext)
 		{
@@ -133,6 +136,7 @@ namespace AccountingSystem.Pages.Vendors
 					return Page();
 				}
 
+				refund.Status = "Posted";
 				foreach (var detail in refund.RefundDetails)
 				{
 					if (string.IsNullOrEmpty(detail.Product))
@@ -164,17 +168,24 @@ namespace AccountingSystem.Pages.Vendors
 				if (savedRefund != null)
 				{
 					reference = "Edit Refund";
+					refund.Ref = savedRefund.Ref;
 					refund.CreatedDate = savedRefund.CreatedDate;
-					if (savedRefund != null)
-					{
-						var details = _dbContext.RefundDetails.Where(b => b.RefundId == savedRefund.Id);
-						if (details.Any())
-							_dbContext.RefundDetails.RemoveRange(details);
-						var journals = _dbContext.RefundJournals.Where(b => b.RefundId == savedRefund.Id);
-						if (journals.Any())
-							_dbContext.RefundJournals.RemoveRange(journals);
-						_dbContext.Refunds.Remove(savedRefund);
-					}
+					var details = _dbContext.RefundDetails.Where(b => b.RefundId == savedRefund.Id);
+					if (details.Any())
+						_dbContext.RefundDetails.RemoveRange(details);
+					var journals = _dbContext.RefundJournals.Where(b => b.RefundId == savedRefund.Id);
+					if (journals.Any())
+						_dbContext.RefundJournals.RemoveRange(journals);
+					_dbContext.Refunds.Remove(savedRefund);
+				}
+				else
+				{
+					var suffix = "REF";
+					refund.Ref = $"{suffix}1";
+					var refund1 = _dbContext.Refunds.ToList()
+						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();
+					if (refund1 != null)
+						refund.Ref = util.GetRef(refund1.Ref, suffix);
 				}
 				_dbContext.Audits.Add(new Audit
 				{
@@ -195,6 +206,57 @@ namespace AccountingSystem.Pages.Vendors
 				Success = false;
 				Message = "Sorry, An error occurred";
 				return Page();
+			}
+		}
+
+		public IActionResult OnPostPayment([FromBody] VPayment payment)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(payment.Vender))
+				{
+					Success = false;
+					Message = "Kindly provide vendor";
+					return Page();
+				}
+				var vender = _dbContext.Venders.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Vender.ToUpper()));
+				payment.GlAccount = vender.APGlAccount;
+				_dbContext.VPayments.Add(payment);
+				_dbContext.SaveChanges();
+				return RedirectToPage("./ListRefunds");
+			}
+			catch (Exception ex)
+			{
+				return Page();
+			}
+		}
+
+		public JsonResult OnPostRefund([FromBody] Refund vRefund)
+		{
+			try
+			{
+				var memo = vRefund?.Ref ?? "";
+				var taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
+					.Select(t => new Tax
+					{
+						Name = t.Name,
+						GlAcccount = t.GlAcccount,
+						Rate = t.Rate
+					}).ToList();
+				var refund = _dbContext.Refunds.Include(i => i.RefundDetails)
+					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
+				var isPaid = _dbContext.VPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
+				var results = new
+				{
+					taxes,
+					refund,
+					isPaid
+				};
+				return new JsonResult(results);
+			}
+			catch (Exception)
+			{
+				return new JsonResult("");
 			}
 		}
 	}
