@@ -2,3 +2,59 @@
 @model AccountingSystem.Pages.Accounting.PurchasesModel
 @{
 }
+
+
+<div class="modal-content hold-transition login-page">
+	<div class="modal-header" ;color:white;text-align:center">
+		<h5 class="modal-title w-100 text-center">Purchases</h5>
+	</div>
+	<div class="modal-body">
+		<div id="accordion">
+			@foreach (var purchase in Model.Purchases)
+			{
+				<div class="card">
+					<div class="card-header row" id="headingTwo">
+						<h5 class="mb-0">
+							<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@purchase.Ref" aria-expanded="false" aria-controls="collapseTwo">
+								@purchase.Ref
+							</button>
+						</h5>
+					</div>
+					<div id="@purchase.Ref" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+						<div class="card-body table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Ref</th>
+										<th scope="col">GL Account</th>
+										<th scope="col">Partner</th>
+										<th scope="col">Label</th>
+										<th scope="col">Due Date</th>
+										<th scope="col">Debit</th>
+										<th scope="col">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var detail in purchase.Details)
+									{
+										<tr>
+											<td>@detail.Date</td>
+											<td>@detail.Ref</td>
+											<td>@detail.GlAccount</td>
+											<td>@detail.Partner</td>
+											<td>@detail.Label</td>
+											<td>@detail.DueDate</td>
+											<td>@detail.Debit</td>
+											<td>@detail.Credit</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

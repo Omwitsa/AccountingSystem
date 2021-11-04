@@ -7,7 +7,6 @@ namespace AccountingSystem.IProvider
 {
 	public interface IAccountingProvider
 	{
-		ReturnData<IEnumerable<JournalVm>> GetSales(JournalVm journal);
 		ReturnData<IEnumerable<JournalVm>> GetPurchases(JournalVm journal);
 		ReturnData<IEnumerable<BackCashVm>> GetBackCash(BackCashVm backCash);
 		ReturnData<IEnumerable<BackCashVm>> GetMiscellaneous(BackCashVm backCash);
