@@ -180,7 +180,7 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				else
 				{
-					var suffix = "REF";
+					var suffix = "RBILL";
 					refund.Ref = $"{suffix}1";
 					var refund1 = _dbContext.Refunds.ToList()
 						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();

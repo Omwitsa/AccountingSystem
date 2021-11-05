@@ -2,3 +2,60 @@
 @model AccountingSystem.Pages.Accounting.PartnerLedgerModel
 @{
 }
+
+<div class="modal-content hold-transition login-page">
+	<div class="modal-header" ;color:white;text-align:center">
+		<h5 class="modal-title w-100 text-center">Partner Ledger</h5>
+	</div>
+	<div class="modal-body">
+		<div id="accordion">
+			@foreach (var ledger in Model.Ledgers)
+			{
+				<div class="card">
+					<div class="card-header row" id="headingTwo">
+						<div class="col-sm-4">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@ledger.Ref" aria-expanded="false" aria-controls="collapseTwo">
+									@ledger.Ref
+								</button>
+							</h5>
+						</div>
+						<div class="col-sm-4">
+							Dr: @ledger.Debit
+						</div>
+						<div class="col-sm-4">
+							Cr: @ledger.Credit
+						</div>
+					</div>
+					<div id="@ledger.Ref" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+						<div class="card-body table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">GL Account</th>
+										<th scope="col">Label</th>
+										<th scope="col">Debit</th>
+										<th scope="col">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var detail in ledger.Details)
+									{
+										<tr>
+											<td>@detail.Date</td>
+											<td>@detail.GlAccount</td>
+											<td>@detail.Label</td>
+											<td>@detail.Debit</td>
+											<td>@detail.Credit</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

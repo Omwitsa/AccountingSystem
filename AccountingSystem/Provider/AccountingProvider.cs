@@ -70,11 +70,6 @@ namespace AccountingSystem.Provider
 			throw new NotImplementedException();
 		}
 
-		public ReturnData<IEnumerable<BackCashVm>> GetBackCash(BackCashVm backCash)
-		{
-			throw new NotImplementedException();
-		}
-
 		public ReturnData<dynamic> GetDefferredExpense(Guid id)
 		{
 			throw new NotImplementedException();
@@ -116,11 +111,6 @@ namespace AccountingSystem.Provider
 		}
 
 		public ReturnData<dynamic> GetLockDates(LockDate date)
-		{
-			throw new NotImplementedException();
-		}
-
-		public ReturnData<IEnumerable<BackCashVm>> GetMiscellaneous(BackCashVm backCash)
 		{
 			throw new NotImplementedException();
 		}

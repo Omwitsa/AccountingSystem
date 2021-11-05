@@ -29,35 +29,55 @@ namespace AccountingSystem.Pages.Accounting
             {
                 Success = true;
                 Purchases = new List<JournalVm>();
-                var bills = _dbContext.Bills.Include(i => i.BillJournals)
-                    .OrderByDescending(i => i.CreatedDate).ToList();
-                var groupedBills = bills.GroupBy(i => i.Ref).ToList();
-                groupedBills.ForEach(i =>
+                var details = new List<JournalDetailsVm>();
+                var bills = _dbContext.Bills.Include(i => i.BillJournals).ToList();
+                bills.ForEach(i =>
                 {
-                    var details = new List<JournalDetailsVm>();
-                    i.ToList().ForEach(d => {
-                        foreach (var journal in d.BillJournals)
+                    foreach (var journal in i.BillJournals)
+                    {
+                        details.Add(new JournalDetailsVm
                         {
-                            details.Add(new JournalDetailsVm
-                            {
-                                Date = d.CreatedDate,
-                                Ref = d.Ref,
-                                GlAccount = journal.GlAccount,
-                                Partner = d.Vender,
-                                Label = journal.Label,
-                                DueDate = d.DueDate,
-                                Debit = journal.Debit,
-                                Credit = journal.Credit
-                            });
-                        }
-                    });
+                            Date = i.CreatedDate,
+                            Ref = i.Ref,
+                            GlAccount = journal.GlAccount,
+                            Partner = i.Vender,
+                            Label = journal.Label,
+                            DueDate = i.DueDate,
+                            Debit = journal.Debit,
+                            Credit = journal.Credit
+                        });
+                    }
+                });
 
+                var refunds = _dbContext.Refunds.Include(i => i.RefundJournals).ToList();
+                refunds.ForEach(i =>
+                {
+                    foreach (var journal in i.RefundJournals)
+                    {
+                        details.Add(new JournalDetailsVm
+                        {
+                            Date = i.CreatedDate,
+                            Ref = i.Ref,
+                            GlAccount = journal.GlAccount,
+                            Partner = i.Vendor,
+                            Label = journal.Label,
+                            DueDate = i.DueDate,
+                            Debit = journal.Debit,
+                            Credit = journal.Credit
+                        });
+                    }
+                });
+
+                var groupPurchases = details.OrderByDescending(d => d.Date)
+                   .GroupBy(d => d.Ref).ToList();
+                groupPurchases.ForEach(p =>
+                {
                     Purchases.Add(new JournalVm
                     {
-                        Ref = i.Key,
+                        Ref = p.Key,
                         Debit = details.Sum(d => d.Debit),
                         Credit = details.Sum(d => d.Credit),
-                        Details = details
+                        Details = p.ToList()
                     });
                 });
             }

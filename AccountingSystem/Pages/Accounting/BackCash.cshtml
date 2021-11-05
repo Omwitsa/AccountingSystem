@@ -2,3 +2,56 @@
 @model AccountingSystem.Pages.Accounting.BackCashModel
 @{
 }
+
+<div class="modal-content hold-transition login-page">
+	<div class="modal-header" ;color:white;text-align:center">
+		<h5 class="modal-title w-100 text-center">Bank AND Cash</h5>
+	</div>
+	<div class="modal-body">
+		<div id="accordion">
+			@foreach (var bank in Model.Banks)
+			{
+				<div class="card">
+					<div class="card-header row" id="headingTwo">
+						<div class="col-sm-4">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@bank.Ref" aria-expanded="false" aria-controls="collapseTwo">
+									@bank.Ref
+								</button>
+							</h5>
+						</div>
+						<div class="col-sm-4">
+							Dr: @bank.Debit
+						</div>
+						<div class="col-sm-4">
+							Cr: @bank.Credit
+						</div>
+					</div>
+					<div id="@bank.Ref" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+						<div class="card-body table-responsive">
+							<table class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col">GL Account</th>
+										<th scope="col">Debit</th>
+										<th scope="col">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var detail in bank.Details)
+									{
+										<tr>
+											<td>@detail.GlAccount</td>
+											<td>@detail.Debit</td>
+											<td>@detail.Credit</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

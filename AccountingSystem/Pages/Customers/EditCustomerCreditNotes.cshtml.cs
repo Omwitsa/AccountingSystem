@@ -175,7 +175,7 @@ namespace AccountingSystem.Pages.Customers
 				}
 				else
 				{
-					var suffix = "CRN";
+					var suffix = "RINV";
 					note.Ref = $"{suffix}1";
 					var creditNote = _dbContext.CreditNotes.ToList()
 						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();

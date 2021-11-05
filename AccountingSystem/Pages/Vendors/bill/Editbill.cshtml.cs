@@ -154,7 +154,6 @@ namespace AccountingSystem.Pages.Vendors
 						Message = $"Kindly enter the quantity for product {detail.Product}";
 						return Page();
 					}
-
 				}
 				var reference = "Add Bill";
 				var savedBill = _dbContext.Bills.FirstOrDefault(b => b.Id == Id);
@@ -173,7 +172,7 @@ namespace AccountingSystem.Pages.Vendors
 				}
 				else
 				{
-					var suffix = "BIL";
+					var suffix = "BILL";
 					bill.Ref = $"{suffix}1";
 					var bill1 = _dbContext.Bills.ToList()
 						.OrderByDescending(i => Convert.ToInt32(i.Ref.Substring(suffix.Length))).FirstOrDefault();

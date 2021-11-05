@@ -267,7 +267,7 @@
 								<option selected>Select Tax</option>
 								@foreach (var tax in Model.Taxes)
 								{
-									<option value="@tax.Name">@tax.Name</option>
+									<option value="@tax.GlAcccount">@tax.Name</option>
 								}
 							</select>
 						</div>
@@ -520,10 +520,14 @@
 				$('#items').html(itemTableRows);
 				tax = 0;
 				total = 0;
+				debugger
 				let itemJournals = new Array();
 				items.forEach(i => {
 					let rate = 0;
-					taxes = taxes.filter(t => t.name === i.tax);
+					taxes = taxes.filter(t => {
+						debugger
+						t.glAccount === i.tax
+					});
 					if (taxes[0]) {
 						rate = taxes[0].rate;
 					}
@@ -543,7 +547,7 @@
 				itemJournals.push(
 					{
 						glAccount: "Tax Paid",
-						label: "Tax 15%",
+						label: "",
 						debit: tax,
 						credit: 0
 					}
