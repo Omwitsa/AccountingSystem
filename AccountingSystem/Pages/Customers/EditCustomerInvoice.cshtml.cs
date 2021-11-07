@@ -77,7 +77,7 @@ namespace AccountingSystem.Pages.Customers
 				Taxes = _dbContext.Taxes.Where(t => !(bool)t.Closed)
 					.Select(t => new Tax { 
 						Name = t.Name,
-						GlAcccount = t.GlAcccount,
+						GlAccount = t.GlAccount,
 						Rate = t.Rate
 					}).ToList();
 				Accounts = _dbContext.AccountCharts.Where(c => !(bool)c.Closed)
@@ -232,7 +232,7 @@ namespace AccountingSystem.Pages.Customers
 					.Select(t => new Tax
 					{
 						Name = t.Name,
-						GlAcccount = t.GlAcccount,
+						GlAccount = t.GlAccount,
 						Rate = t.Rate
 					}).ToList();
 				var invoice = _dbContext.CInvoices.Include(i => i.CInvoiceDetails)

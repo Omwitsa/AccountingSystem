@@ -232,17 +232,24 @@ namespace AccountingSystem.Pages.Vendors
 					.Select(t => new Tax
 					{
 						Name = t.Name,
-						GlAcccount = t.GlAcccount,
+						GlAccount = t.GlAccount,
 						Rate = t.Rate
 					}).ToList();
 				var bill = _dbContext.Bills.Include(i => i.BillDetails)
 					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
 				var isPaid = _dbContext.VPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Code = a.Code,
+						Name = a.Name
+					}).ToList();
 				var results = new
 				{
-					taxes,
 					bill,
-					isPaid
+					isPaid,
+					taxes,
+					accounts
 				};
 				return new JsonResult(results);
 			}

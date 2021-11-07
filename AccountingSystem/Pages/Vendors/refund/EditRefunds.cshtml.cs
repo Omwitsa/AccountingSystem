@@ -240,7 +240,7 @@ namespace AccountingSystem.Pages.Vendors
 					.Select(t => new Tax
 					{
 						Name = t.Name,
-						GlAcccount = t.GlAcccount,
+						GlAccount = t.GlAccount,
 						Rate = t.Rate
 					}).ToList();
 				var refund = _dbContext.Refunds.Include(i => i.RefundDetails)

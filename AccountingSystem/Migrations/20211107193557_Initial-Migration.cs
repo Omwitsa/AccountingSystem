@@ -634,7 +634,7 @@ namespace AccountingSystem.Migrations
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Computation = table.Column<string>(nullable: true),
-                    GlAcccount = table.Column<string>(nullable: true),
+                    GlAccount = table.Column<string>(nullable: true),
                     Rate = table.Column<decimal>(nullable: true),
                     Scope = table.Column<string>(nullable: true),
                     Closed = table.Column<bool>(nullable: true),

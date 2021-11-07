@@ -235,7 +235,7 @@ namespace AccountingSystem.Pages.Customers
 					.Select(t => new Tax
 					{
 						Name = t.Name,
-						GlAcccount = t.GlAcccount,
+						GlAccount = t.GlAccount,
 						Rate = t.Rate
 					}).ToList();
 				var creditNote = _dbContext.CreditNotes.Include(i => i.CreditNoteDetails)

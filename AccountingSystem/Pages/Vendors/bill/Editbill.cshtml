@@ -267,7 +267,7 @@
 								<option selected>Select Tax</option>
 								@foreach (var tax in Model.Taxes)
 								{
-									<option value="@tax.GlAcccount">@tax.Name</option>
+									<option value="@tax.Name">@tax.Name</option>
 								}
 							</select>
 						</div>
@@ -355,6 +355,7 @@
 			let total = 0;
 			let taxes = new Array();
 			let items = new Array();
+			let accounts = new Array();
 			let journals = new Array();
 			let memo = $("#p-ref").val();
 			$('#pay-model').hide();
@@ -376,13 +377,15 @@
 				success: function (response) {
 					response.bill = response.bill ? response.bill : {};
 					taxes = response.taxes;
+					accounts = response.accounts;
 					items = response.bill.billDetails;
 					items = items ? items : new Array();
 					if (response.isPaid) {
 						$('#pay-model').hide();
 					}
-
-					populateItemtable(items);
+					if (items.length) {
+						populateItemtable(items);
+					}
 				},
 				failure: function (response) {
 				}
@@ -520,18 +523,14 @@
 				$('#items').html(itemTableRows);
 				tax = 0;
 				total = 0;
-				debugger
 				let itemJournals = new Array();
 				items.forEach(i => {
 					let rate = 0;
-					taxes = taxes.filter(t => {
-						debugger
-						t.glAccount === i.tax
-					});
+					taxes = taxes.filter(t => t.name === i.tax);
 					if (taxes[0]) {
 						rate = taxes[0].rate;
 					}
-
+					debugger
 					tax += (i.subTotal * rate * 0.01);
 					total += i.subTotal;
 					itemJournals.push(
@@ -543,19 +542,26 @@
 						}
 					);
 				});
-
+				var paidtaxes = accounts.filter(t => t.name === "Tax Paid");
+				if (!paidtaxes[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Tax Paid",
-						label: "",
+						glAccount: paidtaxes[0].code,
+						label: "Tax Paid",
 						debit: tax,
 						credit: 0
 					}
 				);
 
+				var payables = accounts.filter(t => t.name === "Account Payable");
+				if (!payables[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Account Payable",
+						glAccount: payables[0].code,
 						label: "Account Payable",
 						debit: 0,
 						credit: total + tax

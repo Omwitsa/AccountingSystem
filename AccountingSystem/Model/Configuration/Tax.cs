@@ -8,7 +8,7 @@ namespace AccountingSystem.Model.Configuration
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Computation { get; set; }
-		public string GlAcccount { get; set; }
+		public string GlAccount { get; set; }
         public decimal? Rate { get; set; }
         public string Scope { get; set; }
 		public bool? Closed { get; set; }

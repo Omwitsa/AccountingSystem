@@ -77,7 +77,7 @@ namespace AccountingSystem.Pages.Configuration
 					savedTax.Name = Tax.Name;
 					savedTax.Type = Tax.Type;
 					savedTax.Computation = Tax.Computation;
-					savedTax.GlAcccount = Tax.GlAcccount;
+					savedTax.GlAccount = Tax.GlAccount;
 					savedTax.Rate = Tax.Rate;
 					savedTax.Scope = Tax.Scope;
 					savedTax.Closed = Tax.Closed;

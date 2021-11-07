@@ -873,7 +873,7 @@ namespace AccountingSystem.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GlAcccount")
+                    b.Property<string>("GlAccount")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedDate")
