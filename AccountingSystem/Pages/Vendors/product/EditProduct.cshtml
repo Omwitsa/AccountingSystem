@@ -107,7 +107,7 @@
                                     <option selected>Select tax</option>
                                     @foreach (var tax in Model.Taxes)
                                     {
-                                        <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                        <option value="@tax.Name"> @tax.Name</option>
                                     }
                                 </select>
                             </div><br>
@@ -184,7 +184,7 @@
                                         <option selected>Select tax Acc</option>
                                         @foreach (var tax in Model.Taxes)
                                         {
-                                            <option value="@tax.Id">@tax.Id @tax.Name</option>
+                                            <option value="@tax.Name"> @tax.Name</option>
                                         }
                                     </select>
                                     @*<input type="text" name="Income" class="form-control" id="Income" placeholder="" style="height:30px;" autocomplete="off" />*@
@@ -241,11 +241,11 @@
                 </div>
             </div>
         </div>
-            <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-                <button type="submit" id="register" class="btn btn-success">SAVE</button>
-                @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
-                <a class="btn btn-secondary" asp-page="/ListProduct">BACK</a>
-            </div>
+        <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+            <button type="submit" id="register" class="btn btn-success">SAVE</button>
+            @*<button type="button" class="btn btn-danger" data-dismiss="modal" asp-page="ListVendors.cshtml">>DISCARD</button>*@
+            <a class="btn btn-secondary" asp-page="./ListProduct">BACK</a>
+        </div>
 
         </div>
 </form>

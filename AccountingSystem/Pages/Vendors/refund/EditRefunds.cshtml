@@ -179,183 +179,176 @@
 			</div><br>
 		</form>
 
-		<div class="m-4">
-			<ul class="list-inline">
-				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
-				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseJournal" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
-				<li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
-			</ul>
-		</div>
-		<div id="myGroup">
-			<div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
-				<div class="card card-body">
-					<div class="row">
-						<div class="col-sm-2">
-							Product
-						</div>
-						<div class="col-sm-4">
-							<select class="form-control" id="product">
-								<option selected>Select product</option>
-								@foreach (var product in Model.Products)
-								{
-									<option value="@product.Name">@product.Name</option>
-								}
-							</select>
-						</div>
-						<div class="col-sm-2">
-							Label
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Label" id="lable" disabled />
-							</div>
-						</div>
-					</div>
+        <div class="m-4">
+            <ul class="list-inline">
+                <li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseExample" type="button">Invoice Lines</li>
+                <li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseJournal" aria-expanded="false" aria-controls="collapseExample" type="button">Journal Items</li>
+                <li class="btn btn-primary list-inline-item" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseExample" type="button">Other Info</li>
+            </ul>
+        </div>
+        <div id="myGroup">
+            <div class=collapse col-sm-12" id="collapseInvoice" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            Product
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="product">
+                                <option selected>Select product</option>
+                                @foreach (var product in Model.Products)
+                                {
+                                    <option value="@product.Name">@product.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            Label
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Label" id="lable" disabled />
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="row">
-						<div class="col-sm-2">
-							GL Account
-						</div>
-						<div class="col-sm-4">
-							<select class="form-control" id="glAccount">
-								<option selected>Select Account</option>
-								@foreach (var account in Model.Accounts)
-								{
-									<option value="@account.Code">@account.Code @account.Name</option>
-								}
-							</select>
-						</div>
-						<div class="col-sm-2">
-							Price
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<input type="text" id="price" class="form-control" placeholder="Price" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">
-							Quantity
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<input type="text" id="qty" class="form-control" placeholder="Quantity" />
-							</div>
-						</div>
-						<div class="col-sm-2">
-							Tax
-						</div>
-						<div class="col-sm-4">
-							<select class="form-control" id="tax">
-								<option selected>Select Tax</option>
-								@foreach (var tax in Model.Taxes)
-								{
-									<option value="@tax.Name">@tax.Name</option>
-								}
-							</select>
-						</div>
-					</div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            GL Account
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="glAccount">
+                                <option selected>Select Account</option>
+                                @foreach (var account in Model.Accounts)
+                                {
+                                    <option value="@account.Code">@account.Code @account.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            Price
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" id="price" class="form-control" placeholder="Price" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            Quantity
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" id="qty" class="form-control" placeholder="Quantity" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            Tax
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="tax">
+                                <option selected>Select Tax</option>
+                                @foreach (var tax in Model.Taxes)
+                                {
+                                    <option value="@tax.Name">@tax.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
-					<div class="row">
-						<table class="table table-sm table-hover">
-							<thead>
-								<tr>
-									<th scope="col">Product</th>
-									<th scope="col">GL Account</th>
-									<th scope="col">Price</th>
-									<th scope="col">Product</th>
-									<th scope="col">Subtotal</th>
-								</tr>
-							</thead>
-							<tbody id="items">
-							</tbody>
-						</table>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">
-							<a class="btn btn-success" id="add-item">Add</a>
-						</div>
-					</div>
-				</div>
-			</div>
+                    <div class="row">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">GL Account</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a class="btn btn-success" id="add-item">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
-				<div class="card card-body">
-					<div class="row">
-						<table class="table table-sm table-hover">
-							<thead>
-								<tr>
-									<th scope="col">GL Account</th>
-									<th scope="col">Label</th>
-									<th scope="col">Debit</th>
-									<th scope="col">Credit</th>
-								</tr>
-							</thead>
-							<tbody id="journals">
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+            <div class=collapse col-sm-12" id="collapseJournal" data-parent="#myGroup">
+                <div class="card card-body">
+                    <div class="row">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">GL Account</th>
+                                    <th scope="col">Label</th>
+                                    <th scope="col">Debit</th>
+                                    <th scope="col">Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journals">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-			<div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
-				<div class="card card-body">
-					<label><b>Accounting</b></label>
-					<div class="row">
-						<div class="col-sm-3">
-							<div class="row">
-								<div class="form-control">
-									Incoterm
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-control">
-									Fiscal Position
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-control">
-									Post Automatically
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-control">
-									To Check
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-5">
-							<div class="row">
-								<select class="form-control" asp-for="RefundDetail.GlAccount">
-									<option selected>Select Account</option>
-									@foreach (var account in Model.IncoTerms)
-									{
-										<option value="@account.Name">@account.Name</option>
-									}
-								</select>
-								<select class="form-control"></select>
-							</div>
-							<div class="row">
-								<select class="form-control"></select>
-							</div>
-							<div class="row">
-								<label class="checkbox-inline">
-									<input type="text" asp-for="RefundDetail.GlAccount" class="form-control" />
-									<input type="checkbox" name="ToCheck">
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-footer" style="text-align:right">
-		<button id="btn-save" class="btn btn-success">SAVE</button>
-		<a class="btn btn-secondary" asp-page="/ListRefunds">BACK</a>
-	</div>
+            <div class=collapse col-sm-12" id="collapseOther" data-parent="#myGroup">
+                <div class="card card-body">
+                    <label><b>Accounting</b></label>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="form-control">
+                                    Incoterm
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-control">
+                                    Fiscal Position
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-control">
+                                    Post Automatically
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-control">
+                                    To Check
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <select class="form-control" asp-for="RefundDetail.GlAccount">
+                                    <option selected>Select Account</option>
+                                    @foreach (var account in Model.IncoTerms)
+                                    {
+                                        <option value="@account.Name">@account.Name</option>
+                                    }
+                                </select>
+                                <select class="form-control"></select>
+                            </div>
+                            <div class="row">
+                                <select class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer" style="text-align:right">
+        <button id="btn-save" class="btn btn-success">SAVE</button>
+        <a class="btn btn-secondary" asp-page="./ListRefunds">BACK</a>
+    </div>
 </div>
 
 @section Scripts {
