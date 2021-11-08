@@ -1,25 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ACCOUNTS WEB\\accountingsystem\\AccountingSystem\\AccountingSystem.csproj": {}
+    "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\ODOO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {}
   },
   "projects": {
-    "E:\\ACCOUNTS WEB\\accountingsystem\\AccountingSystem\\AccountingSystem.csproj": {
+    "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\ODOO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ACCOUNTS WEB\\accountingsystem\\AccountingSystem\\AccountingSystem.csproj",
+        "projectUniqueName": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\ODOO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
         "projectName": "AccountingSystem",
-        "projectPath": "E:\\ACCOUNTS WEB\\accountingsystem\\AccountingSystem\\AccountingSystem.csproj",
-        "packagesPath": "C:\\Users\\BII\\.nuget\\packages\\",
-        "outputPath": "E:\\ACCOUNTS WEB\\accountingsystem\\AccountingSystem\\obj\\",
+        "projectPath": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\ODOO\\AccountingSystem\\AccountingSystem\\AccountingSystem.csproj",
+        "packagesPath": "C:\\Users\\LANGAT\\.nuget\\packages\\",
+        "outputPath": "F:\\2021\\evans\\Accounting\\Accounting\\Accounts\\ODOO\\AccountingSystem\\AccountingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\BII\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\LANGAT\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -99,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.208\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
