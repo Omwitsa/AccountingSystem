@@ -29,72 +29,72 @@ namespace AccountingSystem.Pages.Accounting
             {
                 Success = true;
                 var details = new List<JournalDetailsVm>();
-                var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed).ToList();
-                accounts.ForEach(a =>
+                var billJournals = _dbContext.BillJournals.ToList();
+                billJournals.ForEach(i =>
                 {
-                    var billJournals = _dbContext.BillJournals.Where(j => j.GlAccount.ToUpper().Equals(a.Code.ToUpper())).ToList();
-                    billJournals.ForEach(i =>
+                    details.Add(new JournalDetailsVm
                     {
-                        details.Add(new JournalDetailsVm
-                        {
-                            GlAccount = i.GlAccount,
-                            Label = i.Label,
-                            Debit = i.Debit,
-                            Credit = i.Credit
-                        });
+                        GlAccount = i.GlAccount,
+                        Label = i.Label,
+                        Debit = i.Debit,
+                        Credit = i.Credit
                     });
+                });
 
-                    var refundJournals = _dbContext.RefundJournals.Where(j => j.GlAccount.ToUpper().Equals(a.Code.ToUpper())).ToList();
-                    refundJournals.ForEach(i =>
+                var refundJournals = _dbContext.RefundJournals.ToList();
+                refundJournals.ForEach(i =>
+                {
+                    details.Add(new JournalDetailsVm
                     {
-                        details.Add(new JournalDetailsVm
-                        {
-                            GlAccount = i.GlAccount,
-                            Label = i.Label,
-                            Debit = i.Debit,
-                            Credit = i.Credit
-                        });
+                        GlAccount = i.GlAccount,
+                        Label = i.Label,
+                        Debit = i.Debit,
+                        Credit = i.Credit
                     });
+                });
 
-                    var invoiceJournals = _dbContext.CInvoiceJournal.Where(j => j.GlAccount.ToUpper().Equals(a.Code.ToUpper())).ToList();
-                    invoiceJournals.ForEach(i =>
+                var invoiceJournals = _dbContext.CInvoiceJournal.ToList();
+                invoiceJournals.ForEach(i =>
+                {
+                    details.Add(new JournalDetailsVm
                     {
-                        details.Add(new JournalDetailsVm
-                        {
-                            GlAccount = i.GlAccount,
-                            Label = i.Label,
-                            Debit = i.Debit,
-                            Credit = i.Credit
-                        });
+                        GlAccount = i.GlAccount,
+                        Label = i.Label,
+                        Debit = i.Debit,
+                        Credit = i.Credit
                     });
+                });
 
-                    var notesJournals = _dbContext.CreditNoteJournals.Where(j => j.GlAccount.ToUpper().Equals(a.Code.ToUpper())).ToList();
-                    notesJournals.ForEach(i =>
+                var notesJournals = _dbContext.CreditNoteJournals.ToList();
+                notesJournals.ForEach(i =>
+                {
+                    details.Add(new JournalDetailsVm
                     {
-                        details.Add(new JournalDetailsVm
-                        {
-                            GlAccount = i.GlAccount,
-                            Label = i.Label,
-                            Debit = i.Debit,
-                            Credit = i.Credit
-                        });
+                        GlAccount = i.GlAccount,
+                        Label = i.Label,
+                        Debit = i.Debit,
+                        Credit = i.Credit
                     });
                 });
 
                 var vPayments = _dbContext.VPayments.ToList();
                 vPayments.ForEach(i =>
                 {
+                    var label = "Outstanding Payments";
+                    var account = _dbContext.AccountCharts.FirstOrDefault(a => a.Name.ToUpper().Equals(label.ToUpper()));
                     details.Add(new JournalDetailsVm
                     {
-                        GlAccount = "Outstanding Payments",
-                        Label = "Outstanding Payments",
+                        GlAccount = account.Code,
+                        Label = label,
                         Debit = 0,
                         Credit = i.Amount
                     });
+                    label = "Account Payable";
+                    account = _dbContext.AccountCharts.FirstOrDefault(a => a.Name.ToUpper().Equals(label.ToUpper()));
                     details.Add(new JournalDetailsVm
                     {
-                        GlAccount = "Account Payable",
-                        Label = "Account Payable",
+                        GlAccount = account.Code,
+                        Label = label,
                         Debit = i.Amount,
                         Credit = 0
                     });
@@ -103,32 +103,39 @@ namespace AccountingSystem.Pages.Accounting
                 var cPayments = _dbContext.CPayments.ToList();
                 cPayments.ForEach(i =>
                 {
+                    var label = "Outstanding Receipts";
+                    var account = _dbContext.AccountCharts.FirstOrDefault(a => a.Name.ToUpper().Equals(label.ToUpper()));
                     details.Add(new JournalDetailsVm
                     {
-                        GlAccount = "Outstanding Receipts",
-                        Label = "Outstanding Receipts",
+                        GlAccount = account.Code,
+                        Label = label,
                         Debit = i.Amount,
                         Credit = 0
                     });
+                    label = "Account Receivable";
+                    account = _dbContext.AccountCharts.FirstOrDefault(a => a.Name.ToUpper().Equals(label.ToUpper()));
                     details.Add(new JournalDetailsVm
                     {
-                        GlAccount = "Account Receivable",
-                        Label = "Account Receivable",
+                        GlAccount = account.Code,
+                        Label = label,
                         Debit = 0,
                         Credit = i.Amount
                     });
                 });
 
-                var groupLedgers = details.OrderByDescending(d => d.Date)
-                   .GroupBy(d => d.GlAccount).ToList();
+				var groupLedgers = details.OrderByDescending(d => d.Date)
+                    .GroupBy(d => d.GlAccount).ToList();
                 Ledgers = new List<JournalVm>();
                 groupLedgers.ForEach(p =>
                 {
+                    var key = p.Key.ToString();
+                    var account = _dbContext.AccountCharts.FirstOrDefault(a => a.Code.ToUpper().Equals(key.ToUpper()));
                     Ledgers.Add(new JournalVm
                     {
-                        Ref = p.Key,
-                        Debit = details.Sum(d => d.Debit),
-                        Credit = details.Sum(d => d.Credit),
+                        Key = $"A-{key}",
+                        Ref = $"{key} {account.Name}",
+                        Debit = p.Sum(d => d.Debit),
+                        Credit = p.Sum(d => d.Credit),
                         Details = p.ToList()
                     });
                 });

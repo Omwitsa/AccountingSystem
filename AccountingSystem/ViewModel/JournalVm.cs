@@ -5,6 +5,7 @@ namespace AccountingSystem.ViewModel
 {
 	public class JournalVm
 	{
+		public string Key { get; set; }
 		public string Ref { get; set; }
 		public DateTime? Date { get; set; }
 		public decimal? Debit { get; set; }

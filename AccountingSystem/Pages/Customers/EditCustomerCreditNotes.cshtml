@@ -331,6 +331,7 @@
 			let total = 0;
 			let taxes = new Array();
 			let items = new Array();
+			let accounts = new Array();
 			let journals = new Array();
 			let memo = $("#p-ref").val();
 			$('#pay-model').hide();
@@ -352,13 +353,16 @@
 				success: function (response) {
 					response.creditNote = response.creditNote ? response.creditNote : {};
 					taxes = response.taxes;
+					accounts = response.accounts;
 					items = response.creditNote.creditNoteDetails;
 					items = items ? items : new Array();
 					if (response.isPaid) {
 						$('#pay-model').hide();
 					}
 
-					populateItemtable(items);
+					if (items.length) {
+						populateItemtable(items);
+					}
 				},
 				failure: function (response) {
 				}
@@ -515,19 +519,25 @@
 						}
 					);
 				});
-
+				var receivedTaxes = accounts.filter(t => t.name === "Tax Received");
+				if (!receivedTaxes[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Tax Received",
-						label: "Tax 15%",
+						glAccount: receivedTaxes[0].code,
+						label: "Tax Received",
 						debit: tax,
 						credit: 0
 					}
 				);
-
+				var receivables = accounts.filter(t => t.name === "Account Receivable");
+				if (!receivables[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Account Receivable",
+						glAccount: receivables[0].code,
 						label: "Account Receivable",
 						debit: 0,
 						credit: total + tax

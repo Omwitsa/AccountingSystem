@@ -366,6 +366,7 @@
 			let total = 0;
 			let taxes = new Array();
 			let items = new Array();
+			let accounts = new Array();
 			let journals = new Array();
 			let memo = $("#p-ref").val();
 			$('#pay-model').hide();
@@ -387,13 +388,16 @@
 				success: function (response) {
 					response.refund = response.refund ? response.refund : {};
 					taxes = response.taxes;
+					accounts = response.accounts;
 					items = response.refund.refundDetails;
 					items = items ? items : new Array();
 					if (response.isPaid) {
 						$('#pay-model').hide();
 					}
 
-					populateItemtable(items);
+					if (items.length) {
+						populateItemtable(items);
+					}
 				},
 				failure: function (response) {
 				}
@@ -547,19 +551,26 @@
 						}
 					);
 				});
-
+				var paidtaxes = accounts.filter(t => t.name === "Tax Paid");
+				if (!paidtaxes[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Tax Paid",
-						label: "Tax 15%",
+						glAccount: paidtaxes[0].code,
+						label: "Tax Paid",
 						debit: 0,
 						credit: tax
 					}
 				);
 
+				var payables = accounts.filter(t => t.name === "Account Payable");
+				if (!payables[0]) {
+					return
+				}
 				itemJournals.push(
 					{
-						glAccount: "Account Payable",
+						glAccount: payables[0].code,
 						label: "Account Payable",
 						debit: total + tax,
 						credit: 0

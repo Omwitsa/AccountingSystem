@@ -238,11 +238,18 @@ namespace AccountingSystem.Pages.Customers
 				var invoice = _dbContext.CInvoices.Include(i => i.CInvoiceDetails)
 					.FirstOrDefault(i => i.Ref.ToUpper().Equals(memo.ToUpper()));
 				var isPaid = _dbContext.CPayments.Any(p => p.Memo.ToUpper().Equals(memo.ToUpper()));
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
+					.Select(a => new AccountChart
+					{
+						Code = a.Code,
+						Name = a.Name
+					}).ToList();
 				var results = new
 				{
-					taxes,
 					invoice,
-					isPaid
+					isPaid,
+					taxes,
+					accounts
 				};
 				return new JsonResult(results);
 			}
