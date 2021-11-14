@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -32,10 +34,11 @@ namespace AccountingSystem.Pages.Vendors
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditVendorModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditVendorModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -95,6 +98,7 @@ namespace AccountingSystem.Pages.Vendors
 					return Page();
 				}
 
+				Vender.Personnel = _userManager.GetUserName(User);
 				Vender.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Vender.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Vender.Closed = Vender?.Closed ?? false;

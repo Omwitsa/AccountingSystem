@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,10 +23,11 @@ namespace AccountingSystem.Pages.Configuration
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditProductCategoryModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditProductCategoryModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -53,6 +56,7 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				ProductCategory.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(ProductCategory.Name))
 				{
 					Success = false;

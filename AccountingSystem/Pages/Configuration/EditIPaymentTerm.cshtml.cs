@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -18,10 +20,11 @@ namespace AccountingSystem.Pages.Configuration
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditIPaymentTermModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditIPaymentTermModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -44,6 +47,7 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				PaymentTerm.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(PaymentTerm.Term))
 				{
 					Success = false;

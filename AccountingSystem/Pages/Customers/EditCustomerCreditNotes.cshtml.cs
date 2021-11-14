@@ -6,6 +6,7 @@ using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.Customers;
 using AccountingSystem.Model.System;
 using AccountingSystem.Utility;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -40,10 +41,11 @@ namespace AccountingSystem.Pages.Customers
 		[TempData]
 		public Guid Id { get; set; }
 		private Util util = new Util();
-
-		public EditCustomerCreditNotesModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditCustomerCreditNotesModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -109,6 +111,7 @@ namespace AccountingSystem.Pages.Customers
 			{
 				note.CreatedDate = DateTime.UtcNow.AddHours(3);
 				note.ModifiedDate = DateTime.UtcNow.AddHours(3);
+				note.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(note.Customer))
                 {
 					Success = false;
@@ -208,6 +211,7 @@ namespace AccountingSystem.Pages.Customers
 		{
 			try
 			{
+				payment.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(payment.Customer))
 				{
 					Success = false;

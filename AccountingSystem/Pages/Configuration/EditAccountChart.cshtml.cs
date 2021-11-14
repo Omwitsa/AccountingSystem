@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -20,10 +22,11 @@ namespace AccountingSystem.Pages.Configuration
 		public Guid Id { get; set; }
 		[BindProperty]
         public string[] AccountTypes { get; set; }
-		
-		public EditAccountChartModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditAccountChartModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
         {
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -65,6 +68,7 @@ namespace AccountingSystem.Pages.Configuration
 					Message = "Sorry, Kindly provide account type";
 					return Page();
 				}
+				Account.Personnel = _userManager.GetUserName(User);
 				Account.Closed = Account?.Closed ?? false;
 				Account.AllowReconciliation = Account?.AllowReconciliation ?? false;
 				var savedAccount = _dbContext.AccountCharts.FirstOrDefault(a => a.Id == Id);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -27,11 +29,12 @@ namespace AccountingSystem.Pages.Configuration
 		public List<AccountChart> Accounts { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
+		private readonly UserManager<ApplicationUser> _userManager;
 
-
-		public EditTaxModel(AccountingSystemContext dbContext)
+		public EditTaxModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -71,6 +74,7 @@ namespace AccountingSystem.Pages.Configuration
 				}
 					
 				Tax.Closed = Tax?.Closed ?? false;
+				Tax.Personnel = _userManager.GetUserName(User);
 				var savedTax = _dbContext.Taxes.FirstOrDefault(t => t.Id == Id);
 				if (savedTax != null)
 				{

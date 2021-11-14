@@ -4,6 +4,8 @@ using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Accounting;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -24,10 +26,11 @@ namespace AccountingSystem.Pages.Accounting
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditJournalEntryModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditJournalEntryModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -74,7 +77,7 @@ namespace AccountingSystem.Pages.Accounting
 					Message = "Sorry, Kindly provide journal";
 					return Page();
 				}
-
+				JournalEntry.Personnel = _userManager.GetUserName(User);
 				var savedJournal = _dbContext.JournalEntries.FirstOrDefault(b => b.Id == Id);
 				if (savedJournal != null)
 				{
