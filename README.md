@@ -15,5 +15,4 @@ On installation, Set up the following charts of accounts
  * Outstanding Payments
  * Outstanding Receipts
 
-Powered by [Amtech Technologies] (http://amtechafrica.com/wp49/)
-
+Powered by [Amtech Technologies](http://amtechafrica.com/wp49/)
