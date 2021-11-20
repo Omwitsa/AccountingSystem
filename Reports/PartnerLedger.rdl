@@ -3,41 +3,33 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DS_Dango">
+    <DataSource Name="ds_dango">
       <DataSourceReference>DangoSource</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>fa0efe61-6b62-40fc-acf2-f7049ccec17c</rd:DataSourceID>
+      <rd:DataSourceID>e958a8db-5298-4a55-a5ae-2011b1d7f31a</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="ProfitLossSet">
+    <DataSet Name="partner_ledger_ds">
       <Query>
-        <DataSourceName>DS_Dango</DataSourceName>
-        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type IN('Income', 'Expense')</CommandText>
+        <DataSourceName>ds_dango</DataSourceName>
+        <CommandText>SELECT ci.Customer, ci.Ref, cj.GlAccount, cj.Debit FROM CInvoices ci INNER JOIN CInvoiceJournal cj ON ci.Id = cj.CInvoiceId</CommandText>
       </Query>
       <Fields>
-        <Field Name="Code">
-          <DataField>Code</DataField>
+        <Field Name="Customer">
+          <DataField>Customer</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
+        <Field Name="Ref">
+          <DataField>Ref</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Label">
-          <DataField>Label</DataField>
+        <Field Name="GlAccount">
+          <DataField>GlAccount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Debit">
           <DataField>Debit</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Credit">
-          <DataField>Credit</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -47,17 +39,17 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <Tablix Name="Tablix1">
+          <Tablix Name="Tablix2">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.2934in</Width>
+                  <Width>1.34635in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14757in</Width>
+                  <Width>1.3776in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.80382in</Width>
+                  <Width>1.2526in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -66,21 +58,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox1">
+                        <Textbox Name="Textbox7">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Code</Value>
+                                  <Value>Ref</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -97,21 +89,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox3">
+                        <Textbox Name="Textbox9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Name</Value>
+                                  <Value>Gl Account</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -128,21 +120,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox5">
+                        <Textbox Name="Textbox11">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Credit</Value>
+                                  <Value>Debit</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -164,21 +156,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Code">
+                        <Textbox Name="Ref">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Code.Value</Value>
+                                  <Value>=Fields!Ref.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Code</rd:DefaultName>
+                          <rd:DefaultName>Ref</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -194,21 +186,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Name">
+                        <Textbox Name="GlAccount">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Name.Value</Value>
+                                  <Value>=Fields!GlAccount.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Name</rd:DefaultName>
+                          <rd:DefaultName>GlAccount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -224,21 +216,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Credit">
+                        <Textbox Name="Debit">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Credit.Value</Value>
+                                  <Value>=Fields!Debit.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Credit</rd:DefaultName>
+                          <rd:DefaultName>Debit</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -259,7 +251,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox14">
+                        <Textbox Name="Textbox20">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -275,7 +267,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -291,7 +283,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox15">
+                        <Textbox Name="Textbox21">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -307,7 +299,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox15</rd:DefaultName>
+                          <rd:DefaultName>Textbox21</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -323,14 +315,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox16">
+                        <Textbox Name="Textbox22">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Credit.Value)</Value>
+                                  <Value>=Sum(Fields!Debit.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                   </Style>
@@ -339,7 +331,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -368,16 +360,16 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>2.52344in</Size>
                     <CellContents>
-                      <Textbox Name="Textbox7">
+                      <Textbox Name="Textbox13">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Type</Value>
+                                <Value>Customer</Value>
                                 <Style>
                                   <FontFamily>Arial</FontFamily>
                                 </Style>
@@ -386,7 +378,7 @@
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox7</rd:DefaultName>
+                        <rd:DefaultName>Textbox13</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -407,27 +399,27 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Type">
+                  <Group Name="Customer">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Type.Value</GroupExpression>
+                      <GroupExpression>=Fields!Customer.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Type.Value</Value>
+                      <Value>=Fields!Customer.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>2.52344in</Size>
                     <CellContents>
-                      <Textbox Name="Type">
+                      <Textbox Name="Customer">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!Type.Value</Value>
+                                <Value>=Fields!Customer.Value</Value>
                                 <Style>
                                   <FontFamily>Arial</FontFamily>
                                 </Style>
@@ -436,7 +428,7 @@
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Type</rd:DefaultName>
+                        <rd:DefaultName>Customer</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -455,7 +447,7 @@
                       <Group Name="Details" />
                       <Visibility>
                         <Hidden>true</Hidden>
-                        <ToggleItem>Type</ToggleItem>
+                        <ToggleItem>Customer</ToggleItem>
                       </Visibility>
                     </TablixMember>
                     <TablixMember>
@@ -465,10 +457,11 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>ProfitLossSet</DataSetName>
+            <DataSetName>partner_ledger_ds</DataSetName>
             <Top>0.01389in</Top>
+            <Left>0.00001in</Left>
             <Height>0.75in</Height>
-            <Width>6.5in</Width>
+            <Width>6.49999in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -486,14 +479,14 @@
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Textbox Name="Textbox2">
+            <Textbox Name="Textbox1">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PROFIT AND LOSS </Value>
+                      <Value>PATNER LEDGER</Value>
                       <Style>
                         <FontFamily>Arial</FontFamily>
                         <FontWeight>Bold</FontWeight>
@@ -505,10 +498,11 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox2</rd:DefaultName>
-              <Top>0.70833in</Top>
-              <Height>0.25in</Height>
-              <Width>6.5in</Width>
+              <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.69444in</Top>
+              <Left>0.00001in</Left>
+              <Height>0.27778in</Height>
+              <Width>6.49999in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -542,5 +536,5 @@
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>37e14fb6-e4fe-4ceb-9a2e-4c2844ae8b15</rd:ReportID>
+  <rd:ReportID>066a4e89-34b8-4508-8fba-53f88385d2d4</rd:ReportID>
 </Report>

@@ -3,17 +3,17 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DS_Dango">
+    <DataSource Name="ds_dango">
       <DataSourceReference>DangoSource</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>fa0efe61-6b62-40fc-acf2-f7049ccec17c</rd:DataSourceID>
+      <rd:DataSourceID>fd4dd0d9-1c8a-438e-bde6-e0df33170aed</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="ProfitLossSet">
+    <DataSet Name="balance_sheet_ds">
       <Query>
-        <DataSourceName>DS_Dango</DataSourceName>
-        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type IN('Income', 'Expense')</CommandText>
+        <DataSourceName>ds_dango</DataSourceName>
+        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code</CommandText>
       </Query>
       <Fields>
         <Field Name="Code">
@@ -51,13 +51,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.2934in</Width>
+                  <Width>1.38281in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14757in</Width>
+                  <Width>2.11198in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.80382in</Width>
+                  <Width>1.53906in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -368,7 +368,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>1.46614in</Size>
                     <CellContents>
                       <Textbox Name="Textbox7">
                         <CanGrow>true</CanGrow>
@@ -418,7 +418,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>1.46614in</Size>
                     <CellContents>
                       <Textbox Name="Type">
                         <CanGrow>true</CanGrow>
@@ -465,7 +465,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>ProfitLossSet</DataSetName>
+            <DataSetName>balance_sheet_ds</DataSetName>
             <Top>0.01389in</Top>
             <Height>0.75in</Height>
             <Width>6.5in</Width>
@@ -493,7 +493,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PROFIT AND LOSS </Value>
+                      <Value>BALANCE SHEET</Value>
                       <Style>
                         <FontFamily>Arial</FontFamily>
                         <FontWeight>Bold</FontWeight>
@@ -506,7 +506,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
-              <Top>0.70833in</Top>
+              <Top>0.75in</Top>
               <Height>0.25in</Height>
               <Width>6.5in</Width>
               <Style>
@@ -542,5 +542,5 @@
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>37e14fb6-e4fe-4ceb-9a2e-4c2844ae8b15</rd:ReportID>
+  <rd:ReportID>c2dbf4ed-82d5-430a-9d34-051cba3cbb04</rd:ReportID>
 </Report>

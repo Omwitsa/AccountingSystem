@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Reporting\BillingReport.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Pages\Vendors\refund\EditRefunds.cshtml.cs~RFfae5119.TMP" />
   </ItemGroup>
 
@@ -23,17 +19,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Reporting\BillingReport.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Reporting\BillingReport.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Reporting\BillingReport.cshtml" />
   </ItemGroup>
 </Project>

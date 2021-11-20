@@ -3,17 +3,17 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DS_Dango">
+    <DataSource Name="ds_dango">
       <DataSourceReference>DangoSource</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>fa0efe61-6b62-40fc-acf2-f7049ccec17c</rd:DataSourceID>
+      <rd:DataSourceID>b1e5ab6f-05f5-4e17-8136-5a29a0e4b856</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="ProfitLossSet">
+    <DataSet Name="Executive_summary_ds">
       <Query>
-        <DataSourceName>DS_Dango</DataSourceName>
-        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type IN('Income', 'Expense')</CommandText>
+        <DataSourceName>ds_dango</DataSourceName>
+        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code</CommandText>
       </Query>
       <Fields>
         <Field Name="Code">
@@ -51,13 +51,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.2934in</Width>
+                  <Width>1.18229in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14757in</Width>
+                  <Width>2.45312in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.80382in</Width>
+                  <Width>1.52604in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -259,7 +259,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox14">
+                        <Textbox Name="Textbox16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -275,7 +275,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -291,7 +291,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox15">
+                        <Textbox Name="Textbox17">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -307,7 +307,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox15</rd:DefaultName>
+                          <rd:DefaultName>Textbox17</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -323,7 +323,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox16">
+                        <Textbox Name="Textbox18">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -339,7 +339,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -368,9 +368,9 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>1.33854in</Size>
                     <CellContents>
-                      <Textbox Name="Textbox7">
+                      <Textbox Name="Textbox9">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -386,7 +386,7 @@
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox7</rd:DefaultName>
+                        <rd:DefaultName>Textbox9</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -418,7 +418,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1.25521in</Size>
+                    <Size>1.33854in</Size>
                     <CellContents>
                       <Textbox Name="Type">
                         <CanGrow>true</CanGrow>
@@ -465,10 +465,10 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>ProfitLossSet</DataSetName>
-            <Top>0.01389in</Top>
+            <DataSetName>Executive_summary_ds</DataSetName>
+            <Left>0.00001in</Left>
             <Height>0.75in</Height>
-            <Width>6.5in</Width>
+            <Width>6.49999in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -493,7 +493,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PROFIT AND LOSS </Value>
+                      <Value>EXECUTIVE SUMMARY</Value>
                       <Style>
                         <FontFamily>Arial</FontFamily>
                         <FontWeight>Bold</FontWeight>
@@ -506,9 +506,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
-              <Top>0.70833in</Top>
+              <Top>0.75in</Top>
+              <Left>0.00002in</Left>
               <Height>0.25in</Height>
-              <Width>6.5in</Width>
+              <Width>6.49998in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -542,5 +543,5 @@
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>37e14fb6-e4fe-4ceb-9a2e-4c2844ae8b15</rd:ReportID>
+  <rd:ReportID>925977a4-6155-47d9-9801-140c91c2e9a1</rd:ReportID>
 </Report>

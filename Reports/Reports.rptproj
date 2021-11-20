@@ -52,8 +52,15 @@
     <DataSource Include="DangoSource.rds" />
   </ItemGroup>
   <ItemGroup>
+    <Report Include="AgedPayable.rdl" />
+    <Report Include="AgedReceivable.rdl" />
+    <Report Include="BalanceSheet.rdl" />
     <Report Include="CashStatement.rdl" />
+    <Report Include="ExecutiveSummery.rdl" />
+    <Report Include="GeneralLedger.rdl" />
+    <Report Include="PartnerLedger.rdl" />
     <Report Include="ProfitLossReport.rdl" />
+    <Report Include="TaxReport.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
 </Project>
