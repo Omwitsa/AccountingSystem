@@ -6,6 +6,7 @@ using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
 using AccountingSystem.Utility;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -44,10 +45,11 @@ namespace AccountingSystem.Pages.Vendors
 		[TempData]
 		public Guid Id { get; set; }
 		private Util util = new Util();
-
-		public EditRefundsModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditRefundsModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -114,6 +116,7 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
+				refund.Personnel = _userManager.GetUserName(User);
 				refund.CreatedDate = DateTime.UtcNow.AddHours(3);
 				refund.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				if (string.IsNullOrEmpty(refund.Vendor))
@@ -213,6 +216,7 @@ namespace AccountingSystem.Pages.Vendors
 		{
 			try
 			{
+				payment.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(payment.Vender))
 				{
 					Success = false;

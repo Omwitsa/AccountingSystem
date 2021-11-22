@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -25,10 +27,11 @@ namespace AccountingSystem.Pages.Configuration
 		public string[] Periodicities { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditSettingModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditSettingModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -62,6 +65,7 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				Setting.Personnel = _userManager.GetUserName(User);
 				var savesSetting = _dbContext.Settings.FirstOrDefault();
 				if(savesSetting != null)
                 {
@@ -75,6 +79,7 @@ namespace AccountingSystem.Pages.Configuration
 					savesSetting.MainCurrency = Setting.MainCurrency;
 					savesSetting.MultiCurrency = Setting.MultiCurrency;
 					savesSetting.FiscalPeriod = Setting.FiscalPeriod;
+					savesSetting.Personnel = Setting.Personnel;
 					savesSetting.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				}
                 else

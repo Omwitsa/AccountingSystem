@@ -5,6 +5,7 @@ using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
 using AccountingSystem.Model.System;
 using AccountingSystem.Model.Venders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -29,10 +30,11 @@ namespace AccountingSystem.Pages.Vendors
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditProductModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditProductModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -106,7 +108,8 @@ namespace AccountingSystem.Pages.Vendors
 					Message = "Sorry, Kindly provide Account receivable";
 					return Page();
 				}
-					
+
+				Product.Personnel = _userManager.GetUserName(User);
 				Product.CreatedDate = DateTime.UtcNow.AddHours(3);
 				Product.ModifiedDate = DateTime.UtcNow.AddHours(3);
 				Product.Closed = Product?.Closed ?? false;

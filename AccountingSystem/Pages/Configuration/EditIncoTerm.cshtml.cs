@@ -14,7 +14,6 @@ namespace AccountingSystem.Pages.Configuration
 	public class EditIncoTermModel : PageModel
     {
 		private AccountingSystemContext _dbContext;
-		private readonly UserManager<ApplicationUser> _userManager;
 		[BindProperty]
 		public IncoTerm IncoTerm { get; set; }
 		[BindProperty]
@@ -23,7 +22,7 @@ namespace AccountingSystem.Pages.Configuration
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
+		private readonly UserManager<ApplicationUser> _userManager;
 		public EditIncoTermModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
@@ -50,6 +49,7 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				IncoTerm.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(IncoTerm.Code))
 				{
 					Success = false;
@@ -63,14 +63,6 @@ namespace AccountingSystem.Pages.Configuration
 					return Page();
 				}
 				
-				IncoTerm.Personnel = _userManager.GetUserId(User);
-				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
-				var userName = User.FindFirstValue(ClaimTypes.Name);
-
-				ApplicationUser applicationUser = _userManager.GetUserAsync(User).Result;
-				string userEmail = applicationUser?.Email;
-
-
 				var savedTerm = _dbContext.IncoTerms.FirstOrDefault(t => t.Id == Id);
 				if (savedTerm != null)
 				{

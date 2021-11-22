@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -23,10 +25,11 @@ namespace AccountingSystem.Pages.Configuration
 		public string Message { get; set; }
 		[TempData]
 		public Guid Id { get; set; }
-
-		public EditDefferredRevenueModelModel(AccountingSystemContext dbContext)
+		private readonly UserManager<ApplicationUser> _userManager;
+		public EditDefferredRevenueModelModel(AccountingSystemContext dbContext, UserManager<ApplicationUser> userManager)
 		{
 			_dbContext = dbContext;
+			_userManager = userManager;
 			Success = true;
 		}
 
@@ -60,6 +63,7 @@ namespace AccountingSystem.Pages.Configuration
 		{
 			try
 			{
+				DefferredRevenueModel.Personnel = _userManager.GetUserName(User);
 				if (string.IsNullOrEmpty(DefferredRevenueModel.Name))
 				{
 					Success = false;
