@@ -1,86 +1,270 @@
 ﻿@page
 @model AccountingSystem.Pages.Accounting.EditAutoTransferModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
 }
 
 <form method="post">
-	<div class="modal-content hold-transition login-page">
-		<div class="modal-header" ;color:white;text-align:center">
-			<h5 class="modal-title w-100 text-center">Bank</h5>
-		</div>
-		<div class="modal-body">
-			@if (!Model.Success)
-			{
-				<div class="alert-danger text-center">
-					@Model.Message
-				</div>
-			}
-			<div class="row">
-				<div class="col-sm-4">
-					Name
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<input type="text" asp-for="AutoTransfer.Name" class="form-control" placeholder="Name" />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					From
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<input type="date" asp-for="AutoTransfer.From" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					To
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<input type="date" asp-for="AutoTransfer.To" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					Journal
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<select class="form-control" asp-for="AutoTransfer.Journal">
-							<option selected>Select Journal</option>
-							@foreach (var journal in Model.Journals)
-							{
-								<option value="@journal.Name">@journal.Name</option>
-							}
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					Frequency
-				</div>
-				<div class="col-sm-8">
-					<div class="form-group">
-						<select class="form-control" asp-for="AutoTransfer.From">
-							<option selected>Select Journal</option>
-							@foreach (var frequency in Model.Frequencies)
-							{
-								<option value="@frequency">@frequency</option>
-							}
-						</select>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
-			<button type="submit" class="btn btn-success">SAVE</button>
-			<a class="btn btn-secondary" asp-page="./ListAutoTransfers">BACK</a>
-		</div>
-	</div>
+    <div class="modal-content hold-transition login-page">
+        <div class="modal-header" ;color:white;text-align:center">
+            <h5 class="modal-title w-100 text-center">AUTO TRANSFER</h5>
+        </div>
+        <div class="modal-body">
+            @if (!Model.Success)
+            {
+                <div class="alert-danger text-center">
+                    @Model.Message
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-4">
+                    Name
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" asp-for="AutoTransfer.Name" id="name" class="form-control" placeholder="Name" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    From
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="date" asp-for="AutoTransfer.From" id="from" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    To
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="date" asp-for="AutoTransfer.To" id="to" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Journal
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" id="journal" asp-for="AutoTransfer.Journal">
+                            <option selected>Select Journal</option>
+                            @foreach (var journal in Model.Journals)
+                            {
+                                <option value="@journal.Name">@journal.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Frequency
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <select class="form-control" id="frequency" asp-for="AutoTransfer.From">
+                            <option selected>Select Journal</option>
+                            @foreach (var frequency in Model.Frequencies)
+                            {
+                                <option value="@frequency">@frequency</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-1">
+            <div class="col-sm-6">
+                <label class="text-center">Origin Accounts</label>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select class="form-control" id="code">
+                                <option selected>Select</option>
+                                @foreach (var auto in Model.Accounts)
+                                {
+                                    <option value="@auto.Code">@auto.Code @auto.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-success" id="add-item">Add</a>
+                        </div>
+                    </div>
+                <div class="row">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Account Name</th>
+                                <th scope="col">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accounts">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label class="text-center">Automated Transfer</label>
+                <div class="row">
+                    <label class="text-center">Destination Account</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select class="form-control" id="code2">
+                                <option selected>Select</option>
+                                @foreach (var auto in Model.Accounts)
+                                {
+                                    <option value="@auto.Code">@auto.Code @auto.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-success" id="add-item2">Add</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Account Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accounts2">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="background-color:#467fd0;color:white;text-align:center">
+            <a id="btn-save" class="btn btn-success">SAVE</a>
+            <a class="btn btn-secondary" asp-page="./ListAutoTransfers">BACK</a>
+        </div>
+    </div>
 </form>
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            let accountCharts = new Array();
+            let originalAccounts = new Array();
+            let transferredToAccounts = new Array();
+            $.ajax({
+				type: 'POST',
+				url: '@Url.Page("EditAutoTransfer", "load")',
+				contentType: 'application/json',
+				headers:
+				{
+					"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+				},
+				success: function (response) {
+                    accountCharts = response.accounts;
+				},
+				failure: function (response) {
+				}
+            });
+
+            $('#add-item').on('click', function () {
+                // prevent default action (going to the another page)
+                event.preventDefault()
+                let code = $("#code").val();
+                let account = accountCharts.filter(a => a.code === code);
+                originalAccounts.push(
+                    {
+                        code: code,
+                        glAccount: account[0].name,
+                        glAccountType: account[0].type
+                    }
+                );
+
+                populateItemtable(originalAccounts);
+            });
+
+            $('#add-item2').on('click', function () {
+                // prevent default action (going to the another page)
+                event.preventDefault()
+                let code = $("#code2").val();
+                let account = accountCharts.filter(a => a.code === code);
+                transferredToAccounts.push(
+                    {
+                        code: code,
+                        glAccount: account[0].name,
+                    }
+                );
+
+                populateItemtable2(transferredToAccounts);
+            });
+            $('#btn-save').on('click', function () {
+				let transfer = {
+                    name: $("#name").val(),
+                    from: $("#from").val(),
+                    to: $("#to").val(),
+                    journal: $("#journal").val(),
+                    frequency: $("#frequency").val(),
+                    originalAccounts: originalAccounts,
+                    transferredToAccounts: transferredToAccounts
+                };
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Page("EditAutoTransfer")',
+					contentType: 'application/json',
+					headers:
+					{
+						"RequestVerificationToken": "@Xsrf.GetAndStoreTokens(HttpContext).RequestToken"
+					},
+                    data: JSON.stringify(transfer),
+					//success: function (response) {
+
+					//},
+					//failure: function (response) {
+					//}
+				}).then(function () {
+					// ...
+				});
+
+                $("#name").val("");
+				$("#from").val("");
+				$("#to").val("");
+				$("#journal").val("");
+                $("#frequency").val("");
+                originalAccounts = new Array();
+                transferredToAccounts = new Array();
+			});
+
+            function populateItemtable(accounts) {
+                let accountTableRows = new Array();
+                originalAccounts.forEach(i => {
+                    accountTableRows.push(`<tr>
+					<td>${i.code}</td>
+					<td>${i.glAccount}</td>
+					<td>${i.glAccountType}</td>
+				</tr>`)
+                });
+
+                $('#accounts').html(accountTableRows);
+                $("#code").val("");
+            }
+
+            function populateItemtable2(accounts2) {
+                let accountTableRows = new Array();
+                transferredToAccounts.forEach(i => {
+                    accountTableRows.push(`<tr>
+					<td>${i.code}</td>
+					<td>${i.glAccount}</td>
+				</tr>`)
+                });
+
+                $('#accounts2').html(accountTableRows);
+                $("#code2").val("");
+            }
+        });
+    </script>
+}

@@ -14,16 +14,24 @@
                     </div>
                 }
 
-                <div class="row">
-                    <div class="col-sm-4">
-                        Name
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <input type="text" asp-for="Product.Name" class="form-control" placeholder="Name" />
-                        </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    Name
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="text" asp-for="Product.Name" class="form-control" placeholder="Name" />
                     </div>
                 </div>
+                <div class="col-sm-2">
+                    Internal Reference
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="text" asp-for="Product.Ref" class="form-control" placeholder="Ref.." />
+                    </div>
+                </div>
+            </div>
                 <div class="row">
                     <div class="col-sm-2">
                         Type

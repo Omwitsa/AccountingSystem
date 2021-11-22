@@ -4,6 +4,7 @@ using System.Linq;
 using AccountingSystem.Data;
 using AccountingSystem.Model.Accounting;
 using AccountingSystem.Model.Configuration;
+using AccountingSystem.Model.Venders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,6 +17,10 @@ namespace AccountingSystem.Pages.Accounting
 		public JournalEntry JournalEntry { get; set; }
 		[BindProperty]
 		public List<AccountChart> Accounts { get; set; }
+		[BindProperty]
+		public List<Vender> Vendors { get; set; }
+		[BindProperty]
+		public List<Tax> Tax { get; set; }
 		[BindProperty]
 		public List<Journal> Journals { get; set; }
 		[BindProperty]
@@ -35,6 +40,17 @@ namespace AccountingSystem.Pages.Accounting
 		{
 			try
 			{
+				Vendors = _dbContext.Venders.Where(v => !(bool)v.Closed)
+					.Select(v => new Vender
+					{
+						Name = v.Name,
+					}).ToList();
+				Tax = _dbContext.Taxes.Where(ta => !(bool)ta.Closed)
+					.Select(ta => new Tax
+					{ 
+					  Name = ta.Name,
+					  Rate= ta.Rate,
+					}).ToList();
 				Accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed)
 					.Select(a => new AccountChart
 					{
