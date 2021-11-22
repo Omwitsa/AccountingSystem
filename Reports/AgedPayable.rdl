@@ -670,7 +670,7 @@
             <DataSetName>aged_payable_ds</DataSetName>
             <Top>0.01389in</Top>
             <Height>0.75in</Height>
-            <Width>6.5in</Width>
+            <Width>6.50002in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -681,7 +681,7 @@
         <Height>2in</Height>
         <Style />
       </Body>
-      <Width>6.5in</Width>
+      <Width>6.50002in</Width>
       <Page>
         <PageHeader>
           <Height>1in</Height>
