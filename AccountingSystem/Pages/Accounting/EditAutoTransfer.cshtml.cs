@@ -63,11 +63,11 @@ namespace AccountingSystem.Pages.Accounting
 			}
 		}
 
-		public IActionResult OnPost()
+		public IActionResult OnPost([FromBody] AutoTransfer transfer)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(AutoTransfer.Name))
+				if (string.IsNullOrEmpty(transfer.Name))
 				{
 					Success = false;
 					Message = "Sorry, Kindly provide name";
@@ -85,7 +85,7 @@ namespace AccountingSystem.Pages.Accounting
 						_dbContext.TransferredToAccounts.RemoveRange(transferredToAccounts);
 					_dbContext.AutoTransfers.Remove(savedTransfer);
 				}
-				_dbContext.AutoTransfers.Add(AutoTransfer);
+				_dbContext.AutoTransfers.Add(transfer);
 				_dbContext.SaveChanges();
 				Success = true;
 				Message = "Transferred successfully";
@@ -96,6 +96,23 @@ namespace AccountingSystem.Pages.Accounting
 				Success = false;
 				Message = "Sorry, An error occurred";
 				return Page();
+			}
+		}
+
+		public JsonResult OnPostLoad()
+		{
+			try
+			{
+				var accounts = _dbContext.AccountCharts.Where(a => !(bool)a.Closed).ToList();
+				var results = new
+				{
+					accounts
+				};
+				return new JsonResult(results);
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult("");
 			}
 		}
 	}

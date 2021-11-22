@@ -6,54 +6,101 @@
 <div>
     <div class="modal-header" style="background-color:white;color:white;text-align:center">
         <a class="btn btn-info" asp-page="./EditCustomerInvoice">CREATE</a>
+        <input type="button" onclick="generate()" value="Export To PDF" />
     </div>
     <div class="table-responsive">
-        <table class="table table-sm table-hover">
+        <table class="table table-sm table-hover" id="simple_table">
             <thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Ref</th>
-					<th scope="col">Customer</th>
-					<th scope="col">Date</th>
-					<th scope="col">Due Date</th>
-					<th scope="col">Net Amount</th>
-					<th scope="col">Tax</th>
-					<th scope="col">Total Amount</th>
-					<th scope="col">Status</th>
-					<th scope="col">Personnel</th>
-				</tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ref</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Net Amount</th>
+                    <th scope="col">Tax</th>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Personnel</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var invoice in Model.Invoices)
                 {
                     count++;
-				<tr>
-					<th scope="row">@count</th>
-					<td>@invoice.Ref</td>
-					<td>@invoice.Customer</td>
-					<td>@invoice.Date</td>
-					<td>@invoice.DueDate</td>
-					<td>@invoice.NetAmount</td>
-					<td>@invoice.Tax</td>
-					<td>@invoice.TotalAmount</td>
-					<td>@invoice.Status</td>
-					<td>@invoice.Personnel</td>
-					<td class="text-right">
-						<div class="dropdown">
-							<a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-								<form asp-page-handler="edit" method="post">
-									<button class="btn btn-default">View</button>
-									<input type="hidden" name="id" value="@invoice.Id" />
-								</form>
-							</div>
-						</div>
-					</td>
-				</tr>
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@invoice.Ref</td>
+                        <td>@invoice.Customer</td>
+                        <td>@invoice.Date</td>
+                        <td>@invoice.DueDate</td>
+                        <td>@invoice.NetAmount</td>
+                        <td>@invoice.Tax</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.Status</td>
+                        <td>@invoice.Personnel</td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <form asp-page-handler="edit" method="post">
+                                        <button class="btn btn-default">View</button>
+                                        <input type="hidden" name="id" value="@invoice.Id" />
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+        function generate() {
+            var doc = new jsPDF('p', 'pt', 'letter');
+            var htmlstring = '';
+            var tempVarToCheckPageHeight = 0;
+            var pageHeight = 0;
+            pageHeight = doc.internal.pageSize.height;
+            specialElementHandlers = {
+                // element with id of "bypass" - jQuery style selector
+                '#bypassme': function (element, renderer) {
+                    // true = "handled elsewhere, bypass text extraction"
+                    return true
+                }
+            };
+            margins = {
+                top: 150,
+                bottom: 60,
+                left: 40,
+                right: 40,
+                width: 600
+            };
+            var y = 20;
+            doc.setLineWidth(2);
+            doc.text(200, y = y + 30, "CUSTOMERS INVOICES LIST");
+            doc.autoTable({
+                html: "#simple_table",
+                startY: 70,
+                theme: 'grid',
+                columnStyles: {
+                    0: {
+                        cellWidth: 0,
+                    },
+                    1: {
+                        cellWidth: 0,
+                    },
+                    2: {
+                        cellWidth: 0,
+                    }
+                },
+                styles: {
+                    minCellHeight: 40
+                }
+            })
+            doc.save('CustomerInvoice.pdf');
+        }
+    </script>
 </div>

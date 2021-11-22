@@ -6,15 +6,16 @@
 <div>
     <div class="modal-header" style="background-color:white;color:white;text-align:center">
         <a class="btn btn-info" asp-page="./EditCustomerPayments">CREATE</a>
+        <input type="button" onclick="generate()" value="Export To PDF" />
     </div>
     <div class="table-responsive">
-        <table class="table table-sm table-hover">
+        <table class="table table-sm table-hover" id="simple_table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Date</th>
                     <th scope="col">Journal</th>
-					<th scope="col">Bank Account</th>
+                    <th scope="col">Bank Account</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Amount</th>
                 </tr>
@@ -23,16 +24,62 @@
                 @foreach (var payments in Model.Payments)
                 {
                     count++;
-                <tr>
-                    <th scope="row">@count</th>
-                    <td>@payments.Date</td>
-                    <td>@payments.Journal</td>
-                    <td>@payments.BankAccount </td>
-                    <td>@payments.Customer </td>
-                    <td>@payments.Amount</td>
-                </tr>
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@payments.Date</td>
+                        <td>@payments.Journal</td>
+                        <td>@payments.BankAccount </td>
+                        <td>@payments.Customer </td>
+                        <td>@payments.Amount</td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+        function generate() {
+            var doc = new jsPDF('p', 'pt', 'letter');
+            var htmlstring = '';
+            var tempVarToCheckPageHeight = 0;
+            var pageHeight = 0;
+            pageHeight = doc.internal.pageSize.height;
+            specialElementHandlers = {
+                // element with id of "bypass" - jQuery style selector
+                '#bypassme': function (element, renderer) {
+                    // true = "handled elsewhere, bypass text extraction"
+                    return true
+                }
+            };
+            margins = {
+                top: 150,
+                bottom: 60,
+                left: 40,
+                right: 40,
+                width: 600
+            };
+            var y = 20;
+            doc.setLineWidth(2);
+            doc.text(200, y = y + 30, "CUSTOMERS PAYMENTS LIST");
+            doc.autoTable({
+                html: "#simple_table",
+                startY: 70,
+                theme: 'grid',
+                columnStyles: {
+                    0: {
+                        cellWidth: 0,
+                    },
+                    1: {
+                        cellWidth: 0,
+                    },
+                    2: {
+                        cellWidth: 0,
+                    }
+                },
+                styles: {
+                    minCellHeight: 40
+                }
+            })
+            doc.save('Payments.pdf');
+        }
+    </script>
 </div>

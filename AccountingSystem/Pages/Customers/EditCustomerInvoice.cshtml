@@ -311,9 +311,15 @@
 						<div class="column">
 							<label for="firstName" style="margin-left:100px;">Incoterm</label>
 						</div>
-						<div class="column">
-							<input type="text" style="width:209px;margin-left:129px;height:25px;margin-top:5px;" asp-for="Invoice.IncoTerm" class="form-control">
-						</div>
+                        <div class="column">
+                            <select class="form-control" id="ico-term" style="width:209px;margin-left:89px;height:35px;margin-top:5px;" asp-for="Invoice.IncoTerm">
+                                <option selected>Select Terms</option>
+                                @foreach (var term in Model.IncoTerms)
+                                {
+                                    <option value="@term.Name">@term.Name</option>
+                                }
+                            </select>
+                        </div>
 					</div>
 					<div class="row">
 						<div class="column">

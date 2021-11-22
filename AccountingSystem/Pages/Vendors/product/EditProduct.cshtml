@@ -103,11 +103,11 @@
                                 <input type="text" asp-for="Product.Price" class="form-control" placeholder="" />
                             </div><br>
                             <div class="row">
-                                <select class="form-control" asp-for="Product.VenderTax">
+                                <select class="form-control" asp-for="Product.CustomerTax">
                                     <option selected>Select tax</option>
                                     @foreach (var tax in Model.Taxes)
                                     {
-                                        <option value="@tax.Name"> @tax.Name</option>
+                                        <option value="@tax.Name">@tax.Name</option>
                                     }
                                 </select>
                             </div><br>
