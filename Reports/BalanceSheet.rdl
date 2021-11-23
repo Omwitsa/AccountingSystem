@@ -13,7 +13,22 @@
     <DataSet Name="balance_sheet_ds">
       <Query>
         <DataSourceName>ds_dango</DataSourceName>
-        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, cj.Debit, cj.Credit FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code</CommandText>
+        <CommandText>SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Debit - cj.Credit) AS Amount FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Assets'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Credit - cj.Debit) AS Amount FROM CInvoiceJournal cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Liabilities'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Credit - cj.Debit) AS Amount FROM CreditNoteJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Assets'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Debit - cj.Credit) AS Amount FROM CreditNoteJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Liabilities'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Debit - cj.Credit) AS Amount FROM BillJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Assets'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Credit - cj.Debit) AS Amount FROM BillJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Liabilities'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Credit - cj.Debit) AS Amount FROM RefundJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Assets'
+UNION
+SELECT a.Code, a.Name, a.Type, cj.Label, (cj.Debit - cj.Credit) AS Amount FROM RefundJournals cj INNER JOIN AccountCharts a ON cj.GlAccount = a.Code WHERE a.Type = 'Liabilities'
+</CommandText>
       </Query>
       <Fields>
         <Field Name="Code">
@@ -32,12 +47,8 @@
           <DataField>Label</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Debit">
-          <DataField>Debit</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Credit">
-          <DataField>Credit</DataField>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -57,7 +68,7 @@
                   <Width>2.11198in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.53906in</Width>
+                  <Width>1in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -128,21 +139,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox5">
+                        <Textbox Name="Textbox4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Credit</Value>
+                                  <Value>Amount</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -224,21 +235,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Credit">
+                        <Textbox Name="Amount">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Credit.Value</Value>
+                                  <Value>=Fields!Amount.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Credit</rd:DefaultName>
+                          <rd:DefaultName>Amount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -323,14 +334,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox16">
+                        <Textbox Name="Textbox6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Credit.Value)</Value>
+                                  <Value>=Sum(Fields!Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                   </Style>
@@ -339,7 +350,102 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox11">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Amount.Value)</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -448,6 +554,7 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
@@ -463,12 +570,48 @@
                     </TablixMember>
                   </TablixMembers>
                 </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>1.46614in</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox8">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Total</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox8</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>balance_sheet_ds</DataSetName>
             <Top>0.01389in</Top>
-            <Height>0.75in</Height>
-            <Width>6.5in</Width>
+            <Height>1in</Height>
+            <Width>5.96093in</Width>
             <Style>
               <Border>
                 <Style>None</Style>

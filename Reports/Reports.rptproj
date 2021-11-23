@@ -60,7 +60,6 @@
     <Report Include="GeneralLedger.rdl" />
     <Report Include="PartnerLedger.rdl" />
     <Report Include="ProfitLossReport.rdl" />
-    <Report Include="Report1.rdl" />
     <Report Include="TaxReport.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
