@@ -446,9 +446,14 @@
 
 			$('#save-payment').on('click', function () {
 				let amount = parseFloat($("#p-amount").val());
-				let customer= $("#customer").val();
+				let customer = $("#customer").val();
+                var accountChart = accounts.filter(t => t.name === "Outstanding Receipts");
+                if (!accountChart[0]) {
+                    return
+                }
 				let payment = {
 					customer: customer,
+                    glAccount: accountChart[0].code,
 					amount: amount,
 					date: $("#p-date").val(),
 					memo: memo,

@@ -13,7 +13,7 @@
     <DataSet Name="aged_payable_ds">
       <Query>
         <DataSourceName>ds_dango</DataSourceName>
-        <CommandText>SELECT Vender As Vendor, Date, Ref, 'Account Payable' As 'Account', Journal, TotalAmount AS Amount FROM Bills</CommandText>
+        <CommandText>SELECT  Vender As Vendor, Date, Ref, 'Account Payable' As 'Account', Journal, TotalAmount AS Amount FROM Bills WHERE Ref NOT IN(SELECT Memo FROM VPayments)</CommandText>
       </Query>
       <Fields>
         <Field Name="Vendor">

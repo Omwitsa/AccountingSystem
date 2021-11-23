@@ -13,7 +13,7 @@
     <DataSet Name="aged_receivable_ds">
       <Query>
         <DataSourceName>ds_dango</DataSourceName>
-        <CommandText>SELECT Customer, Date, Ref, 'Account Receivable' As 'Account', Journal, TotalAmount AS Amount FROM CInvoices</CommandText>
+        <CommandText>SELECT Customer, Date, Ref, 'Account Receivable' As 'Account', Journal, TotalAmount AS Amount FROM CInvoices WHERE Ref NOT IN(SELECT Memo FROM CPayments)</CommandText>
       </Query>
       <Fields>
         <Field Name="Customer">
@@ -670,7 +670,7 @@
             <DataSetName>aged_receivable_ds</DataSetName>
             <Top>0.01389in</Top>
             <Height>0.75in</Height>
-            <Width>6.5in</Width>
+            <Width>6.50001in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -681,7 +681,7 @@
         <Height>2in</Height>
         <Style />
       </Body>
-      <Width>6.5in</Width>
+      <Width>6.50001in</Width>
       <Page>
         <PageHeader>
           <Height>1.01389in</Height>

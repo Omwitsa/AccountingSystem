@@ -216,7 +216,7 @@ namespace AccountingSystem.Pages.Vendors
 					return Page();
 				}
 				var vender = _dbContext.Venders.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Vender.ToUpper()));
-				payment.GlAccount = vender.APGlAccount;
+				//payment.GlAccount = vender.APGlAccount;
 				_dbContext.VPayments.Add(payment);
 				_dbContext.SaveChanges();
 				return RedirectToPage("./ListBill");

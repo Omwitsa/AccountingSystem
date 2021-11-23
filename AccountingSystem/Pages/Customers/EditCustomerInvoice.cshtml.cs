@@ -216,7 +216,7 @@ namespace AccountingSystem.Pages.Customers
 					return Page();
 				}
 				var customer = _dbContext.Customers.FirstOrDefault(c => c.Name.ToUpper().Equals(payment.Customer.ToUpper()));
-				payment.GlAccount = customer.ARGlAccount;
+				//payment.GlAccount = customer.ARGlAccount;
 				_dbContext.CPayments.Add(payment);
 				_dbContext.SaveChanges();
 				return RedirectToPage("./ListCustomerInvoice");

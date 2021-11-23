@@ -12,7 +12,7 @@
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
     <TargetReportPartFolder>Report Parts</TargetReportPartFolder>
-    <TargetServerURL>http://srvcdfd613ae/ReportServer</TargetServerURL>
+    <TargetServerURL>http://desktop-5gqu4is/ReportServer</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>
@@ -60,6 +60,7 @@
     <Report Include="GeneralLedger.rdl" />
     <Report Include="PartnerLedger.rdl" />
     <Report Include="ProfitLossReport.rdl" />
+    <Report Include="Report1.rdl" />
     <Report Include="TaxReport.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
