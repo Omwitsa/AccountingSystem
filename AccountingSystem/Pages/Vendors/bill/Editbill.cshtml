@@ -354,6 +354,7 @@
 			let taxes = new Array();
 			let items = new Array();
 			let accounts = new Array();
+            let products = new Array();
 			let journals = new Array();
 			let memo = $("#p-ref").val();
 			$('#pay-model').hide();
@@ -376,6 +377,7 @@
 					response.bill = response.bill ? response.bill : {};
 					taxes = response.taxes;
 					accounts = response.accounts;
+                    products = response.products;
 					items = response.bill.billDetails;
 					items = items ? items : new Array();
 					if (response.isPaid) {
@@ -390,8 +392,13 @@
 			});
 
 			$('#product').on('change', function () {
-				var selectVal = $("#product").val();
+                var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
+                var selectProducts = products.filter(p => p.name === selectVal);
+                if (selectProducts[0]) {
+                    $("#price").val(selectProducts[0].price);
+                    $("#tax").val(selectProducts[0].venderTax);
+                }
 			});
 			$('#add-item').on('click', function () {
 				// prevent default action (going to the another page)

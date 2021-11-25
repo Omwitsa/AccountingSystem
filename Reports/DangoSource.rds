@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DangoSource">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=DESKTOP-5GQU4IS;Initial Catalog=DangoDb</ConnectString>
+    <ConnectString>Data Source=SRVCDFD613AE;Initial Catalog=DangoDb</ConnectString>
     <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>926dfd68-39e9-4ec4-b778-547e579c6d1d</DataSourceID>

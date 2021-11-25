@@ -248,11 +248,24 @@ namespace AccountingSystem.Pages.Vendors
 						Code = a.Code,
 						Name = a.Name
 					}).ToList();
+				var products = _dbContext.VProducts.Where(p => !(bool)p.Closed)
+					.Select(p => new VProduct
+					{
+						Ref = p.Ref,
+						Name = p.Name,
+						Type = p.Type,
+						Category = p.Category,
+						Price = p.Price,
+						VenderTax = p.VenderTax,
+						APGlAccount = p.APGlAccount,
+						ARGlAccount = p.ARGlAccount
+					}).ToList();
 				var results = new
 				{
 					bill,
 					isPaid,
 					taxes,
+					products,
 					accounts
 				};
 				return new JsonResult(results);

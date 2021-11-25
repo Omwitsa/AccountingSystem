@@ -11,7 +11,6 @@ namespace AccountingSystem.Model.Venders
 		public string Ref { get; set; }
 		public string BarCode { get; set; }
 		public decimal? Price { get; set; }
-		public string CustomerTax { get; set; }
 		public decimal? Cost { get; set; }
 		public string Notes { get; set; }
 		public string VenderTax { get; set; }

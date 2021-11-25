@@ -125,7 +125,6 @@ namespace AccountingSystem.Pages.Vendors
 					savedProduct.Ref = Product.Ref;
 					savedProduct.BarCode = Product.BarCode;
 					savedProduct.Price = Product.Price;
-					savedProduct.CustomerTax = Product.CustomerTax;
 					savedProduct.Cost = Product.Cost;
 					savedProduct.Notes = Product.Notes;
 					savedProduct.VenderTax = Product.VenderTax;

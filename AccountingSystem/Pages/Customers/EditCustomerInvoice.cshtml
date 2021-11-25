@@ -382,6 +382,7 @@
 			let items = new Array();
 			let accounts = new Array();
 			let journals = new Array();
+            let products = new Array();
 			let memo = $("#p-ref").val();
 			$('#pay-model').hide();
 			if (memo) {
@@ -403,6 +404,7 @@
 					response.invoice = response.invoice ? response.invoice : {};
 					taxes = response.taxes;
 					accounts = response.accounts;
+					products = response.products;
 					items = response.invoice.cInvoiceDetails;
 					items = items ? items : new Array();
 					if (response.isPaid) {
@@ -420,6 +422,11 @@
             $('#product').on('change', function () {
 				var selectVal = $("#product").val();
 				$("#lable").val(selectVal);
+				var selectProducts = products.filter(p => p.name === selectVal);
+				if (selectProducts[0]) {
+                    $("#price").val(selectProducts[0].price);
+                    $("#tax").val(selectProducts[0].customerTax);
+                }
 			});
 			$('#add-item').on('click', function () {
 				// prevent default action (going to the another page)
@@ -554,7 +561,6 @@
 				tax = 0;
 				total = 0;
 				let itemJournals = new Array();
-				debugger
 				items.forEach(i => {
 					let rate = 0;
 					taxes = taxes.filter(t => t.name === i.tax);
@@ -573,8 +579,6 @@
 						}
 					);
 				});
-				var va = itemJournals;
-				debugger
 				var receivedTaxes = accounts.filter(t => t.name === "Tax Received");
 				if (!receivedTaxes[0]) {
 					return

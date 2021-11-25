@@ -121,7 +121,6 @@ namespace AccountingSystem.Pages.Customers
 					savedProduct.CustomerTax = Product.CustomerTax;
 					savedProduct.Cost = Product.Cost;
 					savedProduct.Notes = Product.Notes;
-					savedProduct.VenderTax = Product.VenderTax;
 					savedProduct.ARGlAccount = Product.ARGlAccount;
 					savedProduct.APGlAccount = Product.APGlAccount;
 					savedProduct.Closed = Product.Closed;
